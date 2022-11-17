@@ -4,7 +4,7 @@ import environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-APPS_DIR = BASE_DIR / "{{project_name}}"
+APPS_DIR = BASE_DIR / "{{ project_name }}"
 
 env = environ.Env()
 
@@ -28,6 +28,9 @@ USE_I18N = True
 USE_TZ = True
 
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
+
+# todo: in prod settings
+CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS")
 
 DJANGO_APPS = [
     "django.contrib.admin",

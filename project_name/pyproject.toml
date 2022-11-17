@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "{{project_name}}"
+name = "{{ project_name }}"
 version = "0.1.0"
 description = ""
 authors = ["Tobi-De <tobidegnon@proton.me>"]
 license = ""
 readme = "README.md"
-packages = [{ include = "{{project_name}}" }]
+packages = [{ include = "{{ project_name }}" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
