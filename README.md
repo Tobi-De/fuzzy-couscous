@@ -2,7 +2,7 @@
 
 
 ```shell
-django-admin startproject example . --template https://github.com/Tobi-De/fuzzy-couscous
+django-admin startproject example .  --template https://github.com/Tobi-De/fuzzy-couscous/archive/main.zip -e=py,html,toml,md
 ```
 
 https://docs.djangoproject.com/en/dev/ref/settings/
