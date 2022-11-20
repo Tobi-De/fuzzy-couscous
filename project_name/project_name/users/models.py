@@ -1,5 +1,5 @@
-from django.db import models
+from improved_user.model_mixins import AbstractUser
 
 
-class User(models.Model):
+class User(AbstractUser):
     pass
