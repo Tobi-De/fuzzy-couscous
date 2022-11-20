@@ -2,7 +2,7 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.2.0
+    rev: v4.3.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -10,7 +10,7 @@ repos:
       - id: check-added-large-files
 
   - repo: https://github.com/psf/black
-    rev: 22.3.0
+    rev: 22.10.0
     hooks:
       - id: black
 
@@ -25,7 +25,7 @@ repos:
       - id: djlint-django
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.116
+    rev: v0.0.128
     hooks:
       - id: ruff
 

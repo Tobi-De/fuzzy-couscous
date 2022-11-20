@@ -52,7 +52,7 @@ poetryup = "^0.12.3"
 poethepoet = "^0.16.4"
 
 [tool.poe.tasks]
-run = "python manage.py runserver_plus --nostatic"
+r = "python manage.py runserver --nostatic"
 m = "python manage.py migrate"
 mk = "python manage.py makemigrations"
 cm = "python manage.py clean_migrations"
@@ -72,22 +72,30 @@ select = [
     "B", # https://github.com/charliermarsh/ruff#flake8-bugbear
     "T" # https://github.com/charliermarsh/ruff#flake8-print
 ]
+extend-exclude = [
+    "*/migrations/*"
+]
 
 # https://djlint.com/docs/configuration/
 [tool.djlint]
 profile = "django"
 max_line_length = 120
 format_attribute_template_tags = true
+ignore="H017"
 
 [tool.pylint.MASTER]
 load-plugins = "pylint_django"
 django-settings-module = "config.settings"
+ignore-paths = ".*/migrations"
 
 [tool.pylint.FORMAT]
 max-line-length = 120
 
 [tool.pylint."MESSAGES CONTROL"]
 disable = ["missing-docstring", "invalid-name"]
+
+[tool.pylint.DESIGN]
+max-parents=13
 
 [tool.pylint.TYPECHECK]
 generated-members = ["REQUEST", "acl_users", "aq_parent", "[a-zA-Z]+_set{1,2}", "save", "delete"]

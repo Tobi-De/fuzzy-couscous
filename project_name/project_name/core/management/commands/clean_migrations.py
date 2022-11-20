@@ -9,9 +9,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if not settings.DEBUG:
-            return self.stdout.write(
-                self.style.WARNING("Nope, that won't happen here :)")
-            )
+            self.stdout.write(self.style.WARNING("Nope, that won't happen here :)"))
+            return
         excludes = ["__init__.py"]
         apps = set()
         for folder in settings.APPS_DIR.iterdir():

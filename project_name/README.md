@@ -16,5 +16,5 @@ Read the `[tool.poe.tasks]`section of the `pyproject.toml` file to see which com
 Example: run the django server
 
 ```python
-poe run
+poe r
 ```
