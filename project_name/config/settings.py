@@ -4,7 +4,7 @@ import environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-APPS_DIR = BASE_DIR / "project_name"
+APPS_DIR = BASE_DIR / "{{ project_name }}"
 
 env = environ.Env()
 
@@ -48,7 +48,7 @@ THIRD_PARTY_APPS = [
     "debug_toolbar",
 ]
 
-LOCAL_APPS = ["project_name.core", "project_name.users"]
+LOCAL_APPS = ["{{ project_name }}.core", "{{ project_name }}.users"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -96,7 +96,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-DATABASES = {"default": env.db("DATABASE_URL", default="postgres:///{{project_name}}")}
+DATABASES = {"default": env.db("DATABASE_URL", default="postgres:///{{ project_name }}")}
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 STATIC_URL = "/static/"
@@ -121,7 +121,7 @@ LOGIN_URL = "account_login"
 
 SITE_ID = 1
 
-ACCOUNT_FORMS = {"signup": "project_name.users.forms.UserSignupForm"}
+ACCOUNT_FORMS = {"signup": "{{ project_name }}.users.forms.UserSignupForm"}
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = "email"
@@ -131,7 +131,6 @@ ACCOUNT_EMAIL_VERIFICATION = "optional"
 EMAIL_BACKEND = env(
     "DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
 )
-
 
 # production stuff
 if not DEBUG:
