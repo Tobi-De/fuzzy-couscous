@@ -17,7 +17,6 @@ RUN apk update \
     && apk add postgresql-client \
     && apk add --no-cache libffi-dev libpq-dev \
     && pip install --upgrade pip \
-    && pip install awscli \
     && python --version
 
 COPY --from=requirements-stage /tmp/requirements.txt /code/requirements.txt
