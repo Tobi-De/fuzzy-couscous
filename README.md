@@ -7,7 +7,7 @@
 - dependabot setup
 - get rid of the DJANGO_READ_DOT_ENV_FILE check
 
-My template for django project.
+My highly opinionated django project template.
 Based on [django's startproject --template](https://docs.djangoproject.com/en/stable/ref/django-admin/#startproject).
 For something with more options I suggest [cookiecutter-django](https://github.com/cookiecutter/cookiecutter-django).
 
