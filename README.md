@@ -11,6 +11,7 @@ My highly opinionated django project template based on [django's startproject --
 
 - django 4+
 - python 3.10+
+- [tailwindcss](https://github.com/timonweb/pytailwindcss) set-up via [pytailwindcss](https://github.com/timonweb/pytailwindcss)
 - [htmx](https://htmx.org/) included by default
 - [django-render-block](https://github.com/clokep/django-render-block) for template fragment rendering with htmx
 - [django-environ](https://github.com/joke2k/django-environ) based settings
