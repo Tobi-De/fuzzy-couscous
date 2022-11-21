@@ -44,9 +44,13 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "django_extensions",
-    "django_browser_reload",
-    "debug_toolbar",
 ]
+
+if DEBUG:
+    THIRD_PARTY_APPS += [
+        "django_browser_reload",
+        "debug_toolbar",
+    ]
 
 LOCAL_APPS = ["{{ project_name }}.core", "{{ project_name }}.users"]
 
@@ -96,7 +100,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-DATABASES = {"default": env.db("DATABASE_URL", default="postgres:///{{ project_name }}")}
+DATABASES = {
+    "default": env.db("DATABASE_URL", default="postgres:///{{ project_name }}")
+}
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 STATIC_URL = "/static/"
