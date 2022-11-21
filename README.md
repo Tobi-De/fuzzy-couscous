@@ -12,10 +12,9 @@ My highly opinionated django project template based on [django's startproject --
 - django 4+
 - python 3.10+
 - [tailwindcss](https://github.com/timonweb/pytailwindcss) set-up via [pytailwindcss](https://github.com/timonweb/pytailwindcss)
-- [htmx](https://htmx.org/) included by default
+- [htmx](https://htmx.org/) included
 - [django-render-block](https://github.com/clokep/django-render-block) for template fragment rendering with htmx
 - [django-environ](https://github.com/joke2k/django-environ) based settings
-- force ssl in production
 - login / signup via [django-allauth](https://github.com/pennersr/django-allauth)
 - custom user model based on [django-improved-user](https://github.com/jambonsw/django-improved-user)
 - login via email instead of username
@@ -25,6 +24,7 @@ My highly opinionated django project template based on [django's startproject --
 - `captain-definition` for deploying to [caprover](https://caprover.com/)
 - [pre-commit](https://github.com/pre-commit/pre-commit) to identify issues before every commit
 - [poethepoet](https://github.com/nat-n/poethepoet) for shortcuts to common commands
+- [poetry](https://github.com/python-poetry/poetry) for dependency management
 
 ## Templates
 
@@ -66,14 +66,13 @@ Example:
 fuzzy-couscous my_new_site -b tailwind
 ```
 
-If you have read this far but are still not satisfied with what I propose, feel free to [create your own template](https://www.valentinog.com/blog/django-project/) 
+If you've read this far and still think this template won't work for you, feel free to [create your own template](https://www.valentinog.com/blog/django-project/) 
 and copy and paste what you want like I did :).
-Where to copy and paste from you ask?
+Some examples of templates you can use as inspiration:
 
 - [cookiecutter-django](https://github.com/cookiecutter/cookiecutter-django)
 - [wemake-django-template](https://github.com/wemake-services/wemake-django-template)
 - [django-startproject-templates](https://github.com/adamchainz/django-startproject-templates)
-
 
 ## Tips
 
