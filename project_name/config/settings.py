@@ -134,6 +134,9 @@ EMAIL_BACKEND = env(
     "DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
 )
 
+SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL")
+SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD")
+
 # production stuff
 if not DEBUG:
     # Security

@@ -53,12 +53,12 @@ poethepoet = "^0.16.4"
 
 [tool.poe.tasks]
 r = "python manage.py runserver --nostatic"
+u = "python manage.py makesuperuser"
 m = "python manage.py migrate"
 mk = "python manage.py makemigrations"
 cm = "python manage.py clean_migrations"
 rd = "python manage.py reset_db --noinput"
-u = "poetryup --latest --skip-exact"
-pu = "pre-commit autoupdate"
+pu = "poetryup --latest --skip-exact"
 RD = ["rd", "cm", "mk", "m"]
 
 # "https://github.com/charliermarsh/ruff"

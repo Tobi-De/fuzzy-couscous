@@ -31,30 +31,7 @@ If you are searching completely different, [make you own template](https://www.v
 If there is any setting that you don't understand got to this [page](https://docs.djangoproject.com/en/dev/ref/settings/) and
 search for it using `CTRL + F`
 
-```python
-from django.conf import settings
-from django.core.management.base import BaseCommand
-from {{ project_name }}.users.model import User
 
-
-class Command(BaseCommand):
-    help = "Command to create admin"
-
-    def handle(self, *args, **options):
-        if not User.objects.filter(email=settings.FIRST_SUPERUSER).exists():
-            User.objects.create_superuser(
-                email=settings.FIRST_SUPERUSER,
-                password=settings.FIRST_SUPERUSER_PASS,
-                is_active=True,
-            )
-            self.stdout.write(
-                self.style.SUCCESS(f"Admin {settings.FIRST_SUPERUSER} was created")
-            )
-        else:
-            self.stdout.write(
-                self.style.NOTICE(f"Admin {settings.FIRST_SUPERUSER} already exists")
-            )
-```
 
 If using htmx boost + debug toolbar , see [this](https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#htmx)
 
