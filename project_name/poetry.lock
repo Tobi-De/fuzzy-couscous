@@ -1103,6 +1103,14 @@ python-versions = ">=3.6.8"
 diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
+name = "pytailwindcss"
+version = "0.1.4"
+description = "Standalone Tailwind CSS CLI, installable via pip. Use Tailwind CSS without Node.js."
+category = "main"
+optional = false
+python-versions = ">=3.8,<4.0"
+
+[[package]]
 name = "pytest"
 version = "7.2.0"
 description = "pytest: simple powerful testing with Python"
@@ -1569,7 +1577,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "a88e8e4f16b5860f6d2046e5c33b4d9152bcd9709cd828071e1de22a985b5c27"
+content-hash = "a44bc13c6b882355bbc18c7da7ddda25261dbed361dee8f0da0f79eb0e77c58c"
 
 [metadata.files]
 appnope = [
@@ -2329,6 +2337,10 @@ pylint-plugin-utils = [
 pyparsing = [
     {file = "pyparsing-3.0.9-py3-none-any.whl", hash = "sha256:5026bae9a10eeaefb61dab2f09052b9f4307d44aee4eda64b309723d8d206bbc"},
     {file = "pyparsing-3.0.9.tar.gz", hash = "sha256:2b020ecf7d21b687f219b71ecad3631f644a47f01403fa1d1036b0c6416d70fb"},
+]
+pytailwindcss = [
+    {file = "pytailwindcss-0.1.4-py3-none-any.whl", hash = "sha256:fa78a3abd650d48dade10d0282df71e2f2757934595f8470f0d0c2ce175f5a15"},
+    {file = "pytailwindcss-0.1.4.tar.gz", hash = "sha256:2376fe551674a00f38cbdf134fc6d1dc87bf43bb396c5d4ce183c7d63153c39f"},
 ]
 pytest = [
     {file = "pytest-7.2.0-py3-none-any.whl", hash = "sha256:892f933d339f068883b6fd5a459f03d85bfcb355e4981e146d2c7616c21fef71"},
