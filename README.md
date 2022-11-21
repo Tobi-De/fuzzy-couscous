@@ -2,10 +2,7 @@
 
 **TODO**
 - complete the readme
-- a branch for tailwindcss with parcel 
-- a branch for boostrap5 with parcel 
-- dependabot setup
-- get rid of the DJANGO_READ_DOT_ENV_FILE check
+- a branch for boostrap5
 
 My highly opinionated django project template.
 Based on [django's startproject --template](https://docs.djangoproject.com/en/stable/ref/django-admin/#startproject).
