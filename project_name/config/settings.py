@@ -1,6 +1,9 @@
 from pathlib import Path
 
 import environ
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -182,3 +185,13 @@ if not DEBUG:
             "region_name": env("DJANGO_AWS_S3_REGION_NAME"),
         }
     }
+
+    # sentry
+    sentry_sdk.init(
+        dsn=env("SENTRY_DSN"),
+        integrations=[DjangoIntegration()],
+        environment=env("SENTRY_ENVIRONMENT", default="production"),
+        traces_sample_rate=env.float("SENTRY_TRACES_SAMPLE_RATE", default=0.0),
+        auto_session_tracking=False,
+        release="1.0.0",
+    )

@@ -1,6 +1,7 @@
 # fuzzy-couscous
 
 **TODO**
+
 - complete the readme
 - a branch for boostrap5
 
@@ -25,16 +26,12 @@ fuzzy-couscous my_new_site --repo "Tobi-De/fuzzy-couscous"
 
 If you are searching completely different, [make you own template](https://www.valentinog.com/blog/django-project/).
 
-
 ## Tips
 
 If there is any setting that you don't understand got to this [page](https://docs.djangoproject.com/en/dev/ref/settings/) and
 search for it using `CTRL + F`
 
-
-
 If using htmx boost + debug toolbar , see [this](https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#htmx)
-
 
 Disable signup at will with allauth:
 
@@ -61,33 +58,9 @@ class AccountAdapter(DefaultAccountAdapter):
 class SocialAccountAdapter(DefaultSocialAccountAdapter):
     def is_open_for_signup(self, request: HttpRequest, sociallogin: Any):
         return getattr(settings, "ACCOUNT_ALLOW_REGISTRATION", True)
-
 ```
 
-sentry settings
-
-````python
-# ------------------------------------------------------------------------------
-SENTRY_DSN = env("SENTRY_DSN")
-SENTRY_LOG_LEVEL = env.int("DJANGO_SENTRY_LOG_LEVEL", logging.INFO)
-
-sentry_logging = LoggingIntegration(
-    level=SENTRY_LOG_LEVEL,  # Capture info and above as breadcrumbs
-    event_level=logging.ERROR,  # Send errors as events
-)
-integrations = [sentry_logging, DjangoIntegration(), RedisIntegration()]
-sentry_sdk.init(
-    dsn=SENTRY_DSN,
-    integrations=integrations,
-    environment=env("SENTRY_ENVIRONMENT", default="production"),
-    traces_sample_rate=env.float("SENTRY_TRACES_SAMPLE_RATE", default=0.0),
-    auto_session_tracking=False,
-    release="1.0.0",
-)
-````
-
 ## Django packages
-
 
 https://adamj.eu/tech/2020/12/10/introducing-django-linear-migrations/
 https://adamchainz.gumroad.com/l/byddx
