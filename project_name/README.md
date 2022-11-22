@@ -7,9 +7,9 @@
 
 ## Prerequisites
 
-- Python 3.10+
-- Poetry
-- Postgresql
+- `Python 3.10+`
+- `Poetry 1.2+`
+- `Postgresql 10+`
 
 ## Development
 
