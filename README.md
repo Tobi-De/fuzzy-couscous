@@ -21,6 +21,7 @@ My highly opinionated django project template based on [django's startproject --
 - Automatically reload your browser in development via [django-browser-reload](https://github.com/adamchainz/django-browser-reload)
 - [Amazon SES](https://aws.amazon.com/ses/?nc1=h_ls) for production email via [Anymail](https://github.com/anymail/django-anymail)
 - [Docker](https://www.docker.com/) ready for production
+- Optional production cache settings using the `CACHE_URL` or `REDIS_URL` environment variables.
 - `captain-definition` for deploying to [caprover](https://caprover.com/)
 - [Sentry](https://sentry.io/welcome/) for performance/error monitoring
 - Serve static files with [Whitenoise](https://whitenoise.evans.io/en/latest/)
