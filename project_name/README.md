@@ -1,6 +1,6 @@
 # {{ project_name }}
 
-[![fuzzy-couscous](https://img.shields.io/badge/-fuzzy--couscous-success)](https://github.com/Tobi-De/fuzzy-couscous)
+[![fuzzy-couscous](https://img.shields.io/badge/built%20with-fuzzy--couscous-success)](https://github.com/Tobi-De/fuzzy-couscous)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Code style: djlint](https://img.shields.io/badge/html%20style-djlint-blue.svg)](https://www.djlint.com)
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/PyCQA/pylint)
