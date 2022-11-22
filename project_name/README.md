@@ -36,7 +36,7 @@ Open a new terminal and run
 
 ```shell
 poe t
-``
+```
 
 [poethepoet](https://github.com/nat-n/poethepoet) is the task runner used here. To see all available commands read
  the `[tool.poe.tasks]`section of the `pyproject.toml` file or run `poe -h` to see the help page.
