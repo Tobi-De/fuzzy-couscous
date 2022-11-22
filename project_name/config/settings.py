@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 import environ
@@ -10,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 APPS_DIR = BASE_DIR / "{{ project_name }}"
 
 env = environ.Env()
-environ.Env.read_env(BASE_DIR / '.env')
+environ.Env.read_env(BASE_DIR / ".env")
 
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
@@ -142,6 +143,12 @@ SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD")
 
 # production stuff
 if not DEBUG:
+    # Load cache from CACHE_URL or REDIS_URL
+    if "CACHE_URL" in os.environ:
+        CACHES = {"default": env.cache("CACHE_URL")}
+    elif "REDIS_URL" in os.environ:
+        CACHES = {"default": env.cache("REDIS_URL")}
+
     # Security
     CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS")
     CSRF_COOKIE_SECURE = True
