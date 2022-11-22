@@ -93,8 +93,8 @@ Disable signup at will with allauth:
 ```python
 # settings.py
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
-ACCOUNT_ADAPTER = "izimanage.users.adapters.AccountAdapter"
-SOCIALACCOUNT_ADAPTER = "izimanage.users.adapters.SocialAccountAdapter"
+ACCOUNT_ADAPTER = "project_name.users.adapters.AccountAdapter"
+SOCIALACCOUNT_ADAPTER = "project_name.users.adapters.SocialAccountAdapter"
 
 # adapters.py
 from typing import Any
