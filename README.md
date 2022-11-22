@@ -19,6 +19,7 @@ My highly opinionated django project template based on [django's startproject --
 - Custom user model based on [django-improved-user](https://github.com/jambonsw/django-improved-user)
 - Login using email instead of username
 - Automatically reload your browser in development via [django-browser-reload](https://github.com/adamchainz/django-browser-reload)
+- Better development experience with [django-fastdev](https://github.com/boxed/django-fastdev)
 - [Amazon SES](https://aws.amazon.com/ses/?nc1=h_ls) for production email via [Anymail](https://github.com/anymail/django-anymail)
 - [Docker](https://www.docker.com/) ready for production
 - Optional production cache settings using the `CACHE_URL` or `REDIS_URL` environment variables.
