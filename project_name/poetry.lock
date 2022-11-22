@@ -420,6 +420,17 @@ python-versions = ">=3.6"
 Django = ">=3.2"
 
 [[package]]
+name = "django-fastdev"
+version = "1.7.2"
+description = "Django-fastdev is an app that makes it faster and more fun to develop Django apps"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Django = ">=2.0"
+
+[[package]]
 name = "django-improved-user"
 version = "2.0a2"
 description = "Compose new Django User models that follow best-practices for international names and authenticate via email instead of username."
@@ -1965,6 +1976,9 @@ django-environ = [
 django-extensions = [
     {file = "django-extensions-3.2.1.tar.gz", hash = "sha256:2a4f4d757be2563cd1ff7cfdf2e57468f5f931cc88b23cf82ca75717aae504a4"},
     {file = "django_extensions-3.2.1-py3-none-any.whl", hash = "sha256:421464be390289513f86cb5e18eb43e5dc1de8b4c27ba9faa3b91261b0d67e09"},
+]
+django-fastdev = [
+    {file = "django-fastdev-1.7.2.tar.gz", hash = "sha256:cb3bea837dd85f5cae2c80ffb4dc38479c35a8f4a1098d90d8ae218395e76011"},
 ]
 django-improved-user = [
     {file = "django-improved-user-2.0a2.tar.gz", hash = "sha256:731a3a00a793dccb975db559e0f2c26f344e1d6596dad624997c4b8ca0750d80"},

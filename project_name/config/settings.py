@@ -50,6 +50,7 @@ if DEBUG:
     THIRD_PARTY_APPS += [
         "django_browser_reload",
         "debug_toolbar",
+        "django_fastdev",
     ]
 
 LOCAL_APPS = ["{{ project_name }}.core", "{{ project_name }}.users"]
