@@ -118,6 +118,7 @@ class SocialAccountAdapter(DefaultSocialAccountAdapter):
 https://adamj.eu/tech/2020/12/10/introducing-django-linear-migrations/
 https://github.com/adamchainz/django-read-only
 https://github.com/revsys/django-health-check
+https://github.com/lincolnloop/django-production
 
 ## Documentation
 

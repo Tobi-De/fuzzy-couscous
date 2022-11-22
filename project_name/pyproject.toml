@@ -52,14 +52,14 @@ poetryup = "^0.12.3"
 poethepoet = "^0.16.4"
 
 [tool.poe.tasks]
-r = "python manage.py runserver --nostatic"
-u = "python manage.py makesuperuser"
-m = "python manage.py migrate"
-mk = "python manage.py makemigrations"
-cm = "python manage.py clean_migrations"
-rd = "python manage.py reset_db --noinput"
-pu = "poetryup --latest --skip-exact"
-RD = ["rd", "cm", "mk", "m"]
+r = { cmd = "python manage.py runserver --nostatic", help = "Start dev serve" }
+u = { cmd = "python manage.py makesuperuser", help = "Create a new superuser using environment varibales, look in your .env.template file" }
+m = { cmd = "python manage.py migrate", help = "Apply migrations" }
+mk = { cmd = "python manage.py makemigrations", help = "Make migrations" }
+cm = { cmd = "python manage.py clean_migrations", help = "Delete all migrations files" }
+rd = { cmd = "python manage.py reset_db --noinput", help = "Delete and recreate your database" }
+pu = { cmd = "poetryup --latest --skip-exact", help = "Upgrade all your dependencies to their latest versions, pin versions in pyproject.toml file" }
+RD = ["rd", "cm", "mk", "m"] # Reset your database, delete all migrations files, make news migrations for all apps, apply all migrations
 
 # "https://github.com/charliermarsh/ruff"
 [tool.ruff]
@@ -83,7 +83,7 @@ extend-exclude = [
 profile = "django"
 max_line_length = 120
 format_attribute_template_tags = true
-ignore="H017"
+ignore = "H017"
 
 [tool.pylint.MASTER]
 load-plugins = "pylint_django"
@@ -97,7 +97,7 @@ max-line-length = 120
 disable = ["missing-docstring", "invalid-name"]
 
 [tool.pylint.DESIGN]
-max-parents=13
+max-parents = 13
 
 [tool.pylint.TYPECHECK]
 generated-members = ["REQUEST", "acl_users", "aq_parent", "[a-zA-Z]+_set{1,2}", "save", "delete"]
