@@ -9,21 +9,24 @@ My highly opinionated django project template based on [django's startproject --
 
 ## Features
 
-- django 4+
-- python 3.10+
-- [htmx](https://htmx.org/) included
-- [django-render-block](https://github.com/clokep/django-render-block) for template fragment rendering with htmx
-- [django-environ](https://github.com/joke2k/django-environ) based settings
-- login / signup via [django-allauth](https://github.com/pennersr/django-allauth)
-- custom user model based on [django-improved-user](https://github.com/jambonsw/django-improved-user)
-- login via email instead of username
-- dev html livereload via [django-browser-reload](https://github.com/adamchainz/django-browser-reload)
-- production amazon ses set-up via [Anymail](https://github.com/anymail/django-anymail)
-- Dockerfile included for easy deployment
+- Django 4+
+- Python 3.10+
+- Frontend: [HTMX](https://htmx.org/) with [editor support](https://oluwatobi.dev/blog/posts/htmx-support-in-pycharm/) using [web-types](https://github.com/JetBrains/web-types#web-types)
+- Template fragment with [django-render-block](https://github.com/clokep/django-render-block)
+- Secure production settings, https only.
+- Settings using [django-environ](https://github.com/joke2k/django-environ)
+- Login / signup via [django-allauth](https://github.com/pennersr/django-allauth)
+- Custom user model based on [django-improved-user](https://github.com/jambonsw/django-improved-user)
+- Login using email instead of username
+- Automatically reload your browser in development via [django-browser-reload](https://github.com/adamchainz/django-browser-reload)
+- [Amazon SES](https://aws.amazon.com/ses/?nc1=h_ls) for production email via [Anymail](https://github.com/anymail/django-anymail)
+- [Docker](https://www.docker.com/) ready for production
 - `captain-definition` for deploying to [caprover](https://caprover.com/)
-- [pre-commit](https://github.com/pre-commit/pre-commit) to identify issues before every commit
-- [poethepoet](https://github.com/nat-n/poethepoet) for shortcuts to common commands
-- [poetry](https://github.com/python-poetry/poetry) for dependency management
+- [Sentry](https://sentry.io/welcome/) for performance/error monitoring
+- Serve static files with [Whitenoise](https://whitenoise.evans.io/en/latest/)
+- Default integration with [pre-commit](https://github.com/pre-commit/pre-commit) for identifying simple issues before submission to code review
+- Integrated task runner with [poethepoet](https://github.com/nat-n/poethepoet)
+- Dependency management using [poetry](https://github.com/python-poetry/poetry)
 
 ## Templates
 
@@ -65,8 +68,9 @@ Example:
 fuzzy-couscous my_new_site -b tailwind
 ```
 
-If you've read this far and still think this template won't work for you, feel free to [create your own template](https://www.valentinog.com/blog/django-project/) 
-and copy and paste what you want like I did :).
+If you've read this far and still think this template doesn't work for you, feel free to [create your own template](https://www.valentinog.com/blog/django-project/)
+and copy and paste what you want from other similar projects like I did.
+
 Some examples of templates you can use as inspiration:
 
 - [cookiecutter-django](https://github.com/cookiecutter/cookiecutter-django)
@@ -117,6 +121,8 @@ https://github.com/revsys/django-health-check
 ## Documentation
 
 TODO
+
+[Material Mkdocs](https://squidfunk.github.io/mkdocs-material/getting-started/)
 
 ## Deployment
 
