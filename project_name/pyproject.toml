@@ -46,7 +46,6 @@ djlint = "^1.19.7"
 ruff = "^0.0.129"
 pylint = "^2.15.6"
 pylint-django = "^2.5.3"
-django-stubs = "^1.13.0"
 bandit = "^1.7.4"
 reorder-python-imports = "^3.9.0"
 
