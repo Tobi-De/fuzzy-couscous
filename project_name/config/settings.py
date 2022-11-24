@@ -45,6 +45,7 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount",
     "django_extensions",
     "django_htmx",
+    "django_bootstrap5",
 ]
 
 if DEBUG:
@@ -143,6 +144,11 @@ EMAIL_BACKEND = env(
 
 SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL")
 SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD")
+
+BOOTSTRAP5 = {
+    "css_url": f"{STATIC_URL}vendors/bootstrap/css/bootstrap.min.css",
+    "javascript_url": f"{STATIC_URL}vendors/bootstrap/js/bootstrap.bundle.min.js",
+}
 
 # production stuff
 if not DEBUG:
