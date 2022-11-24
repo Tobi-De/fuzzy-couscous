@@ -37,6 +37,7 @@ I use github branches to create variations of the base template.
 
 - [main](https://github.com/Tobi-De/fuzzy-couscous): The base template
 - [tailwind](https://github.com/Tobi-De/fuzzy-couscous/tree/tailwind): The base template + [tailwindcss](https://github.com/timonweb/pytailwindcss)  via [pytailwindcss](https://github.com/timonweb/pytailwindcss)
+- [bootstrap5](https://github.com/Tobi-De/fuzzy-couscous/tree/bootstrap): The base template + [bootstrap5](https://getbootstrap.com/) via [django-bootstrap5](https://github.com/zostera/django-bootstrap5)
 
 ## Installation
 
