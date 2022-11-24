@@ -20,6 +20,7 @@ django-allauth = "^0.51.0"
 django-render-block = "^0.9.2"
 django-extensions = "^3.2.1"
 django-improved-user = "2.0a2"
+django-htmx = "^1.13.0"
 django-anymail = { extras = ["amazon-ses"], version = "^8.6" }
 
 whitenoise = { extras = ["brotli"], version = "^6.2.0" }

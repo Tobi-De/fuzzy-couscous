@@ -11,7 +11,7 @@ My highly opinionated django project template based on [django's startproject --
 
 - Django 4+
 - Python 3.10+
-- Frontend: [HTMX](https://htmx.org/) with [editor support](https://oluwatobi.dev/blog/posts/htmx-support-in-pycharm/) using [web-types](https://github.com/JetBrains/web-types#web-types)
+- Frontend: [htmx](https://htmx.org/) with [editor support](https://oluwatobi.dev/blog/posts/htmx-support-in-pycharm/) using [web-types](https://github.com/JetBrains/web-types#web-types)
 - Template fragment with [django-render-block](https://github.com/clokep/django-render-block)
 - Secure production settings, https only.
 - Settings using [django-environ](https://github.com/joke2k/django-environ)
