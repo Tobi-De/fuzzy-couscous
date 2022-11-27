@@ -1,4 +1,4 @@
 {
   "schemaVersion": 2,
-  "dockerfilePath": "./deploy/Dockerfile"
+  "dockerfilePath": "./docker/Dockerfile"
 }
