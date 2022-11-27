@@ -27,4 +27,4 @@ COPY . /code
 
 EXPOSE 80
 
-CMD ["sh", "/code/deploy/runserver.sh"]
+CMD ["sh", "/code/docker/entrypoint.sh"]

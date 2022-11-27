@@ -4,4 +4,4 @@ tailwindcss -i {{ project_name }}/static/css/style.css -o {{ project_name }}/sta
 python manage.py collectstatic --noinput
 python manage.py migrate
 python manage.py makesuperuser
-gunicorn config.wsgi --config="deploy/gunicorn.conf.py"
+gunicorn config.wsgi --config="docker/gunicorn.conf.py"
