@@ -24,6 +24,12 @@ poetry shell
 poetry install
 ```
 
+### Install pre-commit
+
+```shell
+pre-commit install
+```
+
 ### Run the django development server
 
 ```
@@ -34,8 +40,8 @@ poe r
  the `[tool.poe.tasks]`section of the `pyproject.toml` file or run `poe -h` to see the help page.
 
 > **Note**: SITE_ID
-> 
+>
 > You may get an error when trying to login or signup, this is due to django-allauth, you need to create a new *site* in django
-> admin and use its *ID* as the value of `SITE_ID` in the `settings.py`file. 
+> admin and use its *ID* as the value of `SITE_ID` in the `settings.py`file.
 > Create a new superuser with the `python manage.py createsuperuser` command, login to django admin then look for the `sites`
 > section in the left navigation bar and create a new *site*.
