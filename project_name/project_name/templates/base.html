@@ -1,21 +1,20 @@
 {% verbatim %}{% load static %}
 {% load django_htmx %}
-{% load django_bootstrap5 %}
+{% load django_bootstrap5 %}{% endverbatim %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>{{ project_name }}</title>
-    {% bootstrap_css %}
+    {% verbatim %}{% bootstrap_css %}
     {% bootstrap_javascript %}
     <script defer src="{% static "vendors/htmx/htmx.min.js" %}"></script>
-    {% django_htmx_script %}
+    {% django_htmx_script %}{% endverbatim %}
 </head>
-<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+{% verbatim %}<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 {% bootstrap_messages %}
 {% block content %}
 {% endblock content %}
-</body>
+</body>{% endverbatim %}
 </html>
-{% endverbatim %}
