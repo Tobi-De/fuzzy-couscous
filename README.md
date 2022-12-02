@@ -47,7 +47,7 @@ easily clone the project on your computer and generate a django project by using
 The final command is a bit long so I made a simple [cli](https://en.wikipedia.org/wiki/Command-line_interface) to simplify the process, install it with the command below:
 
 ```shell
-pip install fuzzy-couscous==1.1.0
+pip install fuzzy-couscous==1.2.0
 ```
 
 now initialize a new django project with the command below:
@@ -88,7 +88,7 @@ Some examples of templates you can use as inspiration:
 
 ### Additional commands
 
-Some additional commands I added to automate some boring configuration stuff. These commands should be run at the root of
+Some additional commands I added to automate some boring stuff. These commands should be run at the root of
 your projects, most will work even in projects that have not been generated with this template.
 
 Usage
@@ -108,6 +108,19 @@ This command defines two additional optional options:
 
 - `--fill-missing (-f)`: Prompt for missing values before the final `.env` file is generated
 - `--output-file (-o)`: The output filename, default to `.env`
+
+`work`: run multiple command in parallel. When working with tailwind, I usually have to run the django `runserver` command and 
+the tailwind `compile` command, so I made this to run both in one command. This command use the python [subprocess](https://docs.python.org/3/library/subprocess.html) module to 
+run the commands in the same shell. By default it will try to run the two commands below:
+
+- `poe r`: run the django development server
+- `poe t`: Compile tailwind in watch mode, available if you create your project using the `tailwind` branch
+
+To specify your own commands, use the `-c` option, example:
+
+```shell
+fuzzy-coucsous work -c "python manage.py runserver" -c "python -m http.server 9000"
+```
 
 ## Tips
 
