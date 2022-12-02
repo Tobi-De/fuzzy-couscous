@@ -42,13 +42,8 @@ pytest-django = "^4.5.2"
 pytest-sugar = "^0.9.6"
 
 pre-commit = "^2.20.0"
-black = "^22.10.0"
-djlint = "^1.19.7"
-ruff = "^0.0.138"
-pylint = "^2.15.6"
 pylint-django = "^2.5.3"
 bandit = "^1.7.4"
-reorder-python-imports = "^3.9.0"
 
 poetryup = "^0.12.3"
 poethepoet = "^0.16.4"
