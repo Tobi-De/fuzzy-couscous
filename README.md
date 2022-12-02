@@ -41,18 +41,25 @@ I use github branches to create variations of the base template.
 
 ## Usage
 
+>**Note**: `fuzzy-couscous` is a bit long to type each time, so there is an alias `cuzzy` that you can use instead.
+
 Since this template uses [django's startproject --template](https://docs.djangoproject.com/en/stable/ref/django-admin/#startproject), you can
 easily clone the project on your computer and generate a django project by using the command `django-admin` and specifying the `fuzzy-couscous/project_name` folder as the template.
 The final command is a bit long so I made a simple [cli](https://en.wikipedia.org/wiki/Command-line_interface) to simplify the process, install it with the command below:
 
 ```shell
-pip install fuzzy-couscous==1.2.0
+pip install fuzzy-couscous==1.3.0
 ```
 
 now initialize a new django project with the command below:
 
 ```shell
 fuzzy-couscous make my_new_project
+```
+or
+
+```shell
+cuzzy make my_new_project
 ```
 
 > **NOTE**: You probably want to update the **authors** key in the `pyproject.toml` file in the `[tool.poetry]` section.
