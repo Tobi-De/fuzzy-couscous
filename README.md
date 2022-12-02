@@ -45,13 +45,13 @@ easily clone the project on your computer and generate a django project by using
 The final command is a bit long so I made a simple [cli](https://en.wikipedia.org/wiki/Command-line_interface) to simplify the process, install it with the command below:
 
 ```shell
-pip install fuzzy-couscous
+pip install fuzzy-couscous==1.1.0
 ```
 
 now initialize a new django project with the command below:
 
 ```shell
-fuzzy-couscous my_new_project
+fuzzy-couscous make my_new_project
 ```
 
 > **NOTE**: You probably want to update the **authors** key in the `pyproject.toml` file in the `[tool.poetry]` section.
@@ -64,7 +64,7 @@ You can then use this option to specify your github repository with the format `
 Example:
 
 ```python
-fuzzy-couscous my_new_site --repo "Tobi-De/fuzzy-couscous"
+fuzzy-couscous make my_new_site --repo "Tobi-De/fuzzy-couscous"
 ```
 
 `--branch (-b)`: Specify the branch from which you want to create the template (e.g. **tailwind**), the default value being **main**.
@@ -72,7 +72,7 @@ fuzzy-couscous my_new_site --repo "Tobi-De/fuzzy-couscous"
 Example:
 
 ```python
-fuzzy-couscous my_new_site -b tailwind
+fuzzy-couscous make my_new_site -b tailwind
 ```
 
 If you've read this far and still think this template doesn't work for you, feel free to [create your own template](https://www.valentinog.com/blog/django-project/)
@@ -83,6 +83,29 @@ Some examples of templates you can use as inspiration:
 - [cookiecutter-django](https://github.com/cookiecutter/cookiecutter-django)
 - [wemake-django-template](https://github.com/wemake-services/wemake-django-template)
 - [django-startproject-templates](https://github.com/adamchainz/django-startproject-templates)
+
+### Additional commands
+
+Some additional commands I added to automate some boring configuration stuff. These commands should be run at the root of
+your projects, most will work even in projects that have not been generated with this template.
+
+Usage
+```shell
+fuzzy-couscous command
+```
+
+`write-env`: Running this will create a new `.env` by filling the file with the keys and values from the following options:
+
+1. a `env.template` file, used if it exists
+2. a `DEFAULT_VALUES` dictionary, internal to the `fuzzy-couscous` package, contains some default for common keys, `DJANGO_DEBUG`, `DJANGO_SECRET_KEY`, etc.
+3. a `.env` file, used if it exists
+
+> **Note**: The order defines the priority of the values that are used, which means that the values contained in your original `.env` file are preserved if the file exists.
+
+This command defines two additional optional options:
+
+- `--fill-missing (-f)`: Prompt for missing values before the final `.env` file is generated
+- `--output-file (-o)`: The output filename, default to `.env`
 
 ## Tips
 
