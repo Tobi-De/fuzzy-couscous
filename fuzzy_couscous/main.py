@@ -54,7 +54,7 @@ def make_project(args):
 def write_env_file(args):
     current_dir = Path().resolve(strict=True).stem
     project_name = clean_project_name(current_dir)
-    defaul_values = {
+    default_values = {
         "DJANGO_DEBUG": True,
         "DJANGO_SECRET_KEY": secrets.token_urlsafe(64),
         "DJANGO_ALLOWED_HOSTS": "*",
@@ -65,7 +65,7 @@ def write_env_file(args):
 
     config = {
         **dotenv_values(".env.template"),
-        **defaul_values,
+        **default_values,
         **dotenv_values(".env"),
     }
 
@@ -90,6 +90,20 @@ def write_env_file(args):
         )
 
 
+def work(args):
+    processes = []
+    commands = args.command or ["poe r", "poe t"]
+    for cmd in commands:
+        process = subprocess.Popen(cmd, shell=True)
+        processes.append(process)
+
+    try:
+        for p in processes:
+            p.wait()
+    except KeyboardInterrupt:
+        pass
+
+
 def cli():
     """
     A basic script that initializes a django project from my fuzzy-couscous project template.
@@ -101,11 +115,13 @@ def cli():
         description="Initialize a new django project using the fuzzy-couscous project template.",
     )
 
-    subparsers = parser.add_subparsers(help="sub-command help")
+    subparsers = parser.add_subparsers()
 
     parser_make = subparsers.add_parser("make", help="Initialize a new project")
     parser_make.add_argument("project_name")
-    parser_make.add_argument("-b", "--branch", default="main")
+    parser_make.add_argument(
+        "-b", "--branch", default="main", choices=["main", "tailwind", "bootstrap"]
+    )
     parser_make.add_argument("-r", "--repo", default="Tobi-De/fuzzy-couscous")
     parser_make.set_defaults(handler=make_project)
 
@@ -123,5 +139,15 @@ def cli():
     )
     parser_env.set_defaults(handler=write_env_file)
 
+    parser_work = subparsers.add_parser(
+        "work", help="run multiple commands in parallel"
+    )
+    parser_work.add_argument("-c", "--command", action="append")
+    parser_work.set_defaults(handler=work)
+
     args = parser.parse_args()
-    args.handler(args)
+
+    try:
+        args.handler(args)
+    except AttributeError:
+        parser.print_help()
