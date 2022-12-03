@@ -1,107 +1,6 @@
 import argparse
-import subprocess
-from pathlib import Path
-import shutil
-import secrets
-from dotenv import dotenv_values, set_key
 
-
-SUCCESS = "\x1b[1;32m [SUCCESS]: "
-INFO = "\x1b[1;33m [INFO]: "
-TERMINATOR = "\x1b[0m"
-
-
-def clean_project_name(val):
-    return val.strip().replace(" ", "_").replace("-", "_")
-
-
-def make_project(args):
-    project_name = clean_project_name(args.project_name)
-
-    # run the django-admin command
-    subprocess.run(
-        [
-            "django-admin",
-            "startproject",
-            project_name,
-            "--template",
-            f"https://github.com/{args.repo}/archive/{args.branch}.zip",
-            "-e=py,html,toml,md,json,js,sh",
-        ]
-    )
-
-    # since the root dir and the real project dir have the same name, rename the root to avoid conflict
-    project_root_dir = Path() / project_name
-    project_root_new_dir = Path() / f"_root_{project_root_dir}"
-    project_root_dir.rename(str(project_root_new_dir))
-
-    # move the real project dir to the current working directory
-    project_dir = project_root_new_dir / project_name
-    new_project_dir = Path() / project_name
-    shutil.move(project_dir, new_project_dir)
-
-    # delete the root dir
-    shutil.rmtree(project_root_new_dir)
-
-    print(SUCCESS + "Project initialized, keep up the good work!" + TERMINATOR)
-    print(
-        INFO
-        + "If you like the project consider dropping a star at https://github.com/Tobi-De/fuzzy-couscous"
-        + TERMINATOR
-    )
-
-
-def write_env_file(args):
-    current_dir = Path().resolve(strict=True).stem
-    project_name = clean_project_name(current_dir)
-    default_values = {
-        "DJANGO_DEBUG": True,
-        "DJANGO_SECRET_KEY": secrets.token_urlsafe(64),
-        "DJANGO_ALLOWED_HOSTS": "*",
-        "DATABASE_URL": f"postgres:///{project_name}",
-        "DJANGO_SUPERUSER_EMAIL": "",
-        "DJANGO_SUPERUSER_PASSWORD": "",
-    }
-
-    config = {
-        **dotenv_values(".env.template"),
-        **default_values,
-        **dotenv_values(".env"),
-    }
-
-    if args.fill_missing:
-        for key, value in config.items():
-            if not value:
-                config[key] = input(f"{key}: ")
-
-    # create .env file
-    env_file = Path() / args.output_file
-    env_file.write_text("")
-
-    # set env values
-    for key, value in config.items():
-        set_key(
-            env_file,
-            key,
-            value,
-            quote_mode="never",
-            export=False,
-            encoding="utf-8",
-        )
-
-
-def work(args):
-    processes = []
-    commands = args.command or ["poe r", "poe t"]
-    for cmd in commands:
-        process = subprocess.Popen(cmd, shell=True)
-        processes.append(process)
-
-    try:
-        for p in processes:
-            p.wait()
-    except KeyboardInterrupt:
-        pass
+from .commands import make_project, remove_poetry, work, write_env_file
 
 
 def cli():
@@ -117,6 +16,7 @@ def cli():
 
     subparsers = parser.add_subparsers()
 
+    # sub-command to generate a new project
     parser_make = subparsers.add_parser("make", help="Initialize a new project")
     parser_make.add_argument("project_name")
     parser_make.add_argument(
@@ -125,6 +25,7 @@ def cli():
     parser_make.add_argument("-r", "--repo", default="Tobi-De/fuzzy-couscous")
     parser_make.set_defaults(handler=make_project)
 
+    # sub-command to create .env
     parser_env = subparsers.add_parser(
         "write-env", help="Update or create a .env file from a .env.template file"
     )
@@ -139,11 +40,24 @@ def cli():
     )
     parser_env.set_defaults(handler=write_env_file)
 
+    # sub-command to run multiple command at the same time
     parser_work = subparsers.add_parser(
         "work", help="run multiple commands in parallel"
     )
     parser_work.add_argument("-c", "--command", action="append")
     parser_work.set_defaults(handler=work)
+
+    # sub-command to remove poetry as a dependency
+    parser_rm_poetry = subparsers.add_parser(
+        "remove-poetry", help="Remove poetry as a dependencies"
+    )
+    parser_rm_poetry.add_argument(
+        "-c",
+        "--create-virtualenv",
+        action="store_true",
+        help="Create an environment using virtualenv",
+    )
+    parser_rm_poetry.set_defaults(handler=remove_poetry)
 
     args = parser.parse_args()
 

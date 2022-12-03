@@ -143,7 +143,7 @@ I have removed the package as a dependency but I advise you to go and check for 
 [HTMX](https://htmx.org/) for simple interactive elements, [django-unicorn](https://github.com/adamghill/django-unicorn) if I need something more integrated with django.
 It's not a binary choice, you can use both, the main advantage for me is the simplicity compared to a frontend javascript framework.
 
-> **NOTE**: If you use [htmx boost](https://htmx.org/docs/#boosting) + [debug toolbar](https://github.com/jazzband/django-debug-toolbar) (already included in the template), you will need [this](https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#htmx).
+> **Note**: If you use [htmx boost](https://htmx.org/docs/#boosting) + [debug toolbar](https://github.com/jazzband/django-debug-toolbar) (already included in the template), you will need [this](https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#htmx).
 
 ### Task queues and schedulers
 
@@ -171,7 +171,7 @@ For more complex tasks, I tend to choose a solution that supports redis as a tas
 - [django-rq](https://github.com/rq/django-rq): Task queue + scheduler via [django-rq-scheduler](https://github.com/dsoftwareinc/django-rq-scheduler)
 - [wakaq](https://github.com/wakatime/wakaq): Task queue + scheduler
 
-> **NOTE**: The order matters, that's the order in which I would choose one of these packages.
+> **Note**: The order matters, that's the order in which I would choose one of these packages.
 
 ### Media storage
 

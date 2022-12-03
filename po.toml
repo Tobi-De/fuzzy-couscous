@@ -1,0 +1,51 @@
+[tool]
+
+[build-system]
+build-backend = 'hatchling.build'
+requires = ['hatchling']
+
+[project]
+name = 'fuzzy-couscous'
+version = '1.3.0'
+description = 'Generate a django project from the fuzzy-couscous template.'
+license = 'MIT'
+requires-python = '>=3.10'
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: Implementation :: CPython',
+    'Programming Language :: Python :: Implementation :: PyPy',
+    'Framework :: Django :: 4',
+    'Framework :: Django :: 4.0',
+    'Framework :: Django :: 4.1',
+    'Intended Audience :: Developers',
+    'Natural Language :: English',
+]
+keywords = [
+    'django',
+    'python',
+    'cookiecutter',
+    'project-template',
+]
+dependencies = [
+    'python>=3.10',
+    'python-dotenv>=0.21.0',
+    'rtoml>=0.9.0',
+    'dict-deep>=4.1.2',
+]
+
+[[project.authors]]
+name = 'tobidegnon@proton.me'
+email = 'Tobi-De'
+
+[[project.authors]]
+name = 'jean'
+email = 'max'
+
+[project.optional-dependencies]
+dev = ['ipython>=8.7.0']
