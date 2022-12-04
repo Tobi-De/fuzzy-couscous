@@ -7,6 +7,7 @@ from pathlib import Path
 import typer
 from dict_deep import deep_del, deep_get, deep_set
 from rich import print as rich_print
+from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from ..utils import (
     get_current_dir_as_project_name,
@@ -34,14 +35,16 @@ def remove_poetry(
 
     if not pyproject_file.exists():
         rich_print(
-            "[red]ERROR: No pyproject.toml file was found in the current directory :sad:"
+            "[red]ERROR: No pyproject.toml file was found in the current directory :disappointed_face:"
         )
         return
 
     is_poetry_project = bool(deep_get(config, "tool.poetry"))
 
     if not is_poetry_project:
-        rich_print("[red]ERROR: It seems that this is not a poetry project :sad:")
+        rich_print(
+            "[red]ERROR: It seems that this is not a poetry project :disappointed_face:"
+        )
         return
 
     new_config = deepcopy(config)
@@ -203,13 +206,19 @@ def _poetry_dep_group_to_project_optional_deps(config: dict):
 
 def _create_virtualenv():
     # specify command to compile and sync and point to docs for more infos
-    commands = [
-        "python -m pip install --upgrade virtualenv",
-        "python -m virtualenv --prompt . venv",
-        "venv/bin/python -m pip install pip-tools hatch",
-    ]
-    for cmd in commands:
-        subprocess.run(cmd, shell=True)
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        transient=True,
+    ) as progress:
+        progress.add_task(description="Creating virtualenv... :boom:", total=None)
+        commands = [
+            "python -m pip install virtualenv",
+            "python -m virtualenv --prompt . venv",
+            "venv/bin/python -m pip install pip-tools hatch",
+        ]
+        for cmd in commands:
+            subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL)
 
 
 def _add_poe_requirements_compile_task(config: dict) -> dict | None:
