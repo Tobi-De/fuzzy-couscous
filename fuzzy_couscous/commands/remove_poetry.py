@@ -13,16 +13,16 @@ from ..utils import (
 )
 
 
-def _get_author_name_from(poetry_author: str) -> str:
+def _get_author_email_from(poetry_author: str) -> str:
     less_than_index = poetry_author.index("<")
     greater_than_index = poetry_author.index(">")
     return poetry_author[less_than_index + 1 : greater_than_index]
 
 
-def _get_author_email_from(poetry_author: str) -> str:
-    name = _get_author_name_from(poetry_author)
-    email = poetry_author.replace(f"<{name}>", "")
-    return email.strip()
+def _get_author_name_from(poetry_author: str) -> str:
+    email = _get_author_email_from(poetry_author)
+    name = poetry_author.replace(f"<{email}>", "")
+    return name.strip()
 
 
 def _poetry_base_metadata_to_project(config: dict, project_name: str) -> None:
