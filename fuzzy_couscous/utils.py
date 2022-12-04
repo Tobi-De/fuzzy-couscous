@@ -1,5 +1,9 @@
 from pathlib import Path
 
+import tomli
+import tomli_w
+
+
 SUCCESS = "\x1b[1;32m [SUCCESS]: "
 INFO = "\x1b[1;33m [INFO]: "
 TERMINATOR = "\x1b[0m"
@@ -20,3 +24,11 @@ def print_success(msg: str) -> None:
 
 def print_info(msg: str) -> None:
     print(INFO + msg + TERMINATOR)
+
+
+def read_toml(file: Path) -> dict:
+    return tomli.loads(file.read_text())
+
+
+def write_toml(file: Path, data: dict) -> None:
+    file.write_text(tomli_w.dumps(data))

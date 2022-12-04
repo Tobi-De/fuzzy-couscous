@@ -2,11 +2,15 @@ import subprocess
 from copy import deepcopy
 from pathlib import Path
 
-
-import rtoml
 from dict_deep import deep_del, deep_get, deep_set
 
-from ..utils import get_current_dir_as_project_name, print_success, print_info
+from ..utils import (
+    get_current_dir_as_project_name,
+    print_success,
+    print_info,
+    read_toml,
+    write_toml,
+)
 
 
 def _get_author_name_from(poetry_author: str) -> str:
@@ -50,6 +54,8 @@ def _poetry_authors_to_project_authors(config: dict):
     # fixme: the format of this does not match the hatch one, don't know yet if this will
     #   be an issue
     poetry_authors = deep_get(config, "tool.poetry.authors")
+    if not poetry_authors:
+        return
     authors = [
         {
             "name": _get_author_name_from(p_author),
@@ -98,6 +104,7 @@ def _poetry_dep_group_to_project_optional_deps(config: dict):
 
 
 def _create_virtualenv():
+    # specify command to compile and sync and point to docs for more infos
     commands = [
         "python -m pip install --upgrade virtualenv",
         "python -m virtualenv --prompt . venv",
@@ -107,19 +114,31 @@ def _create_virtualenv():
         subprocess.run(cmd, shell=True)
 
 
+def _add_poe_requirements_compile_task(config: dict) -> dict | None:
+    poe_tasks = deep_get(config, "tool.poe.tasks")
+    if not poe_tasks:
+        return
+    poe_tasks["d"] = {
+        "cmd": "pip-compile -o requirements.txt pyproject.toml",
+        "help": "Generate requirements file",
+    }
+    deep_set(config, "tool.poe.tasks", poe_tasks)
+    return dict(sorted(config.items()))
+
+
 def remove_poetry(args) -> None:
     project_name = get_current_dir_as_project_name()
     pyproject_toml = Path("pyproject.toml")
-    config = rtoml.load(pyproject_toml)
+    config = read_toml(pyproject_toml)
 
     if not pyproject_toml.exists():
-        print_info("Failure: No pyproject.toml file was found in the current directory")
+        print_info("No pyproject.toml file was found in the current directory")
         return
 
     is_poetry_project = bool(deep_get(config, "tool.poetry"))
 
     if not is_poetry_project:
-        print_info("Failure: It seems that this is not a poetry project")
+        print_info("It seems that this is not a poetry project")
         return
 
     new_config = deepcopy(config)
@@ -136,6 +155,7 @@ def remove_poetry(args) -> None:
 
     # project dependencies
     poetry_deps = deep_get(new_config, "tool.poetry.dependencies")
+    poetry_deps.pop("python")
     deep_set(new_config, "project.dependencies", _project_deps_from(poetry_deps))
 
     # group / dev dependencies in poetry to optional dependencies
@@ -144,24 +164,46 @@ def remove_poetry(args) -> None:
     # project.authors
     _poetry_authors_to_project_authors(new_config)
 
-    if not new_config.get("tool"):
-        new_config.pop("tool")
-
     # remove every config related to poetry
     deep_del(new_config, "tool.poetry")
+
+    if not new_config.get("tool"):
+        new_config.pop("tool")
 
     print_success(
         "Poetry was removed as a dependency of your project, "
         "see the updated pyproject.toml to see what has changed"
     )
 
-    rtoml.dump(new_config, file=pyproject_toml, pretty=True)
+    new_config = dict(sorted(new_config.items()))
+    write_toml(pyproject_toml, new_config)
 
     if not args.create_virtualenv:
         return
 
     _create_virtualenv()
     print_info(
-        "A new environment was created using virtualenv, you activate it with this command:\n"
+        "A new environment was created using virtualenv, you activate it with this command: "
         "source venv/bin/activate"
     )
+
+    print_info(
+        "To install your dependencies you need to generated a requirements.txt file with: "
+        "pip-compile -o requirements.txt pyproject.toml"
+    )
+
+    # add a poethepoet task if the tool was found in the config file
+    result = _add_poe_requirements_compile_task(new_config)
+    write_toml(pyproject_toml, new_config)
+    if result:
+        print_info(
+            "poethepoet was found in your config, a task to generate the requirements.txt file was added,"
+            "run it with: poe d"
+        )
+
+    print_info(
+        "Then run pip-sync to install the dependencies, more infos on pip-tools docs: "
+        "https://pip-tools.readthedocs.io/en/latest/"
+    )
+    # pip-sync
+    # todo: give instructions for groups
