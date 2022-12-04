@@ -51,8 +51,6 @@ def _poetry_base_metadata_to_project(config: dict, project_name: str) -> None:
 
 
 def _poetry_authors_to_project_authors(config: dict):
-    # fixme: the format of this does not match the hatch one, don't know yet if this will
-    #   be an issue
     poetry_authors = deep_get(config, "tool.poetry.authors")
     if not poetry_authors:
         return
@@ -118,8 +116,8 @@ def _add_poe_requirements_compile_task(config: dict) -> dict | None:
     if not poe_tasks:
         return
     poe_tasks["d"] = {
-        "cmd": "pip-compile -o requirements.txt pyproject.toml",
-        "help": "Generate requirements file",
+        "cmd": "pip-compile -o requirements.txt pyproject.toml --resolver=backtracking",
+        "help": "Generate requirements.txt file",
     }
     deep_set(config, "tool.poe.tasks", poe_tasks)
     return dict(sorted(config.items()))
@@ -188,7 +186,7 @@ def remove_poetry(args) -> None:
 
     print_info(
         "To install your dependencies you need to generated a requirements.txt file with: "
-        "pip-compile -o requirements.txt pyproject.toml"
+        "pip-compile -o requirements.txt pyproject.toml --resolver=backtracking"
     )
 
     # add a poethepoet task if the tool was found in the config file
