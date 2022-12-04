@@ -63,7 +63,6 @@ def _poetry_authors_to_project_authors(config: dict):
         }
         for p_author in poetry_authors
     ]
-    authors.append({"name": "jean", "email": "max"})
     deep_set(config, "project.authors", authors)
 
 
