@@ -81,6 +81,8 @@ def remove_poetry(
     new_config = dict(sorted(new_config.items()))
     write_toml(pyproject_file, new_config)
 
+    rich_print(msg)
+
     if not create_virtualenv:
         return
 
@@ -90,7 +92,7 @@ def remove_poetry(
         "you activate it with the command [yellow] source venv/bin/activate"
     )
     msg += (
-        "\n[blue] To install your dependencies you need to generated a "
+        "\n[blue]INFO: To install your dependencies you need to generated a "
         "requirements.txt file with [yellow] pip-compile -o requirements.txt pyproject.toml --resolver=backtracking"
     )
 
@@ -104,7 +106,7 @@ def remove_poetry(
         )
 
     msg += (
-        "[blue]INFO: Then run [yellow]pip-sync [blue] to install the dependencies, "
+        "\n[blue]INFO: Run [yellow]pip-sync [blue] to install the dependencies, "
         "more infos on pip-tools docs https://pip-tools.readthedocs.io/en/latest/"
     )
 
