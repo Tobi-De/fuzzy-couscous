@@ -8,7 +8,9 @@
 
 ✨📚✨ [Read the full documentation](https://tobi-de.github.io/fuzzy-couscous)
 
-My highly opinionated django project template based on [django's startproject --template](https://docs.djangoproject.com/en/stable/ref/django-admin/#startproject). This project is heavily inspired by [cookiecutter-django](https://github.com/cookiecutter/cookiecutter-django) but is meant to be a lighter version.
+My highly opinionated django project template based on [django's startproject --template](https://docs.djangoproject.com/en/stable/ref/django-admin/#startproject).
+This project is heavily inspired by [cookiecutter-django](https://github.com/cookiecutter/cookiecutter-django) but is meant to be a lighter version.
+This template also comes with a cli tool with [additional commands](https://tobi-de.github.io/fuzzy-couscous/usage/#additional-commands) to hopefully improve your django development experience.
 
 ## Features
 
@@ -31,7 +33,7 @@ My highly opinionated django project template based on [django's startproject --
 - Serve static files with [Whitenoise](https://whitenoise.evans.io/en/latest/)
 - Default integration with [pre-commit](https://github.com/pre-commit/pre-commit) for identifying simple issues before submission to code review
 - Integrated task runner with [poethepoet](https://github.com/nat-n/poethepoet)
-- Dependency management using [poetry](https://github.com/python-poetry/poetry)
+- Dependency management using [poetry](https://github.com/python-poetry/poetry) (can be replaced by [virtualenv](https://github.com/pypa/virtualenv) using the [`remove-poetry` command](https://tobi-de.github.io/fuzzy-couscous/usage/#remove-poetry))
 
 ## Templates
 
