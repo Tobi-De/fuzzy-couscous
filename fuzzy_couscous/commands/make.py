@@ -5,9 +5,13 @@ from pathlib import Path
 
 import typer
 from rich import print as rich_print
-from rich.progress import Progress, SpinnerColumn, TextColumn
+from rich.progress import Progress
+from rich.progress import SpinnerColumn
+from rich.progress import TextColumn
 
-from ..utils import clean_project_name, RICH_INFO_MARKER, RICH_SUCCESS_MARKER
+from ..utils import clean_project_name
+from ..utils import RICH_INFO_MARKER
+from ..utils import RICH_SUCCESS_MARKER
 
 
 class Branch(str, Enum):
@@ -49,6 +53,10 @@ def make_project(
                 "--template",
                 f"https://github.com/{repo}/archive/{branch}.zip",
                 "-e=py,html,toml,md,json,js,sh",
+                "--exclude=docs",
+                "--exclude=fuzzy_couscous",
+                "--exclude=.github",
+                "--exclude=.idea",
             ]
         )
 
