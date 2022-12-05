@@ -48,7 +48,7 @@ easily clone the project on your computer and generate a django project by using
 The final command is a bit long so I made a simple [cli](https://en.wikipedia.org/wiki/Command-line_interface) to simplify the process, install it with the command below:
 
 ```shell
-pip install fuzzy-couscous==1.4.0
+pip install fuzzy-couscous==2.0.0
 ```
 
 now initialize a new django project with the command below:
