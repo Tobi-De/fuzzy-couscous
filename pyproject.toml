@@ -12,7 +12,6 @@ packages = [{ include = "fuzzy_couscous" }]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -28,7 +27,7 @@ classifiers = [
 exclude = ["project_name"]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.8"
 python-dotenv = "^0.21.0"
 dict-deep = "^4.1.2"
 tomli = "^2.0.1"

@@ -13,6 +13,11 @@ from ..utils import (
     get_current_dir_as_project_name,
     read_toml,
     write_toml,
+    RICH_SUCCESS_MARKER,
+    RICH_INFO_MARKER,
+    RICH_COMMAND_MARKER,
+    RICH_ERROR_MARKER,
+    RICH_COMMAND_MARKER_END,
 )
 
 
@@ -29,23 +34,13 @@ def remove_poetry(
         "", callback=get_current_dir_as_project_name, hidden=True
     ),
 ) -> None:
-    """Remove poetry as a dependency of your project"""
+    """Remove poetry as a dependency of your project."""
 
-    config = read_toml(pyproject_file)
+    config, error_message = _is_valid_poetry_project(pyproject_file)
 
-    if not pyproject_file.exists():
-        rich_print(
-            "[red]ERROR: No pyproject.toml file was found in the current directory :disappointed_face:"
-        )
-        return
-
-    is_poetry_project = bool(deep_get(config, "tool.poetry"))
-
-    if not is_poetry_project:
-        rich_print(
-            "[red]ERROR: It seems that this is not a poetry project :disappointed_face:"
-        )
-        return
+    if error_message:
+        rich_print(f"{RICH_ERROR_MARKER} {error_message}")
+        raise typer.Abort()
 
     new_config = deepcopy(config)
 
@@ -56,8 +51,11 @@ def remove_poetry(
     }
     new_config.update({"build-system": build_system})
 
-    # tool.poetry
+    # add project basic metadata, name, description, etc.
     _poetry_base_metadata_to_project(new_config, project_name=project_name)
+
+    # project.authors
+    _poetry_authors_to_project_authors(new_config)
 
     # project dependencies
     poetry_deps = deep_get(new_config, "tool.poetry.dependencies")
@@ -67,21 +65,32 @@ def remove_poetry(
     # group / dev dependencies in poetry to optional dependencies
     _poetry_dep_group_to_project_optional_deps(new_config)
 
-    # project.authors
-    _poetry_authors_to_project_authors(new_config)
-
-    # remove every config related to poetry
+    # remove poetry config
     deep_del(new_config, "tool.poetry")
 
-    if not new_config.get("tool"):
-        new_config.pop("tool")
+    # remove poetry.lock if is exists
+    Path("poetry.lock").unlink(missing_ok=True)
+
+    _remove_empty_top_level_table(new_config)
 
     msg = (
-        "[green]SUCCESS: Poetry has been removed as a dependency from your project, check the updated pyproject.toml"
-        " to see what has changed."
+        f"{RICH_SUCCESS_MARKER} Poetry has been removed as a dependency from your project, "
+        f"check the updated pyproject.toml to see what has changed."
     )
 
     new_config = dict(sorted(new_config.items()))
+
+    at_least_one_group_defined = bool(
+        deep_get(new_config, "project.optional-dependencies")
+    )
+
+    if at_least_one_group_defined:
+        msg += (
+            f"\n{RICH_INFO_MARKER} Your project defines optional dependencies, to generate a requirements.txt file that "
+            f"includes the dependencies of a group, add a "
+            f"{RICH_COMMAND_MARKER} --extra <group_name> {RICH_COMMAND_MARKER_END} option to the pip-compile command"
+        )
+
     write_toml(pyproject_file, new_config)
 
     rich_print(msg)
@@ -91,12 +100,13 @@ def remove_poetry(
 
     _create_virtualenv()
     msg += (
-        "\n[blue]INFO: A new environment has been created using virtualenv, "
-        "you activate it with the command [yellow] source venv/bin/activate"
+        f"\n{RICH_INFO_MARKER} A new environment has been created using virtualenv, "
+        f"you activate it with the command {RICH_COMMAND_MARKER} source venv/bin/activate"
     )
     msg += (
-        "\n[blue]INFO: To install your dependencies you need to generated a "
-        "requirements.txt file with [yellow] pip-compile -o requirements.txt pyproject.toml --resolver=backtracking"
+        f"\n{RICH_INFO_MARKER} To install your dependencies you need to generated a "
+        f"requirements.txt file with "
+        f"{RICH_COMMAND_MARKER} pip-compile -o requirements.txt pyproject.toml --resolver=backtracking"
     )
 
     # add a poethepoet task if the tool was found in the config file
@@ -113,8 +123,31 @@ def remove_poetry(
         "more infos on pip-tools docs https://pip-tools.readthedocs.io/en/latest/"
     )
 
-    # todo: give instructions for groups
     rich_print(msg)
+
+
+def _remove_empty_top_level_table(config: dict) -> None:
+    # removing values from a dictionary while iterating through it is not a good idea, hence this copy
+    config_copy = deepcopy(config)
+    for key, value in config_copy.items():
+        if not value:
+            config.pop(key)
+
+
+def _is_valid_poetry_project(pyproject_file: Path) -> tuple[dict, str | None]:
+    if not pyproject_file.exists():
+        return (
+            {},
+            "No pyproject.toml file was found in the current directory :disappointed_face:",
+        )
+
+    config = read_toml(pyproject_file)
+
+    is_poetry_project = bool(deep_get(config, "tool.poetry"))
+    if not is_poetry_project:
+        return {}, "It seems that this is not a poetry project :disappointed_face:"
+
+    return config, None
 
 
 def _get_author_email_from(poetry_author: str) -> str:

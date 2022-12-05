@@ -7,7 +7,7 @@ import typer
 from rich import print as rich_print
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
-from ..utils import clean_project_name
+from ..utils import clean_project_name, RICH_INFO_MARKER, RICH_SUCCESS_MARKER
 
 
 class Branch(str, Enum):
@@ -62,7 +62,10 @@ def make_project(
     # delete the root dir
     shutil.rmtree(project_root_new_dir)
 
-    msg = "[green]SUCCESS: Project initialized, keep up the good work!\n"
-    msg += "[blue]INFO: If you like the project consider dropping a star at https://github.com/Tobi-De/fuzzy-couscous"
+    msg = f"{RICH_SUCCESS_MARKER} Project initialized, keep up the good work!\n"
+    msg += (
+        f"{RICH_INFO_MARKER} If you like the project consider dropping a star at "
+        f"https://github.com/Tobi-De/fuzzy-couscous"
+    )
 
     rich_print(msg)

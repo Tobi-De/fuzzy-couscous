@@ -3,6 +3,12 @@ from pathlib import Path
 import tomli
 import tomli_w
 
+RICH_SUCCESS_MARKER = "[green]SUCCESS:"
+RICH_ERROR_MARKER = "[red]ERROR:"
+RICH_INFO_MARKER = "[blue]INFO:"
+RICH_COMMAND_MARKER = "[yellow]"
+RICH_COMMAND_MARKER_END = "[/yellow]"
+
 
 def clean_project_name(val: str) -> str:
     return val.strip().replace(" ", "_").replace("-", "_")

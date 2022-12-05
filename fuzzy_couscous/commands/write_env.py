@@ -6,7 +6,7 @@ from dotenv import dotenv_values, set_key
 from rich import print as rich_print
 from rich.prompt import Prompt
 
-from ..utils import get_current_dir_as_project_name
+from ..utils import get_current_dir_as_project_name, RICH_SUCCESS_MARKER
 
 
 def write_env_file(
@@ -56,4 +56,4 @@ def write_env_file(
             export=False,
             encoding="utf-8",
         )
-    rich_print(f"[green]SUCCESS: {env_file} file generated")
+    rich_print(f"{RICH_SUCCESS_MARKER} {env_file} file generated")

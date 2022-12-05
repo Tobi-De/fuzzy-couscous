@@ -5,10 +5,10 @@ from fuzzy_couscous.commands import make_project, remove_poetry, work, write_env
 
 def get_app():
     app = typer.Typer(
-        name="fuzzy-couscous alias cuzzy",
+        name="fuzzy-couscous",
         short_help="Initialize a new django project using the fuzzy-couscous project template.",
         help="""This is a wrapper around the django-admin startproject  command using my custom project template at 
-        https://github.com/Tobi-De/fuzzy-couscous. This cli also includes some additional features to make setting up 
+        https://github.com/Tobi-De/fuzzy-couscous. This cli also includes some additional commands to make setting up 
         a new project faster.""",
     )
 
