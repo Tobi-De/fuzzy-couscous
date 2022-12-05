@@ -13,6 +13,8 @@ from ..utils import clean_project_name
 from ..utils import RICH_INFO_MARKER
 from ..utils import RICH_SUCCESS_MARKER
 
+__all__ = ["make_project"]
+
 
 class Branch(str, Enum):
     main = "main"

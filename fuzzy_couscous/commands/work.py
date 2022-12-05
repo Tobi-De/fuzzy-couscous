@@ -3,7 +3,10 @@ import subprocess
 import typer
 from rich import print as rich_print
 
-from ..utils import RICH_INFO_MARKER, RICH_COMMAND_MARKER
+from ..utils import RICH_COMMAND_MARKER
+from ..utils import RICH_INFO_MARKER
+
+__all__ = ["work"]
 
 
 def work(
