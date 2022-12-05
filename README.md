@@ -42,12 +42,14 @@ I use github branches to create variations of the base template.
 
 ## Usage
 
+>**Note**: `fuzzy-couscous` is a bit long to type each time, so there is an alias `cuzzy` that you can use instead.
+
 Since this template uses [django's startproject --template](https://docs.djangoproject.com/en/stable/ref/django-admin/#startproject), you can
 easily clone the project on your computer and generate a django project by using the command `django-admin` and specifying the `fuzzy-couscous/project_name` folder as the template.
 The final command is a bit long so I made a simple [cli](https://en.wikipedia.org/wiki/Command-line_interface) to simplify the process, install it with the command below:
 
 ```shell
-pip install fuzzy-couscous==1.2.0
+pip install fuzzy-couscous==2.0.0
 ```
 
 now initialize a new django project with the command below:
@@ -55,6 +57,13 @@ now initialize a new django project with the command below:
 ```shell
 fuzzy-couscous make my_new_project
 ```
+or
+
+```shell
+cuzzy make my_new_project
+```
+
+> **NOTE**: You probably want to update the **authors** key in the `pyproject.toml` file in the `[tool.poetry]` section.
 
 > **NOTE**: You probably want to update the **authors** key in the `pyproject.toml` file in the `[tool.poetry]` section.
 
@@ -137,7 +146,7 @@ I have removed the package as a dependency but I advise you to go and check for 
 [HTMX](https://htmx.org/) for simple interactive elements, [django-unicorn](https://github.com/adamghill/django-unicorn) if I need something more integrated with django.
 It's not a binary choice, you can use both, the main advantage for me is the simplicity compared to a frontend javascript framework.
 
-> **NOTE**: If you use [htmx boost](https://htmx.org/docs/#boosting) + [debug toolbar](https://github.com/jazzband/django-debug-toolbar) (already included in the template), you will need [this](https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#htmx).
+> **Note**: If you use [htmx boost](https://htmx.org/docs/#boosting) + [debug toolbar](https://github.com/jazzband/django-debug-toolbar) (already included in the template), you will need [this](https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#htmx).
 
 ### Task queues and schedulers
 
@@ -165,7 +174,7 @@ For more complex tasks, I tend to choose a solution that supports redis as a tas
 - [django-rq](https://github.com/rq/django-rq): Task queue + scheduler via [django-rq-scheduler](https://github.com/dsoftwareinc/django-rq-scheduler)
 - [wakaq](https://github.com/wakatime/wakaq): Task queue + scheduler
 
-> **NOTE**: The order matters, that's the order in which I would choose one of these packages.
+> **Note**: The order matters, that's the order in which I would choose one of these packages.
 
 ### Media storage
 
