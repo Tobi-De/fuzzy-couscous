@@ -54,16 +54,15 @@ def make_project(
 
     # since the root dir and the real project dir have the same name, rename the root to avoid conflict
     project_root_dir = Path(project_name)
-    project_root_new_dir = Path(f"_root_{project_root_dir}")
-    project_root_dir.rename(str(project_root_new_dir))
+    project_root_dir.rename(str(f"_root_{project_root_dir}"))
 
     # move the real project dir to the current working directory
-    project_dir = project_root_new_dir / project_name
+    project_dir = project_root_dir / "templates" / project_name
     new_project_dir = Path(project_name)
     shutil.move(project_dir, new_project_dir)
 
     # delete the root dir
-    shutil.rmtree(project_root_new_dir)
+    shutil.rmtree(project_root_dir)
 
     msg = f"{RICH_SUCCESS_MARKER} Project initialized, keep up the good work!\n"
     msg += (
