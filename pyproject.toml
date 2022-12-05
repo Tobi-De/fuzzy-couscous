@@ -6,7 +6,7 @@ authors = ["Tobi-De <tobidegnon@proton.me>"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/Tobi-De/fuzzy-couscous"
-homepage = "https://github.com/Tobi-De/fuzzy-couscous"
+homepage = "https://tobi-de.github.io/fuzzy-couscous/"
 keywords = ["django", "python", "cookiecutter", "project-template"]
 packages = [{ include = "fuzzy_couscous" }]
 classifiers = [
@@ -37,10 +37,36 @@ rich = "^12.6.0"
 
 [tool.poetry.group.dev.dependencies]
 ipython = "^8.7.0"
+pre-commit = "^2.20.0"
+
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+mkdocs = "^1.4.2"
+mkdocs-material = "^8.5.11"
+mkdocs-material-extensions = "^1.1.1"
+mkdocs-include-markdown-plugin = "3.9.1"
 
 [tool.poetry.scripts]
 fuzzy-couscous = "fuzzy_couscous.main:cli"
 cuzzy = "fuzzy_couscous.main:cli"
+
+[tool.ruff]
+line-length = 120
+select = [
+    "E", # https://github.com/charliermarsh/ruff#pycodestylet
+    "F", # https://github.com/charliermarsh/ruff#pyflakes
+    "U", # https://github.com/charliermarsh/ruff#pyupgrade
+    "N", # https://github.com/charliermarsh/ruff#pep8-naming
+    "S", # https://github.com/charliermarsh/ruff#flake8-bandit
+    "C", # https://github.com/charliermarsh/ruff#flake8-comprehensions
+    "B", # https://github.com/charliermarsh/ruff#flake8-bugbear
+    "T" # https://github.com/charliermarsh/ruff#flake8-print
+]
+extend-exclude = [
+    "templates/*"
+]
 
 [build-system]
 requires = ["poetry-core"]
