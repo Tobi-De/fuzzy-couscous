@@ -76,18 +76,18 @@ def get_message_for_optional_deps(config: dict) -> str:
         return (
             f"\n{RICH_INFO_MARKER} Your project defines optional dependencies, to generate a requirements.txt file "
             f"that includes the dependencies of a group, add a "
-            f"{RICH_COMMAND_MARKER} --extra <group_name> {RICH_COMMAND_MARKER_END} option to the pip-compile command"
+            f"{RICH_COMMAND_MARKER}--extra <group_name>{RICH_COMMAND_MARKER_END} option to the pip-compile command"
         )
 
 
 def get_message_for_new_virtualenv() -> str:
     msg = (
         f"\n{RICH_INFO_MARKER} A new environment has been created using virtualenv, "
-        f"you activate it with the command {RICH_COMMAND_MARKER} source venv/bin/activate"
+        f"you activate it with the command {RICH_COMMAND_MARKER}source venv/bin/activate"
     )
     msg += (
         f"\n{RICH_INFO_MARKER} To install your dependencies you need to generated a "
         f"requirements.txt file with "
-        f"{RICH_COMMAND_MARKER} pip-compile -o requirements.txt pyproject.toml --resolver=backtracking"
+        f"{RICH_COMMAND_MARKER}pip-compile -o requirements.txt pyproject.toml --resolver=backtracking"
     )
     return msg

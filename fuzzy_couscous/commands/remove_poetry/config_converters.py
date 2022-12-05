@@ -36,15 +36,12 @@ def convert_project_details(config: dict, default_project_name: str) -> dict:
 
 def convert_python_requirement(config: dict) -> str:
     poetry_deps = deep_get(config, "tool.poetry.dependencies")
-    poetry_deps.pop("python")
-    # todo: this is static for now, update to convert from what is defined in the poetry config
-    return ">=3.10"
+    constraint = poetry_deps.pop("python")
+    return convert_dependency_specification("python", constraint)
 
 
 def convert_authors(config: dict) -> list:
-    poetry_authors = deep_get(config, "tool.poetry.authors")
-    if not poetry_authors:
-        return []
+    poetry_authors = deep_get(config, "tool.poetry.authors") or []
     return [
         {
             "name": get_author_name_from(p_author),

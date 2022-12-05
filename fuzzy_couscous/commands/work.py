@@ -20,9 +20,7 @@ def work(
     """run multiple commands in parallel."""
 
     commands_display = " ".join([f"<< {c} >>" for c in commands])
-    rich_print(
-        f"{RICH_INFO_MARKER} work started for {RICH_COMMAND_MARKER} {commands_display}"
-    )
+    rich_print(f"{RICH_INFO_MARKER} work with {RICH_COMMAND_MARKER}{commands_display}")
     processes = []
     for cmd in commands:
         process = subprocess.Popen(cmd, shell=True)
