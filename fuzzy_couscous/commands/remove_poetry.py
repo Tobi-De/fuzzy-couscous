@@ -98,8 +98,15 @@ def remove_poetry(
     if not create_virtualenv:
         return
 
-    _create_virtualenv()
-    msg += (
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        transient=True,
+    ) as progress:
+        progress.add_task(description="Creating virtualenv... :boom:", total=None)
+        _create_virtualenv()
+
+    msg = (
         f"\n{RICH_INFO_MARKER} A new environment has been created using virtualenv, "
         f"you activate it with the command {RICH_COMMAND_MARKER} source venv/bin/activate"
     )
@@ -239,19 +246,13 @@ def _poetry_dep_group_to_project_optional_deps(config: dict):
 
 def _create_virtualenv():
     # specify command to compile and sync and point to docs for more infos
-    with Progress(
-        SpinnerColumn(),
-        TextColumn("[progress.description]{task.description}"),
-        transient=True,
-    ) as progress:
-        progress.add_task(description="Creating virtualenv... :boom:", total=None)
-        commands = [
-            "python -m pip install virtualenv",
-            "python -m virtualenv --prompt . venv",
-            "venv/bin/python -m pip install pip-tools hatch",
-        ]
-        for cmd in commands:
-            subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL)
+    commands = [
+        "python -m pip install virtualenv",
+        "python -m virtualenv --prompt . venv",
+        "venv/bin/python -m pip install pip-tools hatch",
+    ]
+    for cmd in commands:
+        subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL)
 
 
 def _add_poe_requirements_compile_task(config: dict) -> dict | None:

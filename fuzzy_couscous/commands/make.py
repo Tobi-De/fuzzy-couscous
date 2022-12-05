@@ -35,7 +35,10 @@ def make_project(
         TextColumn("[progress.description]{task.description}"),
         transient=True,
     ) as progress:
-        progress.add_task(description="In progress... :sunglasses:", total=None)
+        progress.add_task(
+            description="Initializing your new django project... :sunglasses:",
+            total=None,
+        )
 
         # run the django-admin command
         subprocess.run(
