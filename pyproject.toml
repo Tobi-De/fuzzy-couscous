@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fuzzy-couscous"
-version = "1.2.0"
+version = "2.0.0"
 description = "Generate a django project from the fuzzy-couscous template."
 authors = ["Tobi-De <tobidegnon@proton.me>"]
 license = "MIT"
@@ -8,31 +8,39 @@ readme = "README.md"
 repository = "https://github.com/Tobi-De/fuzzy-couscous"
 homepage = "https://github.com/Tobi-De/fuzzy-couscous"
 keywords = ["django", "python", "cookiecutter", "project-template"]
-packages = [{include = "fuzzy_couscous"}]
+packages = [{ include = "fuzzy_couscous" }]
 classifiers = [
-  "Development Status :: 5 - Production/Stable",
-  "Programming Language :: Python",
-  "Programming Language :: Python :: 3.7",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: Implementation :: CPython",
-  "Programming Language :: Python :: Implementation :: PyPy",
-  "Framework :: Django :: 4",
-  "Framework :: Django :: 4.0",
-  "Framework :: Django :: 4.1",
-  "Intended Audience :: Developers",
-  "Natural Language :: English",
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Framework :: Django :: 4",
+    "Framework :: Django :: 4.0",
+    "Framework :: Django :: 4.1",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
 ]
-exclude = ["project_name"]
+exclude = ["templates"]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.8"
 python-dotenv = "^0.21.0"
+dict-deep = "^4.1.2"
+tomli = "^2.0.1"
+tomli-w = "^1.0.0"
+typer = "^0.7.0"
+rich = "^12.6.0"
+
+[tool.poetry.group.dev.dependencies]
+ipython = "^8.7.0"
 
 [tool.poetry.scripts]
 fuzzy-couscous = "fuzzy_couscous.main:cli"
+cuzzy = "fuzzy_couscous.main:cli"
 
 [build-system]
 requires = ["poetry-core"]
