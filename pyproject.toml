@@ -6,7 +6,7 @@ authors = ["Tobi-De <tobidegnon@proton.me>"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/Tobi-De/fuzzy-couscous"
-homepage = "https://github.com/Tobi-De/fuzzy-couscous"
+homepage = "https://tobi-de.github.io/fuzzy-couscous/"
 keywords = ["django", "python", "cookiecutter", "project-template"]
 packages = [{ include = "fuzzy_couscous" }]
 classifiers = [
@@ -38,6 +38,15 @@ rich = "^12.6.0"
 [tool.poetry.group.dev.dependencies]
 ipython = "^8.7.0"
 pre-commit = "^2.20.0"
+
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+mkdocs = "^1.4.2"
+mkdocs-material = "^8.5.11"
+mkdocs-material-extensions = "^1.1.1"
+mkdocs-include-markdown-plugin = "3.9.1"
 
 [tool.poetry.scripts]
 fuzzy-couscous = "fuzzy_couscous.main:cli"
