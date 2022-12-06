@@ -65,7 +65,8 @@ select = [
     "T" # https://github.com/charliermarsh/ruff#flake8-print
 ]
 extend-exclude = [
-    "templates/*"
+    "templates/*",
+    "tests/*"
 ]
 ignore = ["B008"]
 
