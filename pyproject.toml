@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fuzzy-couscous"
-version = "2.0.0"
+version = "2.0.2"
 description = "Generate a django project from the fuzzy-couscous template."
 authors = ["Tobi-De <tobidegnon@proton.me>"]
 license = "MIT"
@@ -67,6 +67,7 @@ select = [
 extend-exclude = [
     "templates/*"
 ]
+ignore = ["B008"]
 
 [build-system]
 requires = ["poetry-core"]
