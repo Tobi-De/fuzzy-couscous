@@ -146,4 +146,5 @@ $ cuzzy write-env [OPTIONS] [PROJECT_NAME]
 
 * `-f, --fill-missing`: Prompt to fill missing values.  [default: False]
 * `-o, --output-file FILE`: The output file path.  [default: .env]
+* `-p, --postgres-pass`: Prompt for the postgres password to use to build the `DATABASE_URL`.
 * `--help`: Show the help message and exit.

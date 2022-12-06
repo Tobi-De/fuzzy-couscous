@@ -50,3 +50,11 @@ def test_write_env_priority_order(tmp_path: Path):
     assert "SUCCESS" in result.output
     assert "DJANGO_SECRET_KEY" in env_file_content
     assert env_file_content["DJANGO_SPECIAL_KEY"] == "my_special_key"
+
+
+def test_write_env_postgres_pass(tmp_path: Path):
+    runner.invoke(cli, ["write-env", "-p"], input="password")
+
+    env_file_content = dotenv_values(".env")
+
+    assert "password" in env_file_content["DATABASE_URL"]
