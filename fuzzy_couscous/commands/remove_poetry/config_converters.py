@@ -37,7 +37,7 @@ def convert_project_details(config: dict, default_project_name: str) -> dict:
 def convert_python_requirement(config: dict) -> str:
     poetry_deps = deep_get(config, "tool.poetry.dependencies")
     constraint = poetry_deps.pop("python")
-    return convert_dependency_specification("python", constraint)
+    return convert_dependency_specification("python", constraint).replace("python", "")
 
 
 def convert_authors(config: dict) -> list:

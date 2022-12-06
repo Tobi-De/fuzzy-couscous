@@ -46,7 +46,7 @@ def test_remove_poetry(tmp_path: Path, monkeypatch):
     assert deep_get(pyproject_config, "tool.poetry") is None
     assert deep_get(pyproject_config, "build-system.build-backend") == "hatchling.build"
     assert deep_get(pyproject_config, "project.name") == "couscous"
-    assert deep_get(pyproject_config, "project.requires-python") == "python>=3.11"
+    assert deep_get(pyproject_config, "project.requires-python") == ">=3.11"
     assert "dev" in deep_get(pyproject_config, "project.optional-dependencies")
     assert deep_get(pyproject_config, "project.authors")[0]["name"] == "Tobi-De"
     assert (
