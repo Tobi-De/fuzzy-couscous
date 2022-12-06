@@ -82,7 +82,7 @@ def get_message_for_optional_deps(config: dict) -> str:
 
 def get_message_for_new_virtualenv() -> str:
     msg = (
-        f"\n{RICH_INFO_MARKER} A new environment has been created using virtualenv, "
+        f"{RICH_INFO_MARKER} A new environment has been created using virtualenv, "
         f"you activate it with the command {RICH_COMMAND_MARKER}source venv/bin/activate"
     )
     msg += (
