@@ -51,7 +51,15 @@ def convert_authors(config: dict) -> list:
     ]
 
 
-def convert_dependency_specification(package: str, constraint: str) -> str:
+def convert_dependency_specification(package: str, constraint: str | dict) -> str:
+    # todo: refactor
+    if isinstance(constraint, dict):
+        extras: list[str] = constraint.get("extras")
+        extras_str = ",".join(extras)
+        package = f"{package}[{extras_str}]"
+
+        constraint = constraint.get("version")
+
     version = constraint.replace("^", "").replace("~", "")
     if constraint.startswith("^"):
         return f"{package}>={version}"

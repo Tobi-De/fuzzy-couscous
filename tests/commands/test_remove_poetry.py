@@ -21,6 +21,7 @@ packages = [{ include = "mark" }]
 python = "^3.11"
 Django = "^4.1.3"
 django-environ = "^0.9.0"
+django-anymail = {extras = ["amazon-ses"], version = "^8.6"}
 
 [tool.poetry.group.dev.dependencies]
 django-browser-reload = "^1.6.0"
