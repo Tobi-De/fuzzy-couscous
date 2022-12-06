@@ -2,16 +2,24 @@ import secrets
 from pathlib import Path
 
 import typer
-from dotenv import dotenv_values, set_key
+from dotenv import dotenv_values
+from dotenv import set_key
 from rich import print as rich_print
 from rich.prompt import Prompt
 
-from ..utils import get_current_dir_as_project_name, RICH_SUCCESS_MARKER
+from ..utils import get_current_dir_as_project_name
+from ..utils import RICH_SUCCESS_MARKER
+
+__all__ = ["write_env_file"]
 
 
 def write_env_file(
     fill_missing: bool = typer.Option(
-        False, "-f", "--fill-missing", help="Fill missing values.", is_flag=True
+        False,
+        "-f",
+        "--fill-missing",
+        help="Prompt to fill missing values.",
+        is_flag=True,
     ),
     output_file: Path = typer.Option(
         ".env", "-o", "--output-file", help="The output file path.", dir_okay=False

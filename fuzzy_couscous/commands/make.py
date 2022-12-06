@@ -5,9 +5,15 @@ from pathlib import Path
 
 import typer
 from rich import print as rich_print
-from rich.progress import Progress, SpinnerColumn, TextColumn
+from rich.progress import Progress
+from rich.progress import SpinnerColumn
+from rich.progress import TextColumn
 
-from ..utils import clean_project_name, RICH_INFO_MARKER, RICH_SUCCESS_MARKER
+from ..utils import clean_project_name
+from ..utils import RICH_INFO_MARKER
+from ..utils import RICH_SUCCESS_MARKER
+
+__all__ = ["make_project"]
 
 
 class Branch(str, Enum):
@@ -22,7 +28,8 @@ def make_project(
         "Tobi-De/fuzzy-couscous",
         "-r",
         "--repo",
-        help="The github repository to pull the template from.",
+        help="The github repository to pull the template from. The format to use is `username/repo`",
+        formats=["username/repo"],
     ),
     branch: Branch = typer.Option(
         "main", "-b", "--branch", help="The github branch to use."
@@ -49,6 +56,10 @@ def make_project(
                 "--template",
                 f"https://github.com/{repo}/archive/{branch}.zip",
                 "-e=py,html,toml,md,json,js,sh",
+                "--exclude=docs",
+                "--exclude=fuzzy_couscous",
+                "--exclude=.github",
+                "--exclude=.idea",
             ]
         )
 

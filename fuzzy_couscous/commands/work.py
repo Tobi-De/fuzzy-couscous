@@ -3,7 +3,10 @@ import subprocess
 import typer
 from rich import print as rich_print
 
-from ..utils import RICH_INFO_MARKER, RICH_COMMAND_MARKER
+from ..utils import RICH_COMMAND_MARKER
+from ..utils import RICH_INFO_MARKER
+
+__all__ = ["work"]
 
 
 def work(
@@ -14,12 +17,10 @@ def work(
         help="The command to run.",
     )
 ):
-    """run multiple commands in parallel."""
+    """Run multiple commands in parallel."""
 
     commands_display = " ".join([f"<< {c} >>" for c in commands])
-    rich_print(
-        f"{RICH_INFO_MARKER} work started for {RICH_COMMAND_MARKER} {commands_display}"
-    )
+    rich_print(f"{RICH_INFO_MARKER} work with {RICH_COMMAND_MARKER}{commands_display}")
     processes = []
     for cmd in commands:
         process = subprocess.Popen(cmd, shell=True)
