@@ -17,7 +17,7 @@ def work(
         help="The command to run.",
     )
 ):
-    """run multiple commands in parallel."""
+    """Run multiple commands in parallel."""
 
     commands_display = " ".join([f"<< {c} >>" for c in commands])
     rich_print(f"{RICH_INFO_MARKER} work with {RICH_COMMAND_MARKER}{commands_display}")

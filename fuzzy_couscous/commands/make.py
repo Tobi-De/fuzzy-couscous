@@ -28,7 +28,8 @@ def make_project(
         "Tobi-De/fuzzy-couscous",
         "-r",
         "--repo",
-        help="The github repository to pull the template from.",
+        help="The github repository to pull the template from. The format to use is `username/repo`",
+        formats=["username/repo"],
     ),
     branch: Branch = typer.Option(
         "main", "-b", "--branch", help="The github branch to use."

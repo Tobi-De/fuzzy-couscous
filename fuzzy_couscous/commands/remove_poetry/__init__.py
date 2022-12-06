@@ -44,7 +44,10 @@ def remove_poetry(
         "", callback=get_current_dir_as_project_name, hidden=True
     ),
 ) -> None:
-    """Remove poetry as a dependency of your project."""
+    """
+    Run this command to remove poetry as a dependency from your project, it updates your pyproject.toml file
+    to use HATCH as the build-system and can optionally create a virtual environment using virtualenv.
+    """
 
     old_config, error_message = is_valid_poetry_project(pyproject_file)
 

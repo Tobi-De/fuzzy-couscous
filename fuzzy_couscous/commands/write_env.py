@@ -15,7 +15,11 @@ __all__ = ["write_env_file"]
 
 def write_env_file(
     fill_missing: bool = typer.Option(
-        False, "-f", "--fill-missing", help="Fill missing values.", is_flag=True
+        False,
+        "-f",
+        "--fill-missing",
+        help="Prompt to fill missing values.",
+        is_flag=True,
     ),
     output_file: Path = typer.Option(
         ".env", "-o", "--output-file", help="The output file path.", dir_okay=False
