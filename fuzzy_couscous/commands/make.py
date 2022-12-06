@@ -1,3 +1,4 @@
+import secrets
 import shutil
 import subprocess
 from enum import Enum
@@ -65,7 +66,9 @@ def make_project(
 
     # since the root dir and the real project dir have the same name, rename the root to avoid conflict
     project_root_dir = Path(project_name)
-    project_root_dir = project_root_dir.rename(str(f"_root_{project_root_dir}"))
+    project_root_dir = project_root_dir.rename(
+        str(f"_{secrets.token_urlsafe(5)}_{project_root_dir}")
+    )
 
     # move the real project dir to the current working directory
     project_dir = project_root_dir / "templates" / project_name
