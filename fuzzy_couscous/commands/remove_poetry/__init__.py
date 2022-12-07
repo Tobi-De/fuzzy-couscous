@@ -24,8 +24,6 @@ from .utils import get_message_for_optional_deps
 from .utils import get_poe_message_for_compile_task
 from .utils import get_updated_poe_tasks
 from .utils import is_valid_poetry_project
-from .utils import remove_empty_top_level_table
-from .utils import sort_config
 from .virtualenv_ import new_virtualenv
 
 __all__ = ["remove_poetry"]
@@ -91,8 +89,6 @@ def remove_poetry(
 
     msg += get_message_for_optional_deps(new_config)
 
-    remove_empty_top_level_table(new_config)
-    new_config = sort_config(new_config)
     write_toml(pyproject_file, new_config)
 
     rich_print(msg)
@@ -115,8 +111,6 @@ def remove_poetry(
         deep_set(new_config, "tool.poe.tasks", poe_tasks)
         msg += get_poe_message_for_compile_task()
 
-    remove_empty_top_level_table(new_config)
-    new_config = sort_config(new_config)
     write_toml(pyproject_file, new_config)
 
     # a note on using pip-sync

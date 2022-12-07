@@ -63,7 +63,8 @@ $ cuzzy make [OPTIONS] PROJECT_NAME
 ```
 
 !!! Info
-    Update the **authors** key in the `pyproject.toml` file in the `[tool.poetry]` section.
+    The **authors** key of the `[tool.poetry]` section in the `pyproject.toml` is set using your git global user configuration.
+    If you haven't set it yet, [see this page](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup#_your_identity).
 
 **Arguments**:
 
@@ -86,6 +87,9 @@ you can use it to manage your dependencies.
 If you are familiar with hatch, you can easily complete the hatch configurations from the generated `pyproject.toml` file
 and use it instead of virtualenv to manage your project.
 
+!!! Info
+    The virtualenv is created using your global python interpreter.
+
 !!! Warning
     Be sure to commit your changes before running this command, that way you can undo the changes if something goes
     wrong or if you simply change your mind
@@ -93,7 +97,7 @@ and use it instead of virtualenv to manage your project.
 **Usage**:
 
 ```console
-$ cuzzy remove-poetry [OPTIONS] [PYPROJECT_FILE] [PROJECT_NAME]
+$ cuzzy remove-poetry [OPTIONS]
 ```
 
 **Options**:
@@ -105,10 +109,18 @@ $ cuzzy remove-poetry [OPTIONS] [PYPROJECT_FILE] [PROJECT_NAME]
 
 Run multiple commands in parallel. When working with tailwind, I usually have to run the django `runserver` command and
 the tailwind `compile` command, so I made this to run both in one command. This command use the python [subprocess](https://docs.python.org/3/library/subprocess.html) module to
-run the commands in the same shell. By default it will try to run the two commands below:
+run the commands in the same shell. If you don't provide the commands via the `--command` option it will try to read them
+from your `pyproject.toml` file.
 
-- `poe r`: run the django development server
-- `poe t`: Compile tailwind in watch mode, available if you create your project using the `tailwind` branch
+!!! Example
+    somewhere in your `pyproject.toml` file
+    ```toml
+    [tool.cuzzy]
+    work = ["python manage.py runserver", "python manage.py run_worker"]
+    ```
+
+!!! Note
+    By the way if you have a better option to do this instead of using the python subprocess module, please [open an issue](https://github.com/Tobi-De/fuzzy-couscous/issues/new)
 
 **Usage**:
 
@@ -139,11 +151,12 @@ The order defines the priority of the values that are used, which means that the
 **Usage**:
 
 ```console
-$ cuzzy write-env [OPTIONS] [PROJECT_NAME]
+$ cuzzy write-env [OPTIONS]
 ```
 
 **Options**:
 
 * `-f, --fill-missing`: Prompt to fill missing values.  [default: False]
 * `-o, --output-file FILE`: The output file path.  [default: .env]
+* `-p, --postgres-pass`: Prompt for the postgres password to use to build the `DATABASE_URL`.
 * `--help`: Show the help message and exit.
