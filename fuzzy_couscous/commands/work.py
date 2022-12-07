@@ -44,7 +44,7 @@ def work(
                 commands.remove(c)
                 commands.append(f"{venv_directory}/bin/python {script}")
 
-    commands_display = " ".join([f"<< {c} >>" for c in commands])
+    commands_display = ", ".join(commands)
 
     msg += f"{RICH_INFO_MARKER} work with {RICH_COMMAND_MARKER}{commands_display}"
 
