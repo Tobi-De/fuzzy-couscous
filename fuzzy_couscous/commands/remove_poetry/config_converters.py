@@ -37,7 +37,7 @@ def convert_project_details(config: dict, default_project_name: str) -> dict:
 def convert_python_requirement(config: dict) -> str:
     poetry_deps = deep_get(config, "tool.poetry.dependencies")
     constraint = poetry_deps.pop("python")
-    return convert_dependency_specification("python", constraint)
+    return convert_dependency_specification("python", constraint).replace("python", "")
 
 
 def convert_authors(config: dict) -> list:
@@ -51,7 +51,15 @@ def convert_authors(config: dict) -> list:
     ]
 
 
-def convert_dependency_specification(package: str, constraint: str) -> str:
+def convert_dependency_specification(package: str, constraint: str | dict) -> str:
+    # todo: refactor
+    if isinstance(constraint, dict):
+        extras: list[str] = constraint.get("extras")
+        extras_str = ",".join(extras)
+        package = f"{package}[{extras_str}]"
+
+        constraint = constraint.get("version")
+
     version = constraint.replace("^", "").replace("~", "")
     if constraint.startswith("^"):
         return f"{package}>={version}"

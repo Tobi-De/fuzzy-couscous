@@ -24,6 +24,15 @@ def write_env_file(
     output_file: Path = typer.Option(
         ".env", "-o", "--output-file", help="The output file path.", dir_okay=False
     ),
+    postgres_pass: str = typer.Option(
+        "",
+        "-p",
+        "--postgres-pass",
+        prompt=True,
+        prompt_required=False,
+        hide_input=True,
+        help="Prompt for the postgres password to use to build the DATABASE_URL.",
+    ),
     project_name: str = typer.Argument(
         "", callback=get_current_dir_as_project_name, hidden=True
     ),
@@ -38,6 +47,10 @@ def write_env_file(
         "DJANGO_SUPERUSER_EMAIL": "",
         "DJANGO_SUPERUSER_PASSWORD": "",
     }
+    if postgres_pass:
+        default_values[
+            "DATABASE_URL"
+        ] = f"postgres://postgres:{postgres_pass}@localhost/{project_name}"
 
     config = {
         **dotenv_values(".env.template"),
