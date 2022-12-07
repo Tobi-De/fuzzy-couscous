@@ -25,12 +25,15 @@ __all__ = ["make_project"]
 
 def _get_user_git_infos() -> tuple[str, str] | None:
     git_config_cmd = ["git", "config", "--global", "--get"]
-    user_name_cmd = subprocess.run(
-        git_config_cmd + ["user.name"], capture_output=True, text=True
-    )
-    user_email_cmd = subprocess.run(
-        git_config_cmd + ["user.email"], capture_output=True, text=True
-    )
+    try:
+        user_name_cmd = subprocess.run(
+            git_config_cmd + ["user.name"], capture_output=True, text=True
+        )
+        user_email_cmd = subprocess.run(
+            git_config_cmd + ["user.email"], capture_output=True, text=True
+        )
+    except FileNotFoundError:
+        return None
     if user_email_cmd.returncode != 0 or user_email_cmd.returncode != 0:
         return None
     return (
