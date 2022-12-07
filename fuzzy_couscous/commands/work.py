@@ -4,9 +4,12 @@ import subprocess
 from pathlib import Path
 
 import typer
+from dict_deep import deep_get
 from rich import print as rich_print
 
+from ..utils import read_toml
 from ..utils import RICH_COMMAND_MARKER
+from ..utils import RICH_ERROR_MARKER
 from ..utils import RICH_INFO_MARKER
 
 __all__ = ["work"]
@@ -19,15 +22,38 @@ def __get_venv_directory() -> str | None:
             return p
 
 
+def _get_commands_from_user_pyproject(file: Path) -> list:
+    try:
+        config = read_toml(file)
+    except FileNotFoundError:
+        return []
+    commands = deep_get(config, "tool.cuzzy.work") or []
+    return commands if isinstance(commands, list) else []
+
+
 def work(
     commands: list[str] = typer.Option(
-        ["poe r", "poe t"],
+        list,
         "-c",
         "--command",
         help="The command to run.",
-    )
+    ),
+    pyproject_file: Path = typer.Option(Path("pyproject.toml"), hidden=True),
 ):
     """Run multiple commands in parallel."""
+
+    if not commands:
+        commands = _get_commands_from_user_pyproject(pyproject_file)
+
+    if not commands:
+        rich_print(
+            f"{RICH_ERROR_MARKER} provide commands via the cli option or via your pyproject.toml file. "
+            f"{RICH_INFO_MARKER}\ncuzzy work -c 'command 1' -c 'command 2'\n"
+            f"OR\n"
+            f"\[tool.cuzzy]\n"
+            f"work = ['command 1', 'command 2']"
+        )
+        raise typer.Abort()
 
     venv_directory = __get_venv_directory()
 

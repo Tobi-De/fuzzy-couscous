@@ -7,7 +7,7 @@ from typer.testing import CliRunner
 
 runner = CliRunner()
 
-PYPROJECT_CONFIG = """
+PYPROJECT_FILE = """
 [tool.poetry]
 name = "couscous"
 version = "0.1.0"
@@ -36,7 +36,7 @@ line-length = 120
 
 def test_remove_poetry(tmp_path: Path, monkeypatch):
     pyproject_toml = tmp_path / "pyproject.toml"
-    pyproject_toml.write_text(PYPROJECT_CONFIG)
+    pyproject_toml.write_text(PYPROJECT_FILE)
     result = runner.invoke(cli, ["remove-poetry"])
 
     assert "SUCCESS" in result.output
