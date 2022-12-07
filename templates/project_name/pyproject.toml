@@ -58,6 +58,9 @@ t = { cmd = "tailwindcss -i {{ project_name }}/static/css/input.css -o {{ projec
 pu = { cmd = "poetryup --latest --skip-exact", help = "Upgrade all your dependencies to their latest versions, pin versions in pyproject.toml file" }
 RD = ["rd", "cm", "mk", "m"] # Reset your database, delete all migrations files, make news migrations for all apps, apply all migrations
 
+[tool.cuzzy]
+work = ["poe r", "poe t"]
+
 # "https://github.com/charliermarsh/ruff"
 [tool.ruff]
 line-length = 120
