@@ -15,6 +15,7 @@ from rich.progress import TextColumn
 
 from ..utils import clean_project_name
 from ..utils import read_toml
+from ..utils import RICH_ERROR_MARKER
 from ..utils import RICH_INFO_MARKER
 from ..utils import RICH_SUCCESS_MARKER
 from ..utils import write_toml
@@ -65,7 +66,12 @@ def make_project(
 ):
     """Initialize a new django project."""
 
-    # todo check if a directory with the same name already exists in the current working directory
+    if Path(project_name).exists():
+        rich_print(
+            f"{RICH_ERROR_MARKER} A directory with the name {project_name} already exists in the current directory "
+            f":disappointed_face:"
+        )
+        raise typer.Abort()
 
     with Progress(
         SpinnerColumn(),
@@ -120,7 +126,7 @@ def make_project(
             new_project_dir / "pyproject.toml", name=name, email=email
         )
         msg += (
-            f"\n{RICH_INFO_MARKER} A git global user config was found and use to updated the author in your "
+            f"\n{RICH_INFO_MARKER} A git global user configuration was found and used to update the authors in your "
             f"pyproject.toml file."
         )
 
