@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from copy import deepcopy
 from pathlib import Path
 
 from dict_deep import deep_get
@@ -41,18 +40,6 @@ def get_poe_message_for_compile_task() -> str:
     )
 
 
-def remove_empty_top_level_table(config: dict) -> None:
-    # removing values from a dictionary while iterating through it is not a good idea, hence this copy
-    config_copy = deepcopy(config)
-    for key, value in config_copy.items():
-        if not value:
-            config.pop(key)
-
-
-def sort_config(config: dict) -> dict:
-    return dict(sorted(config.items()))
-
-
 def is_valid_poetry_project(pyproject_file: Path) -> tuple[dict, str | None]:
     if not pyproject_file.exists():
         return (
@@ -76,7 +63,7 @@ def get_message_for_optional_deps(config: dict) -> str:
         return (
             f"\n{RICH_INFO_MARKER} Your project defines optional dependencies, to generate a requirements.txt file "
             f"that includes the dependencies of a group, add a "
-            f"{RICH_COMMAND_MARKER}--extra <group_name>{RICH_COMMAND_MARKER_END} option to the pip-compile command"
+            f"{RICH_COMMAND_MARKER}--extra group_name{RICH_COMMAND_MARKER_END} option to the pip-compile command"
         )
 
 

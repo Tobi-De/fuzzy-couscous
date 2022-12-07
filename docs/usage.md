@@ -63,7 +63,8 @@ $ cuzzy make [OPTIONS] PROJECT_NAME
 ```
 
 !!! Info
-    Update the **authors** key in the `pyproject.toml` file in the `[tool.poetry]` section.
+    The **authors** key of the `[tool.poetry]` section in the `pyproject.toml` is set using your git global user configuration.
+    If you haven't set it yet, [see this page](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup#_your_identity).
 
 **Arguments**:
 

@@ -1,3 +1,4 @@
+from copy import deepcopy
 from pathlib import Path
 
 import tomli
@@ -24,4 +25,18 @@ def read_toml(file: Path) -> dict:
 
 
 def write_toml(file: Path, data: dict) -> None:
-    file.write_text(tomli_w.dumps(data))
+    remove_empty_top_level_table(data)
+    sorted_data = sort_config(data)
+    file.write_text(tomli_w.dumps(sorted_data))
+
+
+def sort_config(config: dict) -> dict:
+    return dict(sorted(config.items()))
+
+
+def remove_empty_top_level_table(config: dict) -> None:
+    # removing values from a dictionary while iterating through it is not a good idea, hence this copy
+    config_copy = deepcopy(config)
+    for key, value in config_copy.items():
+        if not value:
+            config.pop(key)
