@@ -115,7 +115,7 @@ def remove_poetry(
         progress.add_task(
             description="Compiling requirements.txt... :boom:", total=None
         )
-        dev_group = deep_get(new_config, "tool.optional-dependencies.dev")
+        dev_group = deep_get(new_config, "project.optional-dependencies.dev")
         groups = ["dev"] if dev_group else []
         compile_requirements(groups=groups)
 
