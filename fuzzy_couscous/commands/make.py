@@ -24,7 +24,7 @@ __all__ = ["make_project"]
 
 try:
     from enum import StrEnum
-except ModuleNotFoundError:
+except ImportError:
 
     class StrEnum(str, Enum):
         pass
