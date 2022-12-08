@@ -5,6 +5,7 @@ from pathlib import Path
 
 import typer
 from dict_deep import deep_del
+from dict_deep import deep_get
 from dict_deep import deep_set
 from rich import print as rich_print
 from rich.progress import Progress
@@ -24,6 +25,8 @@ from .utils import get_message_for_optional_deps
 from .utils import get_poe_message_for_compile_task
 from .utils import get_updated_poe_tasks
 from .utils import is_valid_poetry_project
+from .virtualenv_ import compile_requirements
+from .virtualenv_ import install_dependencies
 from .virtualenv_ import new_virtualenv
 
 __all__ = ["remove_poetry"]
@@ -104,7 +107,28 @@ def remove_poetry(
         progress.add_task(description="Creating virtualenv... :boom:", total=None)
         new_virtualenv()
 
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        transient=True,
+    ) as progress:
+        progress.add_task(
+            description="Compiling requirements.txt... :boom:", total=None
+        )
+        dev_group = deep_get(new_config, "tool.optional-dependencies.dev")
+        groups = ["dev"] if dev_group else []
+        compile_requirements(groups=groups)
+
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        transient=True,
+    ) as progress:
+        progress.add_task(description="Installing dependencies... :boom:", total=None)
+        install_dependencies()
+
     msg = get_message_for_new_virtualenv()
+    msg += f"\n{RICH_INFO_MARKER} For the first run, we have already compiled and installed the dependencies for you."
 
     poe_tasks = get_updated_poe_tasks(new_config)
     if poe_tasks:
