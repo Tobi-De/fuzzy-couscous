@@ -23,6 +23,6 @@ repos:
           - "--application-directories=fuzzy-couscous"
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.161
+    rev: v0.0.169
     hooks:
       - id: ruff

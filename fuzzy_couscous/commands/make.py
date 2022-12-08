@@ -22,6 +22,19 @@ from ..utils import write_toml
 
 __all__ = ["make_project"]
 
+try:
+    from enum import StrEnum
+except ModuleNotFoundError:
+
+    class StrEnum(str, Enum):
+        pass
+
+
+class Branch(StrEnum):
+    main = "main"
+    tailwind = "tailwind"
+    bootstrap = "bootstrap"
+
 
 def _get_user_git_infos() -> tuple[str, str] | None:
     git_config_cmd = ["git", "config", "--global", "--get"]
@@ -46,12 +59,6 @@ def _set_authors_in_pyproject(file: Path, name: str, email: str) -> None:
     config = read_toml(file)
     deep_set(config, "tool.poetry.authors", [f"{name} <{email}>"])
     write_toml(file, config)
-
-
-class Branch(str, Enum):
-    main = "main"
-    tailwind = "tailwind"
-    bootstrap = "bootstrap"
 
 
 def make_project(
