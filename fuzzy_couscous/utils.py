@@ -10,6 +10,11 @@ RICH_INFO_MARKER = "[blue]INFO:"
 RICH_COMMAND_MARKER = "[yellow]"
 RICH_COMMAND_MARKER_END = "[/yellow]"
 
+try:
+    import tomllib
+except ModuleNotFoundError:
+    import tomli as tomllib  # noqa
+
 
 def clean_project_name(val: str) -> str:
     return val.strip().replace(" ", "_").replace("-", "_")

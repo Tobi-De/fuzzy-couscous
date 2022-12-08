@@ -74,7 +74,7 @@ def get_message_for_new_virtualenv() -> str:
     )
     msg += (
         f"\n{RICH_INFO_MARKER} To install your dependencies you need to generated a "
-        f"requirements.txt file with "
+        f"requirements.txt file with \n"
         f"{RICH_COMMAND_MARKER}pip-compile -o requirements.txt pyproject.toml --resolver=backtracking"
     )
     return msg

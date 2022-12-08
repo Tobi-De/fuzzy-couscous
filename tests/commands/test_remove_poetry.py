@@ -22,6 +22,9 @@ python = "^3.11"
 Django = "^4.1.3"
 django-environ = "^0.9.0"
 django-anymail = {extras = ["amazon-ses"], version = "^8.6"}
+django-improved-user = "2.0a2"
+
+whitenoise = { extras = ["brotli"], version = "^6.2.0" }
 
 [tool.poetry.group.dev.dependencies]
 django-browser-reload = "^1.6.0"
@@ -43,6 +46,8 @@ def test_remove_poetry(tmp_path: Path, monkeypatch):
 
     pyproject_config = read_toml(tmp_path / pyproject_toml)
 
+    deps = deep_get(pyproject_config, "project.dependencies")
+
     assert deep_get(pyproject_config, "tool.poetry") is None
     assert deep_get(pyproject_config, "build-system.build-backend") == "hatchling.build"
     assert deep_get(pyproject_config, "project.name") == "couscous"
@@ -53,3 +58,5 @@ def test_remove_poetry(tmp_path: Path, monkeypatch):
         deep_get(pyproject_config, "project.authors")[0]["email"]
         == "tobidegnon@proton.me"
     )
+    assert "Django" in deps
+    assert "django-improved-user==2.0a2" in deps

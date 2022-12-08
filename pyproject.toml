@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "fuzzy-couscous"
-version = "2.3.0"
-description = "Generate a django project from the fuzzy-couscous template."
+version = "2.4.5"
+description = "A cli tool to bootstrap your django projects and enhance your development experience."
 authors = ["Tobi-De <tobidegnon@proton.me>"]
 license = "MIT"
 readme = "README.md"
@@ -24,13 +24,13 @@ classifiers = [
     "Intended Audience :: Developers",
     "Natural Language :: English",
 ]
-exclude = ["templates"]
+exclude = ["templates", "assets"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
 python-dotenv = "^0.21.0"
 dict-deep = "^4.1.2"
-tomli = "^2.0.1"
+tomli = { version = "^2.0.1", markers = "python_version < '3.11'" }
 tomli-w = "^1.0.0"
 typer = "^0.7.0"
 rich = "^12.6.0"
