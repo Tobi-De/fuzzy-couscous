@@ -13,7 +13,7 @@ My highly opinionated django project template based on [django's startproject --
 This project is heavily inspired by [cookiecutter-django](https://github.com/cookiecutter/cookiecutter-django) but is meant to be a lighter version.
 This template also comes with a cli tool with [additional commands](https://tobi-de.github.io/fuzzy-couscous/usage/#cuzzy) to hopefully improve your django development experience.
 
-![showcase gif](https://res.cloudinary.com/dgugjkmqg/image/upload/v1670524579/cuzzy_demo_qr4lc6.gif)
+![showcase gif](https://github.com/Tobi-De/testrepo/blob/main/cuzzy_demo.gif?raw=true)
 
 ## Features
 
