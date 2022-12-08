@@ -24,7 +24,7 @@ classifiers = [
     "Intended Audience :: Developers",
     "Natural Language :: English",
 ]
-exclude = ["templates"]
+exclude = ["templates", "assets"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
