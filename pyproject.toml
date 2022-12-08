@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "fuzzy-couscous"
-version = "2.3.0"
-description = "Generate a django project from the fuzzy-couscous template."
+version = "2.4.0"
+description = "A cli tool to bootstrap your django projects and enhance your development experience."
 authors = ["Tobi-De <tobidegnon@proton.me>"]
 license = "MIT"
 readme = "README.md"

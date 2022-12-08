@@ -66,6 +66,13 @@ def make_project(
     branch: Branch = typer.Option(
         "main", "-b", "--branch", help="The github branch to use."
     ),
+    skip_deps_install: bool = typer.Option(
+        False,
+        "-s",
+        "--skip-install",
+        flag_value=True,
+        help="Skip dependencies installation",
+    ),
 ):
     """Initialize a new django project."""
 
@@ -132,5 +139,21 @@ def make_project(
             f"\n{RICH_INFO_MARKER} A git global user configuration was found and used to update the authors in your "
             f"pyproject.toml file."
         )
+
+    if not skip_deps_install:
+        with Progress(
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            transient=True,
+        ) as progress:
+            progress.add_task(
+                description="Installing dependencies... :boom:", total=None
+            )
+            subprocess.call(
+                ["poetry install --with dev"],
+                cwd=new_project_dir,
+                stdout=subprocess.DEVNULL,
+                shell=True,
+            )
 
     rich_print(msg)
