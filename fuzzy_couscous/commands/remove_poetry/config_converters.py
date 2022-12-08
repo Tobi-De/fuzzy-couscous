@@ -70,10 +70,15 @@ def convert_dependency_specification(package: str, constraint: str | dict) -> st
 
 def convert_project_dependencies(config: dict) -> list:
     poetry_deps = deep_get(config, "tool.poetry.dependencies")
-    return [
-        convert_dependency_specification(package, constraint)
-        for package, constraint in poetry_deps.items()
-    ]
+    deps = list(poetry_deps)
+    # django-improved-user is a special case here, we need to fix it version at 2.0a2
+    try:
+        improved_user_index = deps.index("django-improved-user")
+    except ValueError:
+        return deps
+    deps.remove("django-improved-user")
+    deps.insert(improved_user_index, "django-improved-user==2.0a2")
+    return deps
 
 
 def convert_optional_dependencies(config: dict) -> dict:
@@ -84,17 +89,11 @@ def convert_optional_dependencies(config: dict) -> dict:
         dev_deps = deep_get(config, "tool.poetry.dev-dependencies")
 
     if dev_deps:
-        groups["dev"] = [
-            convert_dependency_specification(package, constraint)
-            for package, constraint in dev_deps.items()
-        ]
+        groups["dev"] = list(dev_deps)
 
     poetry_deps_groups = deep_get(config, "tool.poetry.group")
     for group in poetry_deps_groups:
         group_deps = poetry_deps_groups.get(group).get("dependencies")
-        groups[group] = [
-            convert_dependency_specification(package, constraint)
-            for package, constraint in group_deps.items()
-        ]
+        groups[group] = list(group_deps)
 
     return groups

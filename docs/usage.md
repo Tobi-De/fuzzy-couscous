@@ -74,6 +74,7 @@ $ cuzzy make [OPTIONS] PROJECT_NAME
 
 * `-r, --repo TEXT`: The github repository to pull the template from. The format to use is `username/repo`  [default: Tobi-De/fuzzy-couscous]
 * `-b, --branch [main|tailwind|bootstrap]`: The github branch to use.  [default: main]
+* `-s, --skip-install`: Skip dependencies installation. [default: False]
 * `--help`: Show the help message and exit.
 
 ## `cuzzy remove-poetry`

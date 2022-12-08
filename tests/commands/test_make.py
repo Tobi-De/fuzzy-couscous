@@ -17,7 +17,7 @@ basic_files_and_folder = [
 
 
 def test_make(tmp_path):
-    result = runner.invoke(cli, ["make", "couscous"])
+    result = runner.invoke(cli, ["make", "couscous", "-s"])
     project_path = tmp_path / "couscous"
 
     assert "SUCCESS" in result.stdout
@@ -26,7 +26,7 @@ def test_make(tmp_path):
 
 
 def test_make_tailwind(tmp_path: Path):
-    result = runner.invoke(cli, ["make", "couscous", "-b", "tailwind"])
+    result = runner.invoke(cli, ["make", "couscous", "-b", "tailwind", "-s"])
     project_path = tmp_path / "couscous"
     toml_config = read_toml(project_path / "pyproject.toml")
     deps = deep_get(toml_config, "tool.poetry.dependencies")
@@ -40,7 +40,7 @@ def test_make_tailwind(tmp_path: Path):
 
 
 def test_make_bootstrap(tmp_path: Path):
-    result = runner.invoke(cli, ["make", "couscous", "-b", "bootstrap"])
+    result = runner.invoke(cli, ["make", "couscous", "-b", "bootstrap", "-s"])
     project_path = tmp_path / "couscous"
     toml_config = read_toml(project_path / "pyproject.toml")
     deps = deep_get(toml_config, "tool.poetry.dependencies")
