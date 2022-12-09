@@ -20,9 +20,6 @@ from ...utils import RICH_ERROR_MARKER
 from ...utils import RICH_INFO_MARKER
 from ...utils import RICH_SUCCESS_MARKER
 from ...utils import write_toml
-from .utils import get_message_for_new_virtualenv
-from .utils import get_message_for_optional_deps
-from .utils import get_poe_message_for_compile_task
 from .utils import get_updated_poe_tasks
 from .utils import is_valid_poetry_project
 from .virtualenv_ import compile_requirements
@@ -90,8 +87,6 @@ def remove_poetry(
         f"check the updated pyproject.toml to see what has changed."
     )
 
-    msg += get_message_for_optional_deps(new_config)
-
     write_toml(pyproject_file, new_config)
 
     rich_print(msg)
@@ -127,13 +122,36 @@ def remove_poetry(
         progress.add_task(description="Installing dependencies... :boom:", total=None)
         install_dependencies()
 
-    msg = get_message_for_new_virtualenv()
+    msg = (
+        f"{RICH_INFO_MARKER} A new environment has been created using virtualenv, "
+        f"you activate it with the command {RICH_COMMAND_MARKER}source venv/bin/activate"
+    )
+    msg += (
+        f"\n{RICH_INFO_MARKER} To install your dependencies you need to generated a "
+        f"requirements.txt file with \n"
+        f"{RICH_COMMAND_MARKER}pip-compile -o requirements.txt pyproject.toml --resolver=backtracking"
+    )
+
+    at_least_one_group_defined = bool(
+        deep_get(new_config, "project.optional-dependencies")
+    )
+
+    if at_least_one_group_defined:
+        msg += (
+            f"\n{RICH_INFO_MARKER} Your project defines optional dependencies, to generate a requirements.txt file "
+            f"that includes the dependencies of a group, add a "
+            f"{RICH_COMMAND_MARKER}--extra group_name{RICH_COMMAND_MARKER_END} option to the pip-compile command"
+        )
+
     msg += f"\n{RICH_INFO_MARKER} For the first run, we have already compiled and installed the dependencies for you."
 
     poe_tasks = get_updated_poe_tasks(new_config)
     if poe_tasks:
         deep_set(new_config, "tool.poe.tasks", poe_tasks)
-        msg += get_poe_message_for_compile_task()
+        msg += (
+            f"\n{RICH_INFO_MARKER} poethepoet was found in your pyproject.toml file, a task to generate the "
+            f"requirements.txt file was added, run it with {RICH_COMMAND_MARKER} poe d"
+        )
 
     write_toml(pyproject_file, new_config)
 
