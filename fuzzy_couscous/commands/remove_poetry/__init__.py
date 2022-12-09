@@ -64,6 +64,9 @@ def remove_poetry(
     )
     new_config.update({"project": project_details})
 
+    project_urls = config_converters.convert_project_urls(new_config)
+    deep_set(new_config, "project.urls", project_urls)
+
     python_requirement = config_converters.convert_python_requirement(new_config)
     deep_set(new_config, "project.requires-python", python_requirement)
 

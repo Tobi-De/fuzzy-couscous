@@ -34,6 +34,16 @@ def convert_project_details(config: dict, default_project_name: str) -> dict:
     return project
 
 
+def convert_project_urls(config: dict) -> dict:
+    keys = ["homepage", "repository", "documentation"]
+    urls = {}
+    for key in keys:
+        value = deep_get(config, f"tool.poetry.{key}")
+        if value:
+            urls[key.title()] = value
+    return urls
+
+
 def convert_python_requirement(config: dict) -> str:
     poetry_deps = deep_get(config, "tool.poetry.dependencies")
     constraint = poetry_deps.pop("python")

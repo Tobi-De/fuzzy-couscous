@@ -13,6 +13,9 @@ name = "couscous"
 version = "0.1.0"
 description = ""
 authors = ["Tobi-De <tobidegnon@proton.me>"]
+repository = "https://github.com/Tobi-De/couscous"
+homepage = "https://tobi-de.github.io/couscous/"
+documentation = "https://tobi-de.github.io/couscous"
 license = ""
 readme = "README.md"
 packages = [{ include = "mark" }]
@@ -60,3 +63,11 @@ def test_remove_poetry(tmp_path: Path, monkeypatch):
     )
     assert "Django" in deps
     assert "django-improved-user==2.0a2" in deps
+
+    projects_url = deep_get(pyproject_config, "project.urls")
+
+    assert projects_url == {
+        "Repository": "https://github.com/Tobi-De/couscous",
+        "Homepage": "https://tobi-de.github.io/couscous/",
+        "Documentation": "https://tobi-de.github.io/couscous",
+    }
