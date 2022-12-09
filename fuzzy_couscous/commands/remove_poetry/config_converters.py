@@ -25,7 +25,13 @@ def convert_project_details(config: dict, default_project_name: str) -> dict:
         "version": too_poetry.get("version", "0.1.0"),
     }
 
-    optional_same_type_keys = ["description", "license", "classifiers", "keywords"]
+    optional_same_type_keys = [
+        "description",
+        "readme",
+        "license",
+        "classifiers",
+        "keywords",
+    ]
     for key in optional_same_type_keys:
         value = too_poetry.get(key)
         if value:
