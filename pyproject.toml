@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fuzzy-couscous"
-version = "2.4.6"
+version = "2.4.7"
 description = "A cli tool to bootstrap your django projects and enhance your development experience."
 authors = ["Tobi-De <tobidegnon@proton.me>"]
 license = "MIT"
@@ -24,7 +24,7 @@ classifiers = [
     "Intended Audience :: Developers",
     "Natural Language :: English",
 ]
-exclude = ["templates", "assets"]
+exclude = ["templates", "docs"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -68,7 +68,8 @@ select = [
 ]
 extend-exclude = [
     "templates/*",
-    "tests/*"
+    "tests/*",
+    "docs/*"
 ]
 ignore = ["B008"]
 
