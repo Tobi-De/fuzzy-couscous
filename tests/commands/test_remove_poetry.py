@@ -33,6 +33,10 @@ whitenoise = { extras = ["brotli"], version = "^6.2.0" }
 django-browser-reload = "^1.6.0"
 django-debug-toolbar = "^3.7.0"
 
+[tool.poetry.scripts]
+fuzzy-couscous = "fuzzy_couscous.main:cli"
+cuzzy = "fuzzy_couscous.main:cli"
+
 [tool.poe.tasks]
 r = { cmd = "python manage.py runserver --nostatic", help = "Start dev serve" }
 
@@ -70,4 +74,10 @@ def test_remove_poetry(tmp_path: Path, monkeypatch):
         "Repository": "https://github.com/Tobi-De/couscous",
         "Homepage": "https://tobi-de.github.io/couscous/",
         "Documentation": "https://tobi-de.github.io/couscous",
+    }
+
+    scripts = deep_get(pyproject_config, "project.scripts")
+    assert scripts == {
+        "fuzzy-couscous": "fuzzy_couscous.main:cli",
+        "cuzzy": "fuzzy_couscous.main:cli",
     }

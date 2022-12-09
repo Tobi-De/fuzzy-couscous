@@ -50,6 +50,11 @@ def convert_project_urls(config: dict) -> dict:
     return urls
 
 
+def convert_project_scripts(config: dict) -> dict:
+    scripts = deep_get(config, "tool.poetry.scripts") or {}
+    return scripts
+
+
 def convert_python_requirement(config: dict) -> str:
     poetry_deps = deep_get(config, "tool.poetry.dependencies")
     constraint = poetry_deps.pop("python")
