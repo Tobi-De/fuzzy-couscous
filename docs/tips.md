@@ -93,6 +93,7 @@ Here is a list of available options.
 - [upptime](https://github.com/upptime/upptime)
 - [uptime-kuma](https://github.com/louislam/uptime-kuma)
 - [uptimerobot](https://uptimerobot.com/)
+- [better-uptime](https://betterstack.com/better-uptime)
 - [glitchtip](https://glitchtip.com/)
 
 Read more on the health check pattern [here](https://learn.microsoft.com/en-us/azure/architecture/patterns/health-endpoint-monitoring).

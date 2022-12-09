@@ -18,6 +18,10 @@ Some other options than **CapRover** are:
 - [AWS Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/) (hosted)
 - [Btn](https://btn.dev/) (hosted and not ready yet)
 
+!!! Info
+    I recently discovered [django-simple-deploy](https://github.com/ehmatthes/django-simple-deploy) which can configure your django project for some of the alternatives to
+    caprover I listed above.
+
 I find that self-hosted solutions are generally cheaper than managed/hosted solutions, but I don't have much experience with managed solutions,
 so I could be wrong, do your own research and if you can afford it, try them out to see what works best for you.
 

@@ -5,9 +5,6 @@ from pathlib import Path
 from dict_deep import deep_get
 
 from ...utils import read_toml
-from ...utils import RICH_COMMAND_MARKER
-from ...utils import RICH_COMMAND_MARKER_END
-from ...utils import RICH_INFO_MARKER
 
 
 def get_author_email_from(poetry_author: str) -> str:
@@ -33,13 +30,6 @@ def get_updated_poe_tasks(config: dict) -> dict:
     return poe_tasks
 
 
-def get_poe_message_for_compile_task() -> str:
-    return (
-        f"\n{RICH_INFO_MARKER} poethepoet was found in your pyproject.toml file, a task to generate the "
-        f"requirements.txt file was added, run it with {RICH_COMMAND_MARKER} poe d"
-    )
-
-
 def is_valid_poetry_project(pyproject_file: Path) -> tuple[dict, str | None]:
     if not pyproject_file.exists():
         return (
@@ -54,27 +44,3 @@ def is_valid_poetry_project(pyproject_file: Path) -> tuple[dict, str | None]:
         return {}, "It seems that this is not a poetry project :disappointed_face:"
 
     return config, None
-
-
-def get_message_for_optional_deps(config: dict) -> str:
-    at_least_one_group_defined = bool(deep_get(config, "project.optional-dependencies"))
-
-    if at_least_one_group_defined:
-        return (
-            f"\n{RICH_INFO_MARKER} Your project defines optional dependencies, to generate a requirements.txt file "
-            f"that includes the dependencies of a group, add a "
-            f"{RICH_COMMAND_MARKER}--extra group_name{RICH_COMMAND_MARKER_END} option to the pip-compile command"
-        )
-
-
-def get_message_for_new_virtualenv() -> str:
-    msg = (
-        f"{RICH_INFO_MARKER} A new environment has been created using virtualenv, "
-        f"you activate it with the command {RICH_COMMAND_MARKER}source venv/bin/activate"
-    )
-    msg += (
-        f"\n{RICH_INFO_MARKER} To install your dependencies you need to generated a "
-        f"requirements.txt file with \n"
-        f"{RICH_COMMAND_MARKER}pip-compile -o requirements.txt pyproject.toml --resolver=backtracking"
-    )
-    return msg
