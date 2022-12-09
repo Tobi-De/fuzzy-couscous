@@ -7,6 +7,7 @@ license = "MIT"
 readme = "README.md"
 repository = "https://github.com/Tobi-De/fuzzy-couscous"
 homepage = "https://tobi-de.github.io/fuzzy-couscous/"
+documentation = "https://tobi-de.github.io/fuzzy-couscous"
 keywords = ["django", "python", "cookiecutter", "project-template"]
 packages = [{ include = "fuzzy_couscous" }]
 classifiers = [
