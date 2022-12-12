@@ -1,12 +1,13 @@
 [tool.poetry]
 name = "fuzzy-couscous"
-version = "2.4.7"
+version = "2.4.13"
 description = "A cli tool to bootstrap your django projects and enhance your development experience."
 authors = ["Tobi-De <tobidegnon@proton.me>"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/Tobi-De/fuzzy-couscous"
 homepage = "https://tobi-de.github.io/fuzzy-couscous/"
+documentation = "https://tobi-de.github.io/fuzzy-couscous"
 keywords = ["django", "python", "cookiecutter", "project-template"]
 packages = [{ include = "fuzzy_couscous" }]
 classifiers = [
@@ -38,8 +39,10 @@ rich = "^12.6.0"
 [tool.poetry.group.dev.dependencies]
 ipython = "^8.7.0"
 pre-commit = "^2.20.0"
-pytest = "^7.2.0"
 poethepoet = "^0.16.5"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.2.0"
 
 [tool.poetry.group.docs]
 optional = true
@@ -53,6 +56,9 @@ mkdocs-include-markdown-plugin = "3.9.1"
 [tool.poetry.scripts]
 fuzzy-couscous = "fuzzy_couscous.main:cli"
 cuzzy = "fuzzy_couscous.main:cli"
+
+[tool.poe.tasks]
+t = "poetry export -f requirements.txt --output tests/requirements.txt --without-hashes --with test"
 
 [tool.ruff]
 line-length = 120

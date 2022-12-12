@@ -1,7 +1,6 @@
 from copy import deepcopy
 from pathlib import Path
 
-import tomli
 import tomli_w
 
 RICH_SUCCESS_MARKER = "[green]SUCCESS:"
@@ -13,7 +12,7 @@ RICH_COMMAND_MARKER_END = "[/yellow]"
 try:
     import tomllib
 except ModuleNotFoundError:
-    import tomli as tomllib  # noqa
+    import tomli as tomllib
 
 
 def clean_project_name(val: str) -> str:
@@ -26,7 +25,7 @@ def get_current_dir_as_project_name():
 
 
 def read_toml(file: Path) -> dict:
-    return tomli.loads(file.read_text())
+    return tomllib.loads(file.read_text())
 
 
 def write_toml(file: Path, data: dict) -> None:

@@ -2,32 +2,22 @@ import os
 from pathlib import Path
 
 import environ
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
-
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 APPS_DIR = BASE_DIR / "{{ project_name }}"
 
 env = environ.Env()
 environ.Env.read_env(BASE_DIR / ".env")
 
+DJANGO_ENV = env.str("DJANGO_ENV", "dev")
 SECRET_KEY = env("DJANGO_SECRET_KEY")
-
 DEBUG = env("DJANGO_DEBUG", default=False)
-
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
-
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 
 DJANGO_APPS = [
     "django.contrib.admin",
@@ -108,6 +98,7 @@ DATABASES = {
     "default": env.db("DATABASE_URL", default="postgres:///{{ project_name }}")
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
@@ -150,8 +141,10 @@ BOOTSTRAP5 = {
     "javascript_url": f"{STATIC_URL}vendors/bootstrap/js/bootstrap.bundle.min.js",
 }
 
-# production stuff
-if not DEBUG:
+if DJANGO_ENV == "production":
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+
     # Load cache from CACHE_URL or REDIS_URL
     if "CACHE_URL" in os.environ:
         CACHES = {"default": env.cache("CACHE_URL")}

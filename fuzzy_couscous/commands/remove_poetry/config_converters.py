@@ -25,13 +25,34 @@ def convert_project_details(config: dict, default_project_name: str) -> dict:
         "version": too_poetry.get("version", "0.1.0"),
     }
 
-    optional_same_type_keys = ["description", "license", "classifiers", "keywords"]
+    optional_same_type_keys = [
+        "description",
+        "readme",
+        "license",
+        "classifiers",
+        "keywords",
+    ]
     for key in optional_same_type_keys:
         value = too_poetry.get(key)
         if value:
             project[key] = value
 
     return project
+
+
+def convert_project_urls(config: dict) -> dict:
+    keys = ["homepage", "repository", "documentation"]
+    urls = {}
+    for key in keys:
+        value = deep_get(config, f"tool.poetry.{key}")
+        if value:
+            urls[key.title()] = value
+    return urls
+
+
+def convert_project_scripts(config: dict) -> dict:
+    scripts = deep_get(config, "tool.poetry.scripts") or {}
+    return scripts
 
 
 def convert_python_requirement(config: dict) -> str:

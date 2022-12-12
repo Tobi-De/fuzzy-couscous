@@ -13,6 +13,9 @@ name = "couscous"
 version = "0.1.0"
 description = ""
 authors = ["Tobi-De <tobidegnon@proton.me>"]
+repository = "https://github.com/Tobi-De/couscous"
+homepage = "https://tobi-de.github.io/couscous/"
+documentation = "https://tobi-de.github.io/couscous"
 license = ""
 readme = "README.md"
 packages = [{ include = "mark" }]
@@ -29,6 +32,10 @@ whitenoise = { extras = ["brotli"], version = "^6.2.0" }
 [tool.poetry.group.dev.dependencies]
 django-browser-reload = "^1.6.0"
 django-debug-toolbar = "^3.7.0"
+
+[tool.poetry.scripts]
+fuzzy-couscous = "fuzzy_couscous.main:cli"
+cuzzy = "fuzzy_couscous.main:cli"
 
 [tool.poe.tasks]
 r = { cmd = "python manage.py runserver --nostatic", help = "Start dev serve" }
@@ -60,3 +67,17 @@ def test_remove_poetry(tmp_path: Path, monkeypatch):
     )
     assert "Django" in deps
     assert "django-improved-user==2.0a2" in deps
+
+    projects_url = deep_get(pyproject_config, "project.urls")
+
+    assert projects_url == {
+        "Repository": "https://github.com/Tobi-De/couscous",
+        "Homepage": "https://tobi-de.github.io/couscous/",
+        "Documentation": "https://tobi-de.github.io/couscous",
+    }
+
+    scripts = deep_get(pyproject_config, "project.scripts")
+    assert scripts == {
+        "fuzzy-couscous": "fuzzy_couscous.main:cli",
+        "cuzzy": "fuzzy_couscous.main:cli",
+    }
