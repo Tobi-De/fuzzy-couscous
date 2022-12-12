@@ -1,6 +1,7 @@
 from copy import deepcopy
 from pathlib import Path
 
+import httpx
 import tomli_w
 
 RICH_SUCCESS_MARKER = "[green]SUCCESS:"
@@ -44,3 +45,10 @@ def remove_empty_top_level_table(config: dict) -> None:
     for key, value in config_copy.items():
         if not value:
             config.pop(key)
+
+
+def download_archive(url: str, dest: Path) -> None:
+    with httpx.stream("GET", url, follow_redirects=True) as response:
+        with open(dest, "wb") as archive_file:
+            for chunk in response.iter_bytes():
+                archive_file.write(chunk)
