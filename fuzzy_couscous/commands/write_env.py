@@ -35,6 +35,7 @@ def write_env_file(
         hide_input=True,
         help="Prompt for the postgres password to use to build the DATABASE_URL.",
     ),
+    # fixme change this db_name, probably also need to ask to user
     project_name: str = typer.Argument(
         "", callback=get_current_dir_as_project_name, hidden=True
     ),
