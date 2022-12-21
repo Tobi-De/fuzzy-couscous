@@ -133,7 +133,7 @@ def remove_poetry(
         f"you activate it with the command {RICH_COMMAND_MARKER}source venv/bin/activate"
     )
     msg += (
-        f"\n{RICH_INFO_MARKER} To install your dependencies you need to generated a "
+        f"\n{RICH_INFO_MARKER} To install your dependencies you need to generate a "
         f"requirements.txt file with \n"
         f"{RICH_COMMAND_MARKER}pip-compile -o requirements.txt pyproject.toml --resolver=backtracking"
     )

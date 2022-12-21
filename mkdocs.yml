@@ -22,6 +22,7 @@ plugins:
 nav:
   - index.md
   - usage.md
+  - project.md
   - tips.md
   - documentation.md
   - deployment.md
