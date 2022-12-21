@@ -60,9 +60,6 @@ Initialize a new project
 cuzzy make project_name
 ```
 
-> **Note**: You must have django installed in your global python interpreter for this command to work. If you try to
-> run this command on a version of django lower than **4**, it will fail with a nasty error.
-
 ## Development
 
 Poetry is required (not really, you can set up the environment however you want and install the requirements

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fuzzy-couscous"
-version = "2.5.0"
+version = "2.5.1"
 description = "A cli tool to bootstrap your django projects and enhance your development experience."
 authors = ["Tobi-De <tobidegnon@proton.me>"]
 license = "MIT"
@@ -29,6 +29,7 @@ exclude = ["templates", "docs"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+django = ">=4"
 python-dotenv = "^0.21.0"
 dict-deep = "^4.1.2"
 tomli = { version = "^2.0.1", markers = "python_version < '3.11'" }
