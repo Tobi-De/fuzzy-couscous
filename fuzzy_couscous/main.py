@@ -2,6 +2,7 @@ import typer
 
 from .commands import make_project
 from .commands import remove_poetry
+from .commands import rm_migrations
 from .commands import work
 from .commands import write_env_file
 from .config import APP_NAME
@@ -20,6 +21,7 @@ def get_app():
     app.command(name="work")(work)
     app.command(name="remove-poetry")(remove_poetry)
     app.command(name="write-env")(write_env_file)
+    app.command(name="rm-migrations")(rm_migrations)
     return app
 
 
