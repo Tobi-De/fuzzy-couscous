@@ -1,9 +1,6 @@
 from __future__ import annotations
 
-import secrets
-import shutil
 import subprocess
-from enum import Enum
 from pathlib import Path
 
 import typer
@@ -13,6 +10,8 @@ from rich.progress import Progress
 from rich.progress import SpinnerColumn
 from rich.progress import TextColumn
 
+from ..config import Branch
+from ..config import get_template_dir
 from ..utils import clean_project_name
 from ..utils import read_toml
 from ..utils import RICH_ERROR_MARKER
@@ -21,19 +20,6 @@ from ..utils import RICH_SUCCESS_MARKER
 from ..utils import write_toml
 
 __all__ = ["make_project"]
-
-try:
-    from enum import StrEnum
-except ImportError:
-
-    class StrEnum(str, Enum):
-        pass
-
-
-class Branch(StrEnum):
-    main = "main"
-    tailwind = "tailwind"
-    bootstrap = "bootstrap"
 
 
 def _get_user_git_infos() -> tuple[str, str] | None:
@@ -100,6 +86,12 @@ def make_project(
             total=None,
         )
 
+        template_dir = get_template_dir(repo, branch)
+        if not template_dir:
+            raise typer.Abort(
+                f"{RICH_ERROR_MARKER} Couldn't download or find the template to use, check your connection."
+            )
+
         # run the django-admin command
         subprocess.run(
             [
@@ -107,7 +99,7 @@ def make_project(
                 "startproject",
                 project_name,
                 "--template",
-                f"https://github.com/{repo}/archive/{branch}.zip",
+                template_dir,
                 "-e=py,html,toml,md,json,js,sh",
                 "--exclude=docs",
                 "--exclude=fuzzy_couscous",
@@ -116,20 +108,7 @@ def make_project(
             ]
         )
 
-    # since the root dir and the real project dir have the same name, rename the root to avoid conflict
-    project_root_dir = Path(project_name)
-    project_root_dir = project_root_dir.rename(
-        str(f"_{secrets.token_urlsafe(5)}_{project_root_dir}")
-    )
-
-    # move the real project dir to the current working directory
-    project_dir = project_root_dir / "templates" / project_name
-    new_project_dir = Path(project_name)
-    shutil.move(project_dir, new_project_dir)
-
-    # delete the root dir
-    shutil.rmtree(project_root_dir)
-
+    project_dir = Path(project_name)
     msg = f"{RICH_SUCCESS_MARKER} Project initialized, keep up the good work!\n"
     msg += (
         f"{RICH_INFO_MARKER} If you like the project consider dropping a star at "
@@ -140,7 +119,7 @@ def make_project(
     if user_infos:
         name, email = user_infos
         _set_authors_in_pyproject(
-            new_project_dir / "pyproject.toml", name=name, email=email
+            project_dir / "pyproject.toml", name=name, email=email
         )
         msg += (
             f"\n{RICH_INFO_MARKER} A git global user configuration was found and used to update the authors in your "
@@ -158,7 +137,7 @@ def make_project(
             )
             subprocess.call(
                 ["poetry install --with dev"],
-                cwd=new_project_dir,
+                cwd=project_dir,
                 stdout=subprocess.DEVNULL,
                 shell=True,
             )
