@@ -52,10 +52,10 @@ r = { cmd = "python manage.py runserver --nostatic", help = "Start dev serve" }
 u = { cmd = "python manage.py makesuperuser", help = "Create a new superuser using environment varibales, look in your .env.template file" }
 m = { cmd = "python manage.py migrate", help = "Apply migrations" }
 mk = { cmd = "python manage.py makemigrations", help = "Make migrations" }
-cm = { cmd = "python manage.py clean_migrations", help = "Delete all migrations files" }
 rd = { cmd = "python manage.py reset_db --noinput", help = "Delete and recreate your database" }
+rm = { cmd = "cuzzy rm-migrations {{ project_name }}", help = "Delete all migrations files" }
 pu = { cmd = "poetryup --latest --skip-exact", help = "Upgrade all your dependencies to their latest versions, pin versions in pyproject.toml file" }
-RD = ["rd", "cm", "mk", "m"] # Reset your database, delete all migrations files, make news migrations for all apps, apply all migrations
+RD = ["rd", "rm", "mk", "m"] # Reset your database, delete all migrations files, make news migrations for all apps, apply all migrations
 
 # "https://github.com/charliermarsh/ruff"
 [tool.ruff]
