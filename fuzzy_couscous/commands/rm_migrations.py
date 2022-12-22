@@ -3,7 +3,7 @@ from pathlib import Path
 import typer
 from rich import print as rich_print
 
-from ..utils import RICH_INFO_MARKER
+from ..utils import RICH_SUCCESS_MARKER
 
 
 def rm_migrations(
@@ -17,13 +17,13 @@ def rm_migrations(
     exclude: list[str] = typer.Option(
         list,
         "-e",
-        "--exc",
-        help=".",
+        "--exclude",
+        help="A file to exclude from the deletion.",
     ),
 ):
-    """Remove all installed application migrations, intended only for development."""
+    """Remove all migrations for the specified applications directory, intended only for development."""
 
-    excludes = exclude or ["__init__.py"]
+    exclude.append("__init__.py")
     apps = set()
     for folder in apps_dir.iterdir():
         migration_dir = folder / "migrations"
@@ -31,7 +31,7 @@ def rm_migrations(
             continue
         apps.add(folder.stem)
         for file in migration_dir.iterdir():
-            if file.suffix == ".py" and file.name not in excludes:
+            if file.suffix == ".py" and file.name not in exclude:
                 file.unlink()
     apps_ = ", ".join(apps)
-    rich_print(f"{RICH_INFO_MARKER} Removed migration files for apps: {apps_}")
+    rich_print(f"{RICH_SUCCESS_MARKER} Removed migration files for apps: {apps_}")

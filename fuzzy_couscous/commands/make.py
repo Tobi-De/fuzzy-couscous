@@ -3,6 +3,7 @@ from __future__ import annotations
 import subprocess
 from pathlib import Path
 
+import django
 import typer
 from dict_deep import deep_set
 from rich import print as rich_print
@@ -68,6 +69,11 @@ def make_project(
     ),
 ):
     """Initialize a new django project."""
+
+    version = django.get_version()
+    if int(version.split(".")[0]) < 4:
+        rich_print(f"{RICH_ERROR_MARKER} Django version must be greater than 4.0")
+        raise typer.Abort()
 
     if Path(project_name).exists():
         rich_print(
