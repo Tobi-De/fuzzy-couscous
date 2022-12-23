@@ -44,8 +44,6 @@ pytest-sugar = "^0.9.6"
 pre-commit = "^2.20.0"
 pylint-django = "^2.5.3"
 bandit = "^1.7.4"
-
-poetryup = "^0.12.3"
 poethepoet = "^0.16.4"
 
 [tool.poe.tasks]
@@ -55,7 +53,6 @@ m = { cmd = "python manage.py migrate", help = "Apply migrations" }
 mk = { cmd = "python manage.py makemigrations", help = "Make migrations" }
 rd = { cmd = "python manage.py reset_db --noinput", help = "Delete and recreate your database" }
 rm = { cmd = "cuzzy rm-migrations {{ project_name }}", help = "Delete all migrations files" }
-pu = { cmd = "poetryup --latest --skip-exact", help = "Upgrade all your dependencies to their latest versions, pin versions in pyproject.toml file" }
 RD = ["rd", "rm", "mk", "m"] # Reset your database, delete all migrations files, make news migrations for all apps, apply all migrations
 
 # "https://github.com/charliermarsh/ruff"

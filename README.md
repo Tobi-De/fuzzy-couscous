@@ -9,9 +9,9 @@
 
 ✨📚✨ [Read the full documentation](https://tobi-de.github.io/fuzzy-couscous)
 
-My highly opinionated django project template based on [django's startproject --template](https://docs.djangoproject.com/en/stable/ref/django-admin/#startproject).
-This project is heavily inspired by [cookiecutter-django](https://github.com/cookiecutter/cookiecutter-django) but is meant to be a lighter version.
-This template also comes with a cli tool with [additional commands](https://tobi-de.github.io/fuzzy-couscous/usage/#cuzzy) to hopefully improve your django development experience.
+A cli tool based on [django's startproject --template](https://docs.djangoproject.com/en/stable/ref/django-admin/#startproject) to bootstrap
+your django projects with a modern stack. The project template is heavily inspired by [cookiecutter-django](https://github.com/cookiecutter/cookiecutter-django) but is meant to be a simpler version.
+The cli also comes with [additional commands](https://tobi-de.github.io/fuzzy-couscous/usage/#cuzzy) to hopefully improve your django development experience.
 
 ![showcase gif](https://raw.githubusercontent.com/Tobi-De/fuzzy-couscous/main/docs/assets/cuzzy_demo.gif)
 
@@ -46,6 +46,8 @@ I use github branches to create variations of the base template.
 - [main](https://github.com/Tobi-De/fuzzy-couscous): The base template
 - [tailwind](https://github.com/Tobi-De/fuzzy-couscous/tree/tailwind): The base template + [tailwindcss](https://github.com/timonweb/pytailwindcss)  via [pytailwindcss](https://github.com/timonweb/pytailwindcss)
 - [bootstrap](https://github.com/Tobi-De/fuzzy-couscous/tree/bootstrap): The base template + [bootstrap5](https://getbootstrap.com/) via [django-bootstrap5](https://github.com/zostera/django-bootstrap5)
+
+> **Note**: If some of my decisions about the project template don't make sense to you, read [this section](https://tobi-de.github.io/fuzzy-couscous/project/) of the documentation.
 
 ## Quickstart
 
