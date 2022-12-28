@@ -1,3 +1,4 @@
+from .htmx import htmx  # noqa
 from .make import make_project  # noqa
 from .remove_poetry import remove_poetry  # noqa
 from .rm_migrations import rm_migrations  # noqa
