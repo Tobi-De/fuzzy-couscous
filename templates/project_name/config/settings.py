@@ -108,6 +108,9 @@ STATICFILES_FINDERS = [
 ]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
+MEDIA_ROOT = str(APPS_DIR / "media")
+MEDIA_URL = "/media/"
+
 ADMIN_URL = env("ADMIN_URL", default="admin/")
 
 AUTH_USER_MODEL = "users.User"
