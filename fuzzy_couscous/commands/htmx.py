@@ -62,6 +62,7 @@ def htmx(
         with Progress(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
+            transient=True,
         ) as progress:
             msg = f"htmx version {version}"
             if extension:
