@@ -30,7 +30,7 @@ def _get_download_url(version: str, extension: str | None = None) -> str:
 def htmx(
     version: str = typer.Argument("latest", help="The version of htmx to download."),
     extension: str = typer.Option(
-        None, "-e", "--extension", help="The extension name to download."
+        None, "-e", "--extension", help="The name of the extension to download."
     ),
     output_file: Path = typer.Option(
         None,
