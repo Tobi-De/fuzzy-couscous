@@ -52,7 +52,7 @@ def htmx(
         help="The directory to write the downloaded file to.",
     ),
 ):
-    """Download the htmx javascript library or one of it's extension if specified."""
+    """Download the htmx javascript library or one of its extension if specified."""
 
     latest_version = _get_latest_tag()
     version = version if version != "latest" else latest_version
@@ -96,4 +96,5 @@ def htmx(
     filepath.write_text(response.content.decode("utf-8"))
     rich_print(
         f"{RICH_SUCCESS_MARKER} File downloaded successfully to {filepath.name}."
+        f"\n{RICH_INFO_MARKER} htmx version: {version}"
     )
