@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import base64
+import json
 from pathlib import Path
 
 import httpx
@@ -11,6 +13,15 @@ from rich import print as rich_print
 from rich.progress import Progress
 from rich.progress import SpinnerColumn
 from rich.progress import TextColumn
+
+
+def _get_web_types_content(version: str) -> str | None:
+    response = httpx.get(
+        f"https://api.github.com/repos/bigskysoftware/htmx/contents/editors/jetbrains/htmx.web-types.json?ref=v{version}"
+    )
+    content = response.json()["content"]
+    decoded_bytes = base64.b64decode(content)
+    return decoded_bytes.decode("utf-8")
 
 
 def _get_latest_tag() -> str:
@@ -50,6 +61,9 @@ def htmx(
         writable=True,
         exists=True,
         help="The directory to write the downloaded file to.",
+    ),
+    web_types: bool = typer.Option(
+        False, "-w", "--web-types", help="Download the web-types file."
     ),
 ):
     """Download the htmx javascript library or one of its extension if specified."""
@@ -98,3 +112,20 @@ def htmx(
         f"{RICH_SUCCESS_MARKER} File downloaded successfully to {filepath.name}."
         f"\n{RICH_INFO_MARKER} htmx version: {version}"
     )
+
+    if not web_types:
+        return
+
+    try:
+        web_types_content = _get_web_types_content(version)
+    except (httpx.ConnectError, json.JSONDecodeError) as e:
+        rich_print(f"{RICH_ERROR_MARKER} Could not download web-types file.")
+        raise typer.Exit() from e
+
+    json_file = "htmx.web-types.json"
+
+    if output_dir:
+        json_file = output_dir / json_file
+
+    json_file.write_text(web_types_content)
+    rich_print(f"{RICH_INFO_MARKER} Web-types file downloaded to {json_file.name}.")

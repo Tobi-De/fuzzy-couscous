@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fuzzy-couscous"
-version = "2.7.2"
+version = "2.8.0"
 description = "A cli tool to bootstrap your django projects and enhance your development experience."
 authors = ["Tobi-De <tobidegnon@proton.me>"]
 license = "MIT"
@@ -79,7 +79,7 @@ extend-exclude = [
     "tests/*",
     "docs/*"
 ]
-ignore = ["B008"]
+ignore = ["B008", "C901", "T201", "S101"]
 
 [build-system]
 requires = ["poetry-core"]
