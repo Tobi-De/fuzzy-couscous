@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import secrets
+import shutil
 import zipfile
 from pathlib import Path
 
@@ -44,8 +45,10 @@ def get_template_dir(repo: str, branch: Branch) -> str | None:
     username, repository = repo.split("/")
 
     # for each user we save their templates in a folder named after their username
-    templates_folder = app_dir / username
-    templates_folder.mkdir(exist_ok=True, parents=True)
+    templates_dir = app_dir / username
+    templates_dir.mkdir(exist_ok=True, parents=True)
+
+    template_dir = templates_dir / f"{repository}-{branch}"
 
     try:
         # download the archive
@@ -55,13 +58,15 @@ def get_template_dir(repo: str, branch: Branch) -> str | None:
     except httpx.ConnectError:
         # if we can't connect to github and a folder for the repo and branch specified doesn't
         # exist, we can't do anything
-        if not (templates_folder / f"{repository}-{branch}").exists():
+        if not template_dir.exists():
             return None
     else:
+        # remove old folder to avoid reusing old files
+        shutil.rmtree(template_dir, ignore_errors=True)
         # extract the archive in the folder matching the username
         zipfile.ZipFile(archive_path).extractall(app_dir / username)
 
         # we delete the archive after extraction since we don't need it anymore
         archive_path.unlink()
 
-    return _get_project_template_folder(templates_folder / f"{repository}-{branch}")
+    return _get_project_template_folder(templates_dir / f"{repository}-{branch}")
