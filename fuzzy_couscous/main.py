@@ -1,5 +1,6 @@
 import typer
 
+from .commands import htmx
 from .commands import make_project
 from .commands import remove_poetry
 from .commands import rm_migrations
@@ -22,6 +23,7 @@ def get_app():
     app.command(name="remove-poetry")(remove_poetry)
     app.command(name="write-env")(write_env_file)
     app.command(name="rm-migrations")(rm_migrations)
+    app.command(name="htmx")(htmx)
     return app
 
 
@@ -29,4 +31,3 @@ cli = get_app()
 
 if __name__ == "__main__":
     cli()
-

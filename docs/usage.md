@@ -72,8 +72,8 @@ $ cuzzy make [OPTIONS] PROJECT_NAME
 
 **Options**:
 
-* `-r, --repo TEXT`: The github repository to pull the template from. The format to use is `username/repo`  [default: Tobi-De/fuzzy-couscous]
-* `-b, --branch [main|tailwind|bootstrap]`: The github branch to use.  [default: main]
+* `-r, --repo TEXT`: The github repository to pull the template from. The format to use is `username/repo` [default: Tobi-De/fuzzy-couscous]
+* `-b, --branch [main|tailwind|bootstrap]`: The github branch to use. [default: main]
 * `-s, --skip-install`: Skip dependencies installation. [default: False]
 * `--help`: Show the help message and exit.
 
@@ -103,7 +103,7 @@ $ cuzzy remove-poetry [OPTIONS]
 
 **Options**:
 
-* `-c, --create-virtualenv`: Create an environment using virtualenv  [default: False]
+* `-c, --create-virtualenv`: Create an environment using virtualenv. [default: False]
 * `--help`: Show the help message and exit.
 
 ## `cuzzy work`
@@ -131,7 +131,7 @@ $ cuzzy work [OPTIONS]
 
 **Options**:
 
-* `-c, --command TEXT`: The command to run.  [default: poe r, poe t]
+* `-c, --command TEXT`: The command to run. [default: poe r, poe t]
 * `--help`: Show the help message and exit.
 
 !!! Example
@@ -157,8 +157,8 @@ $ cuzzy write-env [OPTIONS]
 
 **Options**:
 
-* `-f, --fill-missing`: Prompt to fill missing values.  [default: False]
-* `-o, --output-file FILE`: The output file path.  [default: .env]
+* `-f, --fill-missing`: Prompt to fill missing values. [default: False]
+* `-o, --output-file FILE`: The output file path. [default: .env]
 * `-p, --postgres-pass`: Prompt for the postgres password to use to build the `DATABASE_URL`.
 * `--help`: Show the help message and exit.
 
@@ -187,3 +187,25 @@ $ cuzzy rm-migrations [OPTIONS] APPS_DIR
 **Options**:
 
 * `-e, --exclude TEXT`: A file to exclude from the deletion. This option can be repeated.
+
+## `cuzzy htmx`
+
+Download the htmx javascript library or one of its extension if specified. You won't have to download htmx or its extensions
+often but at least if you need it, I think this is an easy way to get the file available locally.
+
+**Usage**:
+
+```console
+$ cuzzy htmx [OPTIONS] VERSION
+```
+
+**Arguments**:
+
+* `VERSION`: The version of htmx to download. [default: latest]
+
+**Options**:
+
+* `-e, --extension TEXT`: The name of the extension to download.
+* `-f, --output-file FILE`: The filename to write the downloaded file to, default to `htmx.min.js` or `<extension_name>.js`.
+* `-d, --output-dir DIRECTORY`: The directory to write the downloaded file to, default to the current working directory.
+* `--help`: Show the help message and exit.
