@@ -206,6 +206,7 @@ $ cuzzy htmx [OPTIONS] VERSION
 **Options**:
 
 * `-e, --extension TEXT`: The name of the extension to download.
-* `-f, --output-file FILE`: The filename to write the downloaded file to, default to `htmx.min.js` or `<extension_name>.js`.
+* `-f, --output-file TEXT`: The filename for the htmx download. [default: htmx.min.js]
 * `-d, --output-dir DIRECTORY`: The directory to write the downloaded file to, default to the current working directory.
+* `-w, --web-types`: Download the web-types file.
 * `--help`: Show the help message and exit.

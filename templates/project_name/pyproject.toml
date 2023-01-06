@@ -63,7 +63,7 @@ line-length = 120
 select = [
     "E", # https://github.com/charliermarsh/ruff#pycodestylet
     "F", # https://github.com/charliermarsh/ruff#pyflakes
-    "U", # https://github.com/charliermarsh/ruff#pyupgrade
+    "UP", # https://github.com/charliermarsh/ruff#pyupgrade
     "N", # https://github.com/charliermarsh/ruff#pep8-naming
     "S", # https://github.com/charliermarsh/ruff#flake8-bandit
     "C", # https://github.com/charliermarsh/ruff#flake8-comprehensions

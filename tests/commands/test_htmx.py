@@ -49,3 +49,10 @@ def test_htmx_download_with_output_dir(tmp_path: Path):
 
     assert "SUCCESS" in result.output
     assert (output_dir / "htmx.min.js").exists()
+
+
+def test_htmx_download_with_web_types(tmp_path: Path):
+    result = runner.invoke(cli, ["htmx", "--web-types"])
+
+    assert "SUCCESS" in result.output
+    assert (tmp_path / "htmx.web-types.json").exists()

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import base64
+import json
 from pathlib import Path
 
 import httpx
@@ -11,6 +13,15 @@ from rich import print as rich_print
 from rich.progress import Progress
 from rich.progress import SpinnerColumn
 from rich.progress import TextColumn
+
+
+def _get_web_types_content(version: str) -> str | None:
+    response = httpx.get(
+        f"https://api.github.com/repos/bigskysoftware/htmx/contents/editors/jetbrains/htmx.web-types.json?ref=v{version}"
+    )
+    content = response.json()["content"]
+    decoded_bytes = base64.b64decode(content)
+    return decoded_bytes.decode("utf-8")
 
 
 def _get_latest_tag() -> str:
@@ -29,17 +40,14 @@ def _get_download_url(version: str, extension: str | None = None) -> str:
 
 def htmx(
     version: str = typer.Argument("latest", help="The version of htmx to download."),
-    extension: str = typer.Option(
-        None, "-e", "--extension", help="The name of the extension to download."
-    ),
-    output_file: Path = typer.Option(
-        None,
+    output_file: str = typer.Option(
+        "htmx.min.js",
         "-f",
         "--output-file",
-        file_okay=True,
-        dir_okay=False,
-        writable=True,
-        help="The filename to write the downloaded file to.",
+        help="The filename for the htmx download.",
+    ),
+    extension: str = typer.Option(
+        None, "-e", "--extension", help="The name of the extension to download."
     ),
     output_dir: Path = typer.Option(
         Path,
@@ -50,6 +58,9 @@ def htmx(
         writable=True,
         exists=True,
         help="The directory to write the downloaded file to.",
+    ),
+    web_types: bool = typer.Option(
+        False, "-w", "--web-types", help="Download the web-types file."
     ),
 ):
     """Download the htmx javascript library or one of its extension if specified."""
@@ -80,21 +91,34 @@ def htmx(
         rich_print(f"{RICH_ERROR_MARKER} {msg}")
         raise typer.Abort()
 
+    if response.status_code != 200:
+        rich_print(f"{RICH_ERROR_MARKER} Something went wrong :sad_face: .")
+        raise typer.Abort()
+
+    # write file to disk
+    filename = output_file if not extension else f"{extension}.js"
+    filepath = output_dir / filename
+    filepath.write_text(response.content.decode("utf-8"))
+
+    rich_print(
+        f"{RICH_SUCCESS_MARKER} File downloaded successfully to {filepath.name}."
+        f"\n{RICH_INFO_MARKER} htmx version: {version}"
+    )
     if version != latest_version:
         rich_print(
             f"{RICH_INFO_MARKER} The latest version available of htmx version is {latest_version}"
         )
 
-    if response.status_code != 200:
-        return
+    if not web_types:
+        return None
 
-    # write file to disk
-    filename = "htmx.min.js" if not extension else f"{extension}.js"
-    if output_file:
-        filename = output_file
-    filepath = output_dir / filename
-    filepath.write_text(response.content.decode("utf-8"))
-    rich_print(
-        f"{RICH_SUCCESS_MARKER} File downloaded successfully to {filepath.name}."
-        f"\n{RICH_INFO_MARKER} htmx version: {version}"
-    )
+    try:
+        web_types_content = _get_web_types_content(version)
+    except (httpx.ConnectError, json.JSONDecodeError) as e:
+        rich_print(f"{RICH_ERROR_MARKER} Could not download web-types file.")
+        raise typer.Exit() from e
+
+    json_file = output_dir / "htmx.web-types.json"
+
+    json_file.write_text(web_types_content)
+    rich_print(f"{RICH_INFO_MARKER} Web-types file downloaded to {json_file.name}.")
