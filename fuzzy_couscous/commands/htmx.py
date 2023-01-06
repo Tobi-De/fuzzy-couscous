@@ -40,17 +40,14 @@ def _get_download_url(version: str, extension: str | None = None) -> str:
 
 def htmx(
     version: str = typer.Argument("latest", help="The version of htmx to download."),
-    extension: str = typer.Option(
-        None, "-e", "--extension", help="The name of the extension to download."
-    ),
-    output_file: Path = typer.Option(
-        None,
+    output_file: str = typer.Option(
+        "htmx.min.js",
         "-f",
         "--output-file",
-        file_okay=True,
-        dir_okay=False,
-        writable=True,
-        help="The filename to write the downloaded file to.",
+        help="The filename for the htmx download.",
+    ),
+    extension: str = typer.Option(
+        None, "-e", "--extension", help="The name of the extension to download."
     ),
     output_dir: Path = typer.Option(
         Path,
@@ -94,27 +91,26 @@ def htmx(
         rich_print(f"{RICH_ERROR_MARKER} {msg}")
         raise typer.Abort()
 
+    if response.status_code != 200:
+        rich_print(f"{RICH_ERROR_MARKER} Something went wrong :sad_face: .")
+        raise typer.Abort()
+
+    # write file to disk
+    filename = output_file if not extension else f"{extension}.js"
+    filepath = output_dir / filename
+    filepath.write_text(response.content.decode("utf-8"))
+
+    rich_print(
+        f"{RICH_SUCCESS_MARKER} File downloaded successfully to {filepath.name}."
+        f"\n{RICH_INFO_MARKER} htmx version: {version}"
+    )
     if version != latest_version:
         rich_print(
             f"{RICH_INFO_MARKER} The latest version available of htmx version is {latest_version}"
         )
 
-    if response.status_code != 200:
-        return
-
-    # write file to disk
-    filename = "htmx.min.js" if not extension else f"{extension}.js"
-    if output_file:
-        filename = output_file
-    filepath = output_dir / filename
-    filepath.write_text(response.content.decode("utf-8"))
-    rich_print(
-        f"{RICH_SUCCESS_MARKER} File downloaded successfully to {filepath.name}."
-        f"\n{RICH_INFO_MARKER} htmx version: {version}"
-    )
-
     if not web_types:
-        return
+        return None
 
     try:
         web_types_content = _get_web_types_content(version)
@@ -122,10 +118,7 @@ def htmx(
         rich_print(f"{RICH_ERROR_MARKER} Could not download web-types file.")
         raise typer.Exit() from e
 
-    json_file = "htmx.web-types.json"
-
-    if output_dir:
-        json_file = output_dir / json_file
+    json_file = output_dir / "htmx.web-types.json"
 
     json_file.write_text(web_types_content)
     rich_print(f"{RICH_INFO_MARKER} Web-types file downloaded to {json_file.name}.")

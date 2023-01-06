@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fuzzy-couscous"
-version = "2.8.0"
+version = "2.8.1"
 description = "A cli tool to bootstrap your django projects and enhance your development experience."
 authors = ["Tobi-De <tobidegnon@proton.me>"]
 license = "MIT"
@@ -67,7 +67,7 @@ line-length = 120
 select = [
     "E", # https://github.com/charliermarsh/ruff#pycodestylet
     "F", # https://github.com/charliermarsh/ruff#pyflakes
-    "U", # https://github.com/charliermarsh/ruff#pyupgrade
+    "UP", # https://github.com/charliermarsh/ruff#pyupgrade
     "N", # https://github.com/charliermarsh/ruff#pep8-naming
     "S", # https://github.com/charliermarsh/ruff#flake8-bandit
     "C", # https://github.com/charliermarsh/ruff#flake8-comprehensions
@@ -79,7 +79,7 @@ extend-exclude = [
     "tests/*",
     "docs/*"
 ]
-ignore = ["B008", "C901", "T201", "S101"]
+ignore = ["B008", "T201"]
 
 [build-system]
 requires = ["poetry-core"]
