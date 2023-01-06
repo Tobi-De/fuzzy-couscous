@@ -36,6 +36,7 @@ django-debug-toolbar = "^3.7.0"
 django-fastdev = "^1.7.3"
 Werkzeug = { extras = ["watchdog"], version = "^2.2.2" }
 ipython = "^8.6.0"
+pywatchman = "^1.4.1"
 
 coverage = "^6.5.0"
 pytest = "^7.2.0"
