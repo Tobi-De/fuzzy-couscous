@@ -121,7 +121,8 @@ from your `pyproject.toml` file.
     ```
 
 !!! Note
-    By the way if you have a better option to do this instead of using the python subprocess module, please [open an issue](https://github.com/Tobi-De/fuzzy-couscous/issues/new)
+    By the way if you have a better option to do this instead of using the python subprocess module, please [open an issue](https://github.com/Tobi-De/fuzzy-couscous/issues/new).
+    As a better alternative to this command check [tandem](https://github.com/rosszurowski/tandem)
 
 **Usage**:
 
