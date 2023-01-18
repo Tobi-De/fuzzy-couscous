@@ -31,16 +31,17 @@ repos:
         # Respect `exclude` and `extend-exclude` settings.
         args: ["--force-exclude"]
 
-  - repo: local
-    hooks:
-      - id: pylint
-        name: pylint
-        entry: pylint
-        language: system
-        types: [ python ]
-        args:
-          [
-            "-rn", # Only display messages
-            "-sn", # Don't display the score
-            "--rcfile=pyproject.toml"
-          ]
+# failing with the latest version of pylint and pylint-django, see https://github.com/PyCQA/pylint-django/issues/389
+#  - repo: local
+#    hooks:
+#      - id: pylint
+#        name: pylint
+#        entry: pylint
+#        language: system
+#        types: [ python ]
+#        args:
+#          [
+#            "-rn", # Only display messages
+#            "-sn", # Don't display the score
+#            "--rcfile=pyproject.toml"
+#          ]
