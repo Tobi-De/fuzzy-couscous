@@ -34,7 +34,7 @@ def _get_user_git_infos() -> tuple[str, str] | None:
         )
     except FileNotFoundError:
         return None
-    if user_email_cmd.returncode != 0 or user_email_cmd.returncode != 0:
+    if user_email_cmd.returncode != 0:
         return None
     return (
         user_name_cmd.stdout.strip("\n"),
@@ -92,27 +92,27 @@ def make_project(
             total=None,
         )
 
-        template_dir = get_template_dir(repo, branch)
-        if not template_dir:
+        if template_dir := get_template_dir(repo, branch):
+            # run the django-admin command
+            subprocess.run(
+                [
+                    "django-admin",
+                    "startproject",
+                    project_name,
+                    "--template",
+                    template_dir,
+                    "-e=py,html,toml,md,json,js,sh",
+                    "--exclude=docs",
+                    "--exclude=fuzzy_couscous",
+                    "--exclude=.github",
+                    "--exclude=.idea",
+                ]
+            )
+
+        else:
             raise typer.Abort(
                 f"{RICH_ERROR_MARKER} Couldn't download or find the template to use, check your connection."
             )
-
-        # run the django-admin command
-        subprocess.run(
-            [
-                "django-admin",
-                "startproject",
-                project_name,
-                "--template",
-                template_dir,
-                "-e=py,html,toml,md,json,js,sh",
-                "--exclude=docs",
-                "--exclude=fuzzy_couscous",
-                "--exclude=.github",
-                "--exclude=.idea",
-            ]
-        )
 
     project_dir = Path(project_name)
     msg = f"{RICH_SUCCESS_MARKER} Project initialized, keep up the good work!\n"
@@ -121,8 +121,7 @@ def make_project(
         f"https://github.com/Tobi-De/fuzzy-couscous"
     )
 
-    user_infos = _get_user_git_infos()
-    if user_infos:
+    if user_infos := _get_user_git_infos():
         name, email = user_infos
         _set_authors_in_pyproject(
             project_dir / "pyproject.toml", name=name, email=email

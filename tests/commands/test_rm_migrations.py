@@ -12,7 +12,7 @@ def create_fake_migrations_dir(tmp_path: Path) -> list[Path]:
     migrations_dir.joinpath("__init__.py").touch()
     migrations_dir.joinpath("0001_initial.py").touch()
     migrations_dir.joinpath("0002_initial.py").touch()
-    return [file for file in migrations_dir.iterdir()]
+    return list(migrations_dir.iterdir())
 
 
 def test_rm_migrations(tmp_path: Path):

@@ -9,7 +9,7 @@ repos:
 #      - id: check-added-large-files
 
   - repo: https://github.com/psf/black
-    rev: 22.12.0
+    rev: 23.1.0
     hooks:
       - id: black
         args:
@@ -23,6 +23,6 @@ repos:
           - "--application-directories=fuzzy-couscous"
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.211
+    rev: v0.0.246
     hooks:
       - id: ruff
