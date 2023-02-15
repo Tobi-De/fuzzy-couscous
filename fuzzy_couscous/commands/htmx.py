@@ -35,7 +35,7 @@ def _get_download_url(version: str, extension: str | None = None) -> str:
     base_url = f"https://unpkg.com/htmx.org@{version}/dist/"
     if extension:
         return f"{base_url}/ext/{extension}.js"
-    return base_url + "htmx.min.js"
+    return f"{base_url}htmx.min.js"
 
 
 def htmx(
@@ -96,7 +96,7 @@ def htmx(
         raise typer.Abort()
 
     # write file to disk
-    filename = output_file if not extension else f"{extension}.js"
+    filename = f"{extension}.js" if extension else output_file
     filepath = output_dir / filename
     filepath.write_text(response.content.decode("utf-8"))
 

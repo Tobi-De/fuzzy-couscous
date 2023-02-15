@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/fuzzy-couscous.iml" filepath="$PROJECT_DIR$/.idea/fuzzy-couscous.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yamcha/.idea/yamcha.iml" filepath="$PROJECT_DIR$/yamcha/.idea/yamcha.iml" />
     </modules>
   </component>
 </project>

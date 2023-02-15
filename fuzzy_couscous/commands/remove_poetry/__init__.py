@@ -151,8 +151,7 @@ def remove_poetry(
 
     msg += f"\n{RICH_INFO_MARKER} For the first run, we have already compiled and installed the dependencies for you."
 
-    poe_tasks = get_updated_poe_tasks(new_config)
-    if poe_tasks:
+    if poe_tasks := get_updated_poe_tasks(new_config):
         deep_set(new_config, "tool.poe.tasks", poe_tasks)
         msg += (
             f"\n{RICH_INFO_MARKER} poethepoet was found in your pyproject.toml file, a task to generate the "

@@ -10,44 +10,44 @@ packages = [{ include = "{{ project_name }}" }]
 [tool.poetry.dependencies]
 python = "^3.10"
 
-Pillow = "^9.3.0"
+Pillow = "^9.4.0"
 argon2-cffi = "^21.3.0"
-hiredis = "^2.0.0"
-redis = "^4.3.4"
+hiredis = "^2.2.2"
+redis = "^4.5.1"
 
-Django = "^4.1.3"
+Django = "^4.1.7"
 django-environ = "^0.9.0"
 django-model-utils = "^4.3.1"
-django-allauth = "^0.51.0"
+django-allauth = "^0.52.0"
 django-render-block = "^0.9.2"
 django-extensions = "^3.2.1"
 django-improved-user = "2.0a2"
 django-htmx = "^1.13.0"
 django-bootstrap5 = "^22.2"
-django-anymail = { extras = ["amazon_ses"], version = "^8.6" }
+django-anymail = { extras = ["amazon_ses"], version = "^9.0" }
 
-whitenoise = { extras = ["brotli"], version = "^6.2.0" }
+whitenoise = { extras = ["brotli"], version = "^6.3.0" }
 gunicorn = "^20.1.0"
 psycopg2 = "^2.9.5"
-sentry-sdk = "^1.11.0"
+sentry-sdk = "^1.15.0"
 
 [tool.poetry.group.dev.dependencies]
 django-browser-reload = "^1.6.0"
-django-debug-toolbar = "^3.7.0"
+django-debug-toolbar = "^3.8.1"
 django-fastdev = "^1.7.3"
-Werkzeug = { extras = ["watchdog"], version = "^2.2.2" }
-ipython = "^8.6.0"
+Werkzeug = { extras = ["watchdog"], version = "^2.2.3" }
+ipython = "^8.10.0"
 pywatchman = "^1.4.1"
 
-coverage = "^6.5.0"
-pytest = "^7.2.0"
+coverage = "^7.1.0"
+pytest = "^7.2.1"
 pytest-django = "^4.5.2"
 pytest-sugar = "^0.9.6"
 
-pre-commit = "^2.20.0"
-pylint-django = "^2.5.3"
+mypy = "^1.0.0"
+django-stubs = "^1.14.0"
 bandit = "^1.7.4"
-poethepoet = "^0.16.4"
+poethepoet = "^0.18.1"
 
 [tool.poe.tasks]
 r = { cmd = "python manage.py runserver --nostatic", help = "Start dev serve" }
@@ -75,29 +75,18 @@ extend-exclude = [
     "*/migrations/*"
 ]
 
-# https://djlint.com/docs/configuration/
-[tool.djlint]
-profile = "django"
-max_line_length = 120
-format_attribute_template_tags = true
-ignore = "H017"
+[tool.mypy]
+python_version = "3.10"
+check_untyped_defs = true
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+plugins = ["mypy_django_plugin.main"]
+exclude = ["/migrations/"]
 
-[tool.pylint.MASTER]
-load-plugins = "pylint_django"
-django-settings-module = "config.settings"
-ignore-paths = ".*/migrations"
-
-[tool.pylint.FORMAT]
-max-line-length = 120
-
-[tool.pylint."MESSAGES CONTROL"]
-disable = ["missing-docstring", "invalid-name"]
-
-[tool.pylint.DESIGN]
-max-parents = 13
-
-[tool.pylint.TYPECHECK]
-generated-members = ["REQUEST", "acl_users", "aq_parent", "[a-zA-Z]+_set{1,2}", "save", "delete"]
+[tool.django-stubs]
+django_settings_module = "config.settings"
 
 [build-system]
 requires = ["poetry-core"]
