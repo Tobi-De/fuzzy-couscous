@@ -43,8 +43,8 @@ pytest = "^7.2.1"
 pytest-django = "^4.5.2"
 pytest-sugar = "^0.9.6"
 
-pre-commit = "^3.0.4"
-pylint-django = "^2.5.3"
+mypy = "^1.0.0"
+django-stubs = "^1.14.0"
 bandit = "^1.7.4"
 poethepoet = "^0.18.1"
 
@@ -74,29 +74,18 @@ extend-exclude = [
     "*/migrations/*"
 ]
 
-# https://djlint.com/docs/configuration/
-[tool.djlint]
-profile = "django"
-max_line_length = 120
-format_attribute_template_tags = true
-ignore = "H017"
+[tool.mypy]
+python_version = "3.10"
+check_untyped_defs = true
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+plugins = ["mypy_django_plugin.main"]
+exclude = ["/migrations/"]
 
-[tool.pylint.MASTER]
-load-plugins = "pylint_django"
-django-settings-module = "config.settings"
-ignore-paths = ".*/migrations"
-
-[tool.pylint.FORMAT]
-max-line-length = 120
-
-[tool.pylint."MESSAGES CONTROL"]
-disable = ["missing-docstring", "invalid-name"]
-
-[tool.pylint.DESIGN]
-max-parents = 13
-
-[tool.pylint.TYPECHECK]
-generated-members = ["REQUEST", "acl_users", "aq_parent", "[a-zA-Z]+_set{1,2}", "save", "delete"]
+[tool.django-stubs]
+django_settings_module = "config.settings"
 
 [build-system]
 requires = ["poetry-core"]
