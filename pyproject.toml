@@ -39,12 +39,12 @@ rich = "^13.3.1"
 httpx = "^0.23.3"
 
 [tool.poetry.group.dev.dependencies]
-ipython = "^8.7.0"
-pre-commit = "^2.20.0"
-poethepoet = "^0.16.5"
+ipython = "^8.10.0"
+pre-commit = "^3.0.4"
+poethepoet = "^0.18.1"
 
 [tool.poetry.group.test.dependencies]
-pytest = "^7.2.0"
+pytest = "^7.2.1"
 
 [tool.poetry.group.docs]
 optional = true
@@ -82,5 +82,7 @@ extend-exclude = [
 ignore = ["B008", "T201"]
 
 [build-system]
-requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+requires = [
+  "poetry-core",
+]
