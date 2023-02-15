@@ -11,7 +11,7 @@ repos:
         args: ['--maxkb=1000']
 
   - repo: https://github.com/psf/black
-    rev: 22.12.0
+    rev: 23.1.0
     hooks:
       - id: black
 
@@ -21,16 +21,14 @@ repos:
       - id: reorder-python-imports
 
   - repo: https://github.com/Riverside-Healthcare/djLint
-    rev: v1.19.11
+    rev: v1.19.14
     hooks:
       - id: djlint-django
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.224
+    rev: v0.0.246
     hooks:
       - id: ruff
-        # Respect `exclude` and `extend-exclude` settings.
-        args: ["--force-exclude"]
 
   - repo: https://github.com/tox-dev/pyproject-fmt
     rev: "0.9.0"
