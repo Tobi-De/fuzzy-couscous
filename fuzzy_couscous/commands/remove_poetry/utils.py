@@ -40,7 +40,11 @@ def is_valid_poetry_project(pyproject_file: Path) -> tuple[dict, str | None]:
     config = read_toml(pyproject_file)
 
     is_poetry_project = bool(deep_get(config, "tool.poetry"))
-    if not is_poetry_project:
-        return {}, "It seems that this is not a poetry project :disappointed_face:"
-
-    return config, None
+    return (
+        (config, None)
+        if is_poetry_project
+        else (
+            {},
+            "It seems that this is not a poetry project :disappointed_face:",
+        )
+    )
