@@ -4,7 +4,7 @@ This section gathers tips, **copy and paste** configurations and package recomme
 
 If there is a setting in `settings.py` or elsewhere that you don't understand, go to the [official django settings reference page](https://docs.djangoproject.com/en/dev/ref/settings/)
 and press <kbd>Ctrl</kbd> + <kbd>F</kbd> to search for it. I used the [django-production](https://github.com/lincolnloop/django-production) package to configure the production settings which I then customized.
-I have removed the package as a dependency but I advise you to go and check for yourself what is available.
+I have removed the package as a dependency, but I advise you to go and check for yourself what is available.
 
 ## Dynamic web pages
 
@@ -28,17 +28,17 @@ For more complex tasks, I tend to choose a solution that supports redis as a tas
 
 **Doesn't require setup of external tools, redis, rabbitmq, etc..**
 
-- [django-chard](https://github.com/drpancake/chard): Task queue
-- [django-pgpubsub](https://github.com/Opus10/django-pgpubsub): Task queue
-- [procrastinate](https://github.com/procrastinate-org/procrastinate): Task queue + scheduler
-- [django-q2](https://github.com/GDay/django-q2): Task queue + scheduler
-- [rocketry](https://github.com/Miksus/rocketry): Scheduler
+- [django-q2](https://github.com/GDay/django-q2) : Task queue + scheduler
+- [django-chard](https://github.com/drpancake/chard) : Task queue
+- [django-pgpubsub](https://github.com/Opus10/django-pgpubsub) : Task queue
+- [procrastinate](https://github.com/procrastinate-org/procrastinate) : Task queue + scheduler
+- [rocketry](https://github.com/Miksus/rocketry) : Scheduler
 
 **Require the setup of external tools, redis, rabbitmq, etc.**
 
-- [django-dramatiq](https://github.com/Bogdanp/django_dramatiq): Task queue
-- [django-rq](https://github.com/rq/django-rq): Task queue + scheduler via [django-rq-scheduler](https://github.com/dsoftwareinc/django-rq-scheduler)
-- [wakaq](https://github.com/wakatime/wakaq): Task queue + scheduler
+- [django-dramatiq](https://github.com/Bogdanp/django_dramatiq) : Task queue
+- [django-rq](https://github.com/rq/django-rq) : Task queue + scheduler via [django-rq-scheduler](https://github.com/dsoftwareinc/django-rq-scheduler)
+- [wakaq](https://github.com/wakatime/wakaq) : Task queue + scheduler
 
 !!! Note
     The order matters, that's the order in which I would choose one of these packages.
