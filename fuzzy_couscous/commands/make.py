@@ -144,6 +144,7 @@ def make_project(
                 ["poetry install --with dev"],
                 cwd=project_dir,
                 stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
                 shell=True,
             )
 
