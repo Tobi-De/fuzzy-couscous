@@ -10,7 +10,9 @@ from dict_deep import deep_get
 from dotenv import dotenv_values
 from fuzzy_couscous.utils import get_current_dir_as_project_name
 from fuzzy_couscous.utils import read_toml
+from fuzzy_couscous.utils import RICH_INFO_MARKER
 from honcho.manager import Manager as HonchoManager
+from rich import print as rich_print
 
 __all__ = ["work"]
 
@@ -28,8 +30,9 @@ def work(
     project_name: str = typer.Argument(
         "", callback=get_current_dir_as_project_name, hidden=True
     ),
+    dry_run: bool = typer.Option(False),
 ):
-    """Run multiple commands in parallel."""
+    """Run multiple processes in parallel."""
 
     django_env = {
         **dotenv_values(".env"),
@@ -39,7 +42,7 @@ def work(
     }
 
     commands = {
-        "server": "python manage.py migrate && python manage.py runserver --no-static",
+        "server": "python manage.py migrate && python manage.py runserver --nostatic",
     }
 
     if "REDIS_URL" in django_env:
@@ -50,14 +53,20 @@ def work(
                 redis_port = redis_port.split("/")[0]
                 commands["redis"] = f"redis-server --port {redis_port}"
 
-    commands = ChainMap(_get_user_commands(pyproject_file), commands)
-
     dependencies = read_toml(pyproject_file)["tool"]["poetry"]["dependencies"]
 
     if "pytailwindcss" in dependencies:
         commands[
             "tailwind"
         ] = f"tailwindcss -i {project_name}/static/css/input.css -o {project_name}/static/css/output.css --watch"
+
+    commands = ChainMap(_get_user_commands(pyproject_file), commands)
+
+    if dry_run:
+        rich_print(f"{RICH_INFO_MARKER} Work with:")
+        rich_print(dict(commands))
+
+        raise typer.Exit()
 
     manager = HonchoManager()
 
