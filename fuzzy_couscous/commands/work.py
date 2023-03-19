@@ -1,88 +1,78 @@
 from __future__ import annotations
 
-import subprocess
+import os
+import sys
+from collections import ChainMap
 from pathlib import Path
 
 import typer
 from dict_deep import deep_get
+from dotenv import dotenv_values
+from fuzzy_couscous.utils import get_current_dir_as_project_name
+from fuzzy_couscous.utils import read_toml
+from fuzzy_couscous.utils import RICH_INFO_MARKER
+from honcho.manager import Manager as HonchoManager
 from rich import print as rich_print
-
-from ..utils import read_toml
-from ..utils import RICH_COMMAND_MARKER
-from ..utils import RICH_ERROR_MARKER
-from ..utils import RICH_INFO_MARKER
 
 __all__ = ["work"]
 
 
-def __get_venv_directory() -> str | None:
-    patterns = ["venv", ".venv"]
-    for p in patterns:
-        if Path(p).exists() and (Path(p) / "bin/python").exists():
-            return p
-
-
-def _get_commands_from_user_pyproject(file: Path) -> list:
+def _get_user_commands(file: Path) -> dict:
     try:
         config = read_toml(file)
     except FileNotFoundError:
-        return []
-    commands = deep_get(config, "tool.cuzzy.work") or []
-    return commands if isinstance(commands, list) else []
+        return {}
+    return deep_get(config, "tool.cuzzy.work") or {}
 
 
 def work(
-    commands: list[str] = typer.Option(
-        list,
-        "-c",
-        "--command",
-        help="The command to run.",
-    ),
     pyproject_file: Path = typer.Option(Path("pyproject.toml"), hidden=True),
+    project_name: str = typer.Argument(
+        "", callback=get_current_dir_as_project_name, hidden=True
+    ),
+    dry_run: bool = typer.Option(False),
 ):
-    """Run multiple commands in parallel."""
+    """Run multiple processes in parallel."""
 
-    if not commands:
-        commands = _get_commands_from_user_pyproject(pyproject_file)
+    django_env = {
+        **dotenv_values(".env"),
+        **os.environ,
+        "PYTHONPATH": Path().resolve(strict=True),
+        "PYTHONUNBUFFERED": "true",
+    }
 
-    if not commands:
-        rich_print(
-            f"{RICH_ERROR_MARKER} provide commands via the cli option or via your pyproject.toml file. "
-            f"{RICH_INFO_MARKER}\ncuzzy work -c 'command 1' -c 'command 2'\n"
-            f"OR\n"
-            f"\[tool.cuzzy]\n"
-            f"work = ['command 1', 'command 2']"
-        )
-        raise typer.Abort()
+    commands = {
+        "server": "python manage.py migrate && python manage.py runserver --nostatic",
+    }
 
-    venv_directory = __get_venv_directory()
+    if "REDIS_URL" in django_env:
+        redis_url = django_env["REDIS_URL"]
+        if "localhost" in redis_url or "127.0.0.1" in redis_url:
+            redis_port = redis_url.split(":")[-1]
+            if "/" in redis_port:
+                redis_port = redis_port.split("/")[0]
+                commands["redis"] = f"redis-server --port {redis_port}"
 
-    msg = ""
+    dependencies = read_toml(pyproject_file)["tool"]["poetry"]["dependencies"]
 
-    if venv_directory:
-        msg += (
-            f"{RICH_INFO_MARKER} A <{venv_directory}> directory has been found in the current working directory, "
-            f"the interpreter at <{venv_directory}/bin/python> will automatically be used for python commands\n"
-        )
-        for c in commands.copy():
-            if c.startswith("python"):
-                script = c.replace("python", "")
-                commands.remove(c)
-                commands.append(f"{venv_directory}/bin/python {script}")
+    if "pytailwindcss" in dependencies:
+        commands[
+            "tailwind"
+        ] = f"tailwindcss -i {project_name}/static/css/input.css -o {project_name}/static/css/output.css --watch"
 
-    commands_display = ", ".join(commands)
+    commands = ChainMap(_get_user_commands(pyproject_file), commands)
 
-    msg += f"{RICH_INFO_MARKER} work with {RICH_COMMAND_MARKER}{commands_display}"
+    if dry_run:
+        rich_print(f"{RICH_INFO_MARKER} Work with:")
+        rich_print(dict(commands))
 
-    rich_print(msg)
+        raise typer.Exit()
 
-    processes = []
-    for cmd in commands:
-        process = subprocess.Popen(cmd, shell=True)
-        processes.append(process)
+    manager = HonchoManager()
 
-    try:
-        for p in processes:
-            p.wait()
-    except KeyboardInterrupt:
-        pass
+    for name, cmd in commands.items():
+        manager.add_process(name, cmd, env=django_env)
+
+    manager.loop()
+
+    sys.exit(manager.returncode)
