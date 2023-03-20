@@ -54,7 +54,7 @@ def work(
                 commands["redis"] = f"redis-server --port {redis_port}"
 
     if pyproject_file.exists():
-        config = read_toml(pyproject_file)["tool"]["poetry"][""]
+        config = read_toml(pyproject_file)
         dependencies = deep_get(config, "tool.poetry.dependencies") or {}
         if "pytailwindcss" in dependencies:
             commands[
