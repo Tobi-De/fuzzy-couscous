@@ -9,8 +9,6 @@ H
 poetry.lock,0/0/0068a1506b061a8948c37d78b0dd5697211558d3
 V
 &templates/project_name/.watchmanconfig,e/b/eb04fca438c2bd64157eee5f3ac32f6887f6e267
-G
-.pre-commit-config.yaml,e/7/e7d14d429f898757a423156de0e8c49d75240694
 d
 4fuzzy_couscous/commands/remove_poetry/virtualenv_.py,5/b/5bc14483fb13257289b6e7e7580cd41f6a6c5510
 ^
@@ -21,11 +19,15 @@ U
 %templates/project_name/config/asgi.py,a/2/a2be943c3002770ee5698c5b5a464d465f1e5bd4
 T
 $templates/project_name/.env.template,c/8/c8b9ae2c1ce845948006620470a6b9fe45db349f
-^
-.templates/project_name/.pre-commit-config.yaml,b/1/b114d29358adb2d93e863f7fc242d3163b1d74fa
 B
 CODE_OF_CONDUCT.md,0/8/0834ae016f8fea5cff771880c0be1d55299732ff
 H
 fuzzy_couscous/config.py,e/f/ef6aa29f4f5eb2266eda49a9bc91ab46cf2ea020
 Y
 )templates/project_name/config/settings.py,0/5/05acb57b5f5912390b19db18303a72e5a02efc5b
+T
+$fuzzy_couscous/commands/write_env.py,a/a/aa1c518da03c5541683b6d1ca2a7e598743a436a
+j
+:fuzzy_couscous/commands/remove_poetry/config_converters.py,d/a/da296adf026bd407341685c521c93ba0f2916470
+X
+(fuzzy_couscous/commands/rm_migrations.py,5/9/59f5255105e25e828053dd3cb2326755f42060fe
