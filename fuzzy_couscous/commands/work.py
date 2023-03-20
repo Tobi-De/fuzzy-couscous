@@ -33,7 +33,7 @@ def _get_user_commands(file: Path) -> dict:
 
 
 def _get_redis_command(django_env: dict) -> str | None:
-    redis_url = django_env["REDIS_URL"]
+    redis_url = django_env.get("REDIS_URL", "")
     if "localhost" in redis_url or "127.0.0.1" in redis_url:
         redis_port = redis_url.split(":")[-1]
         if "/" in redis_port:

@@ -29,7 +29,3 @@ H
 fuzzy_couscous/config.py,e/f/ef6aa29f4f5eb2266eda49a9bc91ab46cf2ea020
 Y
 )templates/project_name/config/settings.py,0/5/05acb57b5f5912390b19db18303a72e5a02efc5b
-X
-(fuzzy_couscous/commands/rm_migrations.py,5/9/59f5255105e25e828053dd3cb2326755f42060fe
-O
-fuzzy_couscous/commands/make.py,1/4/14ebad828603402c8749ec9c3dfbffcfe2171203
