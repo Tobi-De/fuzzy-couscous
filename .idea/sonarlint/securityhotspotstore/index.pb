@@ -7,8 +7,6 @@ H
 .github/workflows/ci.yml,8/9/899ce9c202bf7bb5480e72836c3edc773c9c4244
 ;
 poetry.lock,0/0/0068a1506b061a8948c37d78b0dd5697211558d3
-j
-:fuzzy_couscous/commands/remove_poetry/config_converters.py,d/a/da296adf026bd407341685c521c93ba0f2916470
 a
 1fuzzy_couscous/commands/remove_poetry/__init__.py,1/0/107fd647ebcd49488424da66bde6eb5f8f634f3b
 V

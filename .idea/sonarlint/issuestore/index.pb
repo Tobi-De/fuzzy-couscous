@@ -15,8 +15,6 @@ d
 4fuzzy_couscous/commands/remove_poetry/virtualenv_.py,5/b/5bc14483fb13257289b6e7e7580cd41f6a6c5510
 ^
 .fuzzy_couscous/commands/remove_poetry/utils.py,7/0/7055fd60bd6c867754731df57894b27097df5b7b
-j
-:fuzzy_couscous/commands/remove_poetry/config_converters.py,d/a/da296adf026bd407341685c521c93ba0f2916470
 a
 1fuzzy_couscous/commands/remove_poetry/__init__.py,1/0/107fd647ebcd49488424da66bde6eb5f8f634f3b
 U
