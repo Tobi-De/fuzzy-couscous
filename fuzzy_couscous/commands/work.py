@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import os
 import sys
-from collections import ChainMap
 from pathlib import Path
 
 import typer
@@ -17,12 +16,36 @@ from rich import print as rich_print
 __all__ = ["work"]
 
 
+def _get_venv_directory() -> str | None:
+    patterns = ["venv", ".venv"]
+    for p in patterns:
+        path = Path(p)
+        if path.exists() and (path / "bin/python").exists():
+            return p
+
+
 def _get_user_commands(file: Path) -> dict:
     try:
         config = read_toml(file)
+        return deep_get(config, "tool.cuzzy.work") or {}
     except FileNotFoundError:
         return {}
-    return deep_get(config, "tool.cuzzy.work") or {}
+
+
+def _get_redis_command(django_env: dict) -> str | None:
+    redis_url = django_env["REDIS_URL"]
+    if "localhost" in redis_url or "127.0.0.1" in redis_url:
+        redis_port = redis_url.split(":")[-1]
+        if "/" in redis_port:
+            redis_port = redis_port.split("/")[0]
+            return f"redis-server --port {redis_port}"
+
+
+def _get_tailwind_command(pyproject_file: Path, project_name: str) -> str | None:
+    config = read_toml(pyproject_file)
+    dependencies = deep_get(config, "tool.poetry.dependencies") or {}
+    if "pytailwindcss" in dependencies:
+        return f"tailwindcss -i {project_name}/static/css/input.css -o {project_name}/static/css/output.css --watch"
 
 
 def work(
@@ -31,7 +54,7 @@ def work(
         "", callback=get_current_dir_as_project_name, hidden=True
     ),
     dry_run: bool = typer.Option(False),
-):
+) -> None:
     """Run multiple processes in parallel."""
 
     django_env = {
@@ -41,27 +64,35 @@ def work(
         "PYTHONUNBUFFERED": "true",
     }
 
+    venv_dir = _get_venv_directory()
+
+    if venv_dir:
+        runserver_cmd = (
+            f"{venv_dir}/bin/python manage.py migrate && "
+            f"{venv_dir}/bin/python manage.py runserver --nostatic"
+        )
+    else:
+        runserver_cmd = (
+            "python manage.py migrate && python manage.py runserver --nostatic"
+        )
     commands = {
-        "server": "python manage.py migrate && python manage.py runserver --nostatic",
+        "server": runserver_cmd,
     }
 
-    if "REDIS_URL" in django_env:
-        redis_url = django_env["REDIS_URL"]
-        if "localhost" in redis_url or "127.0.0.1" in redis_url:
-            redis_port = redis_url.split(":")[-1]
-            if "/" in redis_port:
-                redis_port = redis_port.split("/")[0]
-                commands["redis"] = f"redis-server --port {redis_port}"
+    if redis_cmd := _get_redis_command(django_env):
+        commands["redis"] = redis_cmd
 
     if pyproject_file.exists():
-        config = read_toml(pyproject_file)
-        dependencies = deep_get(config, "tool.poetry.dependencies") or {}
-        if "pytailwindcss" in dependencies:
-            commands[
-                "tailwind"
-            ] = f"tailwindcss -i {project_name}/static/css/input.css -o {project_name}/static/css/output.css --watch"
+        if tailwind_cmd := _get_tailwind_command(pyproject_file, project_name):
+            commands["tailwind"] = tailwind_cmd
 
-        commands = ChainMap(_get_user_commands(pyproject_file), commands)
+    user_commands = _get_user_commands(pyproject_file)
+    if venv_dir:
+        for name, cmd in user_commands.items():
+            if cmd.startswith("python"):
+                user_commands[name] = f"{venv_dir}/bin/{cmd}"
+
+    commands.update(user_commands)
 
     if dry_run:
         rich_print(f"{RICH_INFO_MARKER} Work with:")
