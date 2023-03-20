@@ -53,14 +53,14 @@ def work(
                 redis_port = redis_port.split("/")[0]
                 commands["redis"] = f"redis-server --port {redis_port}"
 
-    dependencies = read_toml(pyproject_file)["tool"]["poetry"]["dependencies"]
+    if pyproject_file.exists():
+        dependencies = read_toml(pyproject_file)["tool"]["poetry"]["dependencies"]
+        if "pytailwindcss" in dependencies:
+            commands[
+                "tailwind"
+            ] = f"tailwindcss -i {project_name}/static/css/input.css -o {project_name}/static/css/output.css --watch"
 
-    if "pytailwindcss" in dependencies:
-        commands[
-            "tailwind"
-        ] = f"tailwindcss -i {project_name}/static/css/input.css -o {project_name}/static/css/output.css --watch"
-
-    commands = ChainMap(_get_user_commands(pyproject_file), commands)
+        commands = ChainMap(_get_user_commands(pyproject_file), commands)
 
     if dry_run:
         rich_print(f"{RICH_INFO_MARKER} Work with:")
