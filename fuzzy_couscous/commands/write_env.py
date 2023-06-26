@@ -52,7 +52,7 @@ def write_env_file(
     if postgres_pass:
         default_values[
             "DATABASE_URL"
-        ] = f"postgres://postgres:{postgres_pass}@localhost/{project_name}"
+        ] = f"postgres://postgres:{postgres_pass}@127.0.0.1/{project_name}"
 
     config = {
         **dotenv_values(".env.template"),

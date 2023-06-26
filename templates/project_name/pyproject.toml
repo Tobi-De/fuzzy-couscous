@@ -10,44 +10,45 @@ packages = [{ include = "{{ project_name }}" }]
 [tool.poetry.dependencies]
 python = "^3.10"
 
-Pillow = "^9.4.0"
+Pillow = "^9.5.0"
 argon2-cffi = "^21.3.0"
-pytailwindcss = "^0.1.4"
-hiredis = "^2.2.2"
-redis = "^4.5.1"
+pytailwindcss = "^0.2.0"
+hiredis = "^2.2.3"
+redis = "^4.6.0"
 
-Django = "^4.1.7"
-django-environ = "^0.9.0"
+Django = "^4.2.2"
+django-environ = "^0.10.0"
 django-model-utils = "^4.3.1"
-django-allauth = "^0.52.0"
+django-allauth = "^0.54.0"
 django-render-block = "^0.9.2"
-django-extensions = "^3.2.1"
+django-extensions = "^3.2.3"
 django-improved-user = "2.0a2"
-django-htmx = "^1.13.0"
-django-anymail = { extras = ["amazon_ses"], version = "^9.0" }
+django-htmx = "^1.15.0"
+django-anymail = "^10.0"
+boto3 = "^1.26.160"
 
-whitenoise = { extras = ["brotli"], version = "^6.3.0" }
+whitenoise = { extras = ["brotli"], version = "^6.5.0" }
 gunicorn = "^20.1.0"
-psycopg2 = "^2.9.5"
-sentry-sdk = "^1.15.0"
+psycopg2 = "^2.9.6"
+sentry-sdk = "^1.26.0"
 
 [tool.poetry.group.dev.dependencies]
-django-browser-reload = "^1.6.0"
-django-debug-toolbar = "^3.8.1"
+django-browser-reload = "^1.10.0"
+django-debug-toolbar = "^4.1.0"
 django-fastdev = "^1.7.3"
-Werkzeug = { extras = ["watchdog"], version = "^2.2.3" }
-ipython = "^8.10.0"
+Werkzeug = { extras = ["watchdog"], version = "^2.3.6" }
+ipython = "^8.14.0"
 pywatchman = "^1.4.1"
 
-coverage = "^7.1.0"
-pytest = "^7.2.1"
+coverage = "^7.2.7"
+pytest = "^7.4.0"
 pytest-django = "^4.5.2"
-pytest-sugar = "^0.9.6"
+pytest-sugar = "^0.9.7"
 
-mypy = "^1.0.0"
-django-stubs = "^1.14.0"
-bandit = "^1.7.4"
-poethepoet = "^0.18.1"
+mypy = "^1.4.1"
+django-stubs = "^4.2.1"
+bandit = "^1.7.5"
+poethepoet = "^0.20.0"
 
 [tool.poe.tasks]
 r = { cmd = "python manage.py runserver --nostatic", help = "Start dev serve" }
