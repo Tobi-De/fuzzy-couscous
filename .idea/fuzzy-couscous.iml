@@ -5,8 +5,41 @@
       <sourceFolder url="file://$MODULE_DIR$/app_test" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/yamcha" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/jean_pierre" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/0/3" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/0/5" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/0/8" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/0/e" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/b/1" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/1" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/2" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/5" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/7" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/9" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/a" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/c" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/d" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/e" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/0/3" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/0/5" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/0/8" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/0/e" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/b/1" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/1" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/2" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/5" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/7" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/9" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/a" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/c" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/d" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/e" />
+      <excludeFolder url="file://$MODULE_DIR$/.ruff_cache/content" />
+      <excludeFolder url="file://$MODULE_DIR$/templates/project_name/.ruff_cache/content" />
+      <excludeFolder url="file://$MODULE_DIR$/tests/commands/.pytest_cache" />
+      <excludeFolder url="file://$MODULE_DIR$/.pytest_cache" />
+      <excludeFolder url="file://$MODULE_DIR$/dist" />
     </content>
-    <orderEntry type="jdk" jdkName="Poetry (fuzzy-couscous) (3)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Poetry (fuzzy-couscous) (4)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="yamcha" />
   </component>
