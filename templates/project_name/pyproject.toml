@@ -51,7 +51,7 @@ bandit = "^1.7.5"
 poethepoet = "^0.20.0"
 
 [tool.poe.tasks]
-r = { cmd = "python manage.py runserver --nostatic", help = "Start dev serve" }
+r = { cmd = "python manage.py runserver", help = "Start dev serve" }
 u = { cmd = "python manage.py makesuperuser", help = "Create a new superuser using environment varibales, look in your .env.template file" }
 m = { cmd = "python manage.py migrate", help = "Apply migrations" }
 mk = { cmd = "python manage.py makemigrations", help = "Make migrations" }
