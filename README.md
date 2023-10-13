@@ -23,7 +23,7 @@ The cli also comes with [additional commands](https://tobi-de.github.io/fuzzy-co
 - Python 3.10+
 - Frontend: [htmx](https://htmx.org/) with [editor support](https://oluwatobi.dev/blog/posts/htmx-support-in-pycharm/) using [web-types](https://github.com/JetBrains/web-types#web-types)
 - Frontend CSS: [tailwindcss](https://github.com/timonweb/pytailwindcss) via [pytailwindcss](https://github.com/timonweb/pytailwindcss)
-- Template fragment with [django-render-block](https://github.com/clokep/django-render-block)
+- Template fragment with [django-template-partials](https://github.com/carltongibson/django-template-partials)
 - Secure production settings, https only.
 - Settings using [django-environ](https://github.com/joke2k/django-environ)
 - Login / signup via [django-allauth](https://github.com/pennersr/django-allauth)
