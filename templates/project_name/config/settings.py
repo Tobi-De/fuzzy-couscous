@@ -35,6 +35,7 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount",
     "django_extensions",
     "django_htmx",
+    "django-template-partials",
 ]
 
 if DEBUG:
@@ -87,6 +88,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
+            "builtins": ["template_partials.templatetags.partials"],
         },
     },
 ]
