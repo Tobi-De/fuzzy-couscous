@@ -36,6 +36,7 @@ THIRD_PARTY_APPS = [
     "django_extensions",
     "django_htmx",
     "django_bootstrap5",
+    "django-template-partials",
 ]
 
 if DEBUG:
@@ -88,6 +89,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
+            "builtins": ["template_partials.templatetags.partials"],
         },
     },
 ]
