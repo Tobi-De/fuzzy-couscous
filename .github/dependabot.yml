@@ -9,7 +9,7 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
- - package-ecosystem: "poetry" # See documentation for possible values
+  - package-ecosystem: "poetry" # See documentation for possible values
     directory: "/templates/project_name" # Location of package manifests
     schedule:
       interval: "weekly"
