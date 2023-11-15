@@ -2,14 +2,14 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
-#      - id: check-added-large-files
+  #      - id: check-added-large-files
 
   - repo: https://github.com/myint/autoflake
-    rev: v1.4
+    rev: v2.2.1
     hooks:
       - id: autoflake
         exclude: .*/__init__.py
@@ -20,21 +20,46 @@ repos:
           - --remove-duplicate-keys
           - --remove-unused-variables
 
-  - repo: https://github.com/psf/black
-    rev: 23.1.0
-    hooks:
-      - id: black
-        args:
-          - "fuzzy_couscous"
-
   - repo: https://github.com/asottile/reorder_python_imports
-    rev: v3.9.0
+    rev: v3.12.0
     hooks:
       - id: reorder-python-imports
         args:
           - "--application-directories=fuzzy-couscous"
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.246
+    rev: v0.1.5
     hooks:
       - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/python-poetry/poetry
+    rev: "1.7.0"
+    hooks:
+      - id: poetry-check
+      - id: poetry-lock
+      - id: poetry-export
+        name: poetry-export-tests
+        args:
+          [
+            "-f",
+            "requirements.txt",
+            "-o",
+            "tests/requirements.txt",
+            "--without-hashes",
+            "--with",
+            "tests",
+          ]
+      - id: poetry-export
+        name: poetry-export-docs
+        args:
+          [
+            "-f",
+            "requirements.txt",
+            "-o",
+            "docs/requirements.txt",
+            "--without-hashes",
+            "--with",
+            "docs",
+          ]
