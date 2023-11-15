@@ -13,8 +13,6 @@ packages = [{ include = "fuzzy_couscous" }]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: Implementation :: CPython",
@@ -28,24 +26,24 @@ classifiers = [
 exclude = ["templates", "docs"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
-django = "^4.2.2"
+python = "^3.10"
+django = "^4.2.7"
 python-dotenv = "^1.0.0"
 dict-deep = "^4.1.2"
 tomli = { version = "^2.0.1", markers = "python_version < '3.11'" }
 tomli-w = "^1.0.0"
 typer = "^0.9.0"
-rich = "^13.4.2"
-httpx = "^0.24.1"
+rich = "^13.6.0"
+httpx = "^0.25.1"
 honcho = "^1.1.0"
 hupper = "^1.12"
 
 [tool.poetry.group.dev.dependencies]
-pre-commit = "^3.3.3"
-poethepoet = "^0.20.0"
+pre-commit = "^3.5.0"
+poethepoet = "^0.24.3"
 
 [tool.poetry.group.test.dependencies]
-pytest = "^7.4.0"
+pytest = "^7.4.3"
 
 [tool.poetry.group.docs]
 optional = true
