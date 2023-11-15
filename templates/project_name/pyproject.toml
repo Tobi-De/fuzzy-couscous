@@ -13,7 +13,7 @@ python = "^3.10"
 Pillow = "^9.5.0"
 argon2-cffi = "^21.3.0"
 hiredis = "^2.2.3"
-redis = "^4.6.0"
+redis = "^5.0.1"
 
 Django = "^4.2.2"
 django-environ = "^0.10.0"
