@@ -2,14 +2,12 @@
 
 <img align="right" width="170" height="170" src="https://res.cloudinary.com/dgugjkmqg/image/upload/v1672335414/Dream_TradingCard_bw46ec.png">
 
-[![Deploy to GitHub Pages](https://github.com/Tobi-De/fuzzy-couscous/actions/workflows/deploy.yml/badge.svg)](https://github.com/Tobi-De/fuzzy-couscous/actions/workflows/deploy.yml)
-[![Run tests](https://github.com/Tobi-De/fuzzy-couscous/actions/workflows/test.yml/badge.svg)](https://github.com/Tobi-De/fuzzy-couscous/actions/workflows/test.yml)
+[![CD](https://github.com/Tobi-De/fuzzy-couscous/actions/workflows/deploy.yml/badge.svg)](https://github.com/Tobi-De/fuzzy-couscous/actions/workflows/deploy.yml)
+[![CI](https://github.com/Tobi-De/fuzzy-couscous/actions/workflows/test.yml/badge.svg)](https://github.com/Tobi-De/fuzzy-couscous/actions/workflows/test.yml)
 [![pypi](https://badge.fury.io/py/fuzzy-couscous.svg)](https://pypi.org/project/fuzzy-couscous/)
 [![Docs: Mkdocs](https://img.shields.io/badge/mkdocs-docs-blue.svg)](https://tobi-de.github.io/fuzzy-couscous)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Tobi-De/fuzzy-couscous/blob/main/LICENSE)
-[![Code style: djlint](https://img.shields.io/badge/html%20style-djlint-blue.svg)](https://www.djlint.com)
-[![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/PyCQA/pylint)
 
 ✨📚✨ [Read the full documentation](https://tobi-de.github.io/fuzzy-couscous)
 
