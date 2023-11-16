@@ -126,7 +126,6 @@ LOGIN_URL = "account_login"
 
 SITE_ID = 1
 
-ACCOUNT_FORMS = {"signup": "{{ project_name }}.users.forms.UserSignupForm"}
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = "email"

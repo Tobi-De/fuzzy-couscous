@@ -3,6 +3,8 @@
 from django.db import migrations, models
 import django.utils.timezone
 
+import {{ project_name }}.users.models
+
 
 class Migration(migrations.Migration):
 
@@ -63,18 +65,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "full_name",
-                    models.CharField(
-                        blank=True, max_length=200, verbose_name="full name"
-                    ),
-                ),
-                (
-                    "short_name",
-                    models.CharField(
-                        blank=True, max_length=50, verbose_name="short name"
-                    ),
-                ),
-                (
                     "email",
                     models.EmailField(
                         max_length=254, unique=True, verbose_name="email address"
@@ -108,5 +98,8 @@ class Migration(migrations.Migration):
                 "verbose_name_plural": "users",
                 "abstract": False,
             },
+            managers=[
+                ("objects", {{ project_name }}.users.models.UserManager()),
+            ],
         ),
     ]

@@ -28,7 +28,6 @@ The cli also comes with [additional commands](https://tobi-de.github.io/fuzzy-co
 - Secure production settings, https only.
 - Settings using [django-environ](https://github.com/joke2k/django-environ)
 - Login / signup via [django-allauth](https://github.com/pennersr/django-allauth)
-- Custom user model based on [django-improved-user](https://github.com/jambonsw/django-improved-user)
 - Login using email instead of username
 - Automatically reload your browser in development via [django-browser-reload](https://github.com/adamchainz/django-browser-reload)
 - Better development experience with [django-fastdev](https://github.com/boxed/django-fastdev)
