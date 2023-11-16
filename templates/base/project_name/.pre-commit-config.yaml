@@ -84,18 +84,18 @@ repos:
             "--only",
             "docs",
           ]
-#       - id: poetry-export
-#        name: poetry-export-dev
-#        args:
-#          [
-#            "-f",
-#            "requirements.txt",
-#            "-o",
-#            "requirements-dev.txt",
-#            "--without-hashes",
-#            "--with",
-#            "dev",
-#          ]
+       - id: poetry-export
+        name: poetry-export-dev
+        args:
+          [
+            "-f",
+            "requirements.txt",
+            "-o",
+            "requirements-dev.txt",
+            "--without-hashes",
+            "--with",
+            "dev",
+          ]
 
 
 #  - repo: https://github.com/pre-commit/mirrors-mypy
