@@ -35,7 +35,7 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount",
     "django_extensions",
     "django_htmx",
-    "django-template-partials",
+    "template_partials",
 ]
 
 if DEBUG:
