@@ -3,6 +3,7 @@ from pathlib import Path
 
 import httpx
 import tomli_w
+import subprocess
 
 RICH_SUCCESS_MARKER = "[green]SUCCESS:"
 RICH_ERROR_MARKER = "[red]ERROR:"

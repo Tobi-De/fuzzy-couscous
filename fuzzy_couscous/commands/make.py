@@ -19,119 +19,124 @@ from ..utils import RICH_ERROR_MARKER
 from ..utils import RICH_INFO_MARKER
 from ..utils import RICH_SUCCESS_MARKER
 from ..utils import write_toml
+from typing import Annotated
+import cappa
+import rich
+from rich.prompt import Prompt
 
-__all__ = ["make_project"]
+__all__ = ["Make"]
 
+try:
+    from enum import StrEnum
+except ImportError:
+    from enum import Enum
 
-def _get_user_git_infos() -> tuple[str, str] | None:
-    git_config_cmd = ["git", "config", "--global", "--get"]
-    try:
-        user_name_cmd = subprocess.run(
-            git_config_cmd + ["user.name"], capture_output=True, text=True
-        )
-        user_email_cmd = subprocess.run(
-            git_config_cmd + ["user.email"], capture_output=True, text=True
-        )
-    except FileNotFoundError:
-        return None
-    if user_email_cmd.returncode != 0:
-        return None
-    return (
-        user_name_cmd.stdout.strip("\n"),
-        user_email_cmd.stdout.strip("\n"),
-    )
+    class StrEnum(str, Enum):
+        pass
 
 
-def _set_authors_in_pyproject(file: Path, name: str, email: str) -> None:
-    config = read_toml(file)
-    deep_set(config, "tool.poetry.authors", [f"{name} <{email}>"])
-    write_toml(file, config)
+class Branch(StrEnum):
+    main = "main"
+    tailwind = "tailwind"
+    bootstrap = "bootstrap"
 
 
-def make_project(
-    project_name: str = typer.Argument(..., callback=clean_project_name),
-    repo: str = typer.Option(
-        "Tobi-De/fuzzy-couscous",
-        "-r",
-        "--repo",
-        help="The github repository to pull the template from. The format to use is `username/repo`",
-        formats=["username/repo"],
-    ),
-    branch: Branch = typer.Option(
-        "main", "-b", "--branch", help="The github branch to use."
-    ),
-    skip_deps_install: bool = typer.Option(
-        False,
-        "-s",
-        "--skip-install",
-        flag_value=True,
-        help="Skip dependencies installation",
-    ),
-):
-    """Initialize a new django project."""
+@cappa.command(help="Initialize a new django project.")
+class Make:
+    @staticmethod
+    def clean_project_name(project_name: str) -> str:
+        return project_name.strip("/")
 
-    version = django.get_version()
-    if int(version.split(".")[0]) < 4:
-        rich_print(f"{RICH_ERROR_MARKER} Django version must be greater than 4.0")
-        raise typer.Abort()
+    project_name: Annotated[
+        str,
+        cappa.Arg(parse=clean_project_name),
+    ]
+    branch: Annotated[Branch, cappa.Arg(default=Branch.main, short="-b", long="--branch")]
 
-    if Path(project_name).exists():
-        rich_print(
-            f"{RICH_ERROR_MARKER} A directory with the name {project_name} already exists in the current directory "
-            f":disappointed_face:"
-        )
-        raise typer.Abort()
+    def __post_init__(self):
+        self.project_path = Path(self.project_name)
 
-    with Progress(
-        SpinnerColumn(),
-        TextColumn("[progress.description]{task.description}"),
-        transient=True,
-    ) as progress:
-        progress.add_task(
-            description="Initializing your new django project... :sunglasses:",
-            total=None,
-        )
-
-        if template_dir := get_template_dir(repo, branch):
-            # run the django-admin command
-            subprocess.run(
-                [
-                    "django-admin",
-                    "startproject",
-                    project_name,
-                    "--template",
-                    template_dir,
-                    "-e=py,html,toml,md,json,js,sh",
-                    "--exclude=docs",
-                    "--exclude=fuzzy_couscous",
-                    "--exclude=.github",
-                    "--exclude=.idea",
-                ]
+    def __call__(self) -> None:
+        if self.project_path.exists():
+            rich_print(
+                f"{RICH_ERROR_MARKER} A directory with the name {self.project_name} already exists in the current directory "
+                f":disappointed_face:"
             )
+            raise cappa.Exit()
+        
 
-        else:
-            raise typer.Abort(
-                f"{RICH_ERROR_MARKER} Couldn't download or find the template to use, check your connection."
+        self.init_project()
+
+        self.update_authors()
+
+        if self.branch != "main":
+            self.apply_branch_patch()
+
+        if (
+            Prompt.ask(
+                "Do you want to install the dependencies? (y/N)", choices=["y", "n"]
             )
+            == "y"
+        ):
+            self.install_dependencies()
 
-    project_dir = Path(project_name)
-    msg = f"{RICH_SUCCESS_MARKER} Project initialized, keep up the good work!\n"
-    msg += (
-        f"{RICH_INFO_MARKER} If you like the project consider dropping a star at "
-        f"https://github.com/Tobi-De/fuzzy-couscous"
-    )
 
-    if user_infos := _get_user_git_infos():
-        name, email = user_infos
-        _set_authors_in_pyproject(
-            project_dir / "pyproject.toml", name=name, email=email
-        )
+        msg = f"{RICH_SUCCESS_MARKER} Project initialized, keep up the good work!\n"
         msg += (
-            f"\n{RICH_INFO_MARKER} A git global user configuration was found and used to update the authors in your "
-            f"pyproject.toml file."
+            f"{RICH_INFO_MARKER} If you like the project consider dropping a star at "
+            f"https://github.com/Tobi-De/fuzzy-couscous"
         )
 
-    if not skip_deps_install:
+        rich_print(msg)
+
+    def init_project(self) -> None:
+        with Progress(
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            transient=True,
+        ) as progress:
+            progress.add_task(
+                description="Initializing your new django project... :sunglasses:",
+                total=None,
+            )
+
+            if template_dir := get_template_dir(self.branch):
+                # run the django-admin command
+                subprocess.run(
+                    [
+                        "django-admin",
+                        "startproject",
+                        self.project_name,
+                        "--template",
+                        template_dir,
+                        "-e=py,html,toml,md,json,js,sh",
+                        "--exclude=docs",
+                        "--exclude=fuzzy_couscous",
+                        "--exclude=.github",
+                        "--exclude=.idea",
+                    ]
+                )
+
+            else:
+                raise typer.Abort(
+                    f"{RICH_ERROR_MARKER} Couldn't download or find the template to use, check your connection."
+                )
+
+    def update_authors(self) -> None:
+        name, email = self.get_git_user_infos()
+        if not name:
+            name = Prompt.ask("Enter your name")
+        if not email:
+            email = Prompt.ask("Enter your email")
+        pyproject_file = self.project_path / "pyproject.toml"
+        project_config = read_toml(self.project_path / "pyproject.toml")
+        deep_set(project_config, "tool.poetry.authors", [f"{name} <{email}>"])
+        write_toml(pyproject_file, project_config)
+
+    def apply_branch_patch(self) -> None:
+        pass
+
+    def install_dependencies(self) -> None:
         with Progress(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
@@ -142,10 +147,27 @@ def make_project(
             )
             subprocess.call(
                 ["poetry install --with dev"],
-                cwd=project_dir,
+                cwd=self.project_path,
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
                 shell=True,
             )
 
-    rich_print(msg)
+    @staticmethod
+    def get_git_user_infos():
+        git_config_cmd = ["git", "config", "--global", "--get"]
+        try:
+            user_name_cmd = subprocess.run(
+                git_config_cmd + ["user.name"], capture_output=True, text=True
+            )
+            user_email_cmd = subprocess.run(
+                git_config_cmd + ["user.email"], capture_output=True, text=True
+            )
+        except FileNotFoundError:
+            return None
+        if user_email_cmd.returncode != 0:
+            return None
+        return (
+            user_name_cmd.stdout.strip("\n"),
+            user_email_cmd.stdout.strip("\n"),
+        )

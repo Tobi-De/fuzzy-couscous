@@ -34,7 +34,7 @@ def _get_project_template_folder(root_folder: Path) -> str:
     return str((root_folder / "templates" / "project_name").resolve(strict=True))
 
 
-def get_template_dir(repo: str, branch: Branch) -> str | None:
+def get_template_dir(branch: Branch) -> str | None:
     app_dir = Path(typer.get_app_dir(APP_NAME))
     app_dir.mkdir(exist_ok=True, parents=True)
     # check if connection is available
@@ -48,11 +48,11 @@ def get_template_dir(repo: str, branch: Branch) -> str | None:
     templates_dir = app_dir / username
     templates_dir.mkdir(exist_ok=True, parents=True)
 
-    template_dir = templates_dir / f"{repository}-{branch}"
+    template_dir = templates_dir / f"{repo}-{branch}"
 
     try:
         # download the archive
-        archive_url = f"https://github.com/{repo}/archive/{branch}.zip"
+        archive_url = f"https://github.com/tobi-de/fuzzy-couscous/archive/main.zip"
         archive_path = app_dir / f"{secrets.token_urlsafe(32)}.zip"
         download_archive(archive_url, archive_path)
     except httpx.ConnectError:
