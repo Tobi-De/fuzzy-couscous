@@ -126,8 +126,10 @@ $ cuzzy remove-poetry [OPTIONS]
 This command allows you to run multiple commands simultaneously. Typically, when working with tailwind, you need to run
 both the django `runserver` command and the tailwind `compile` command. This command uses the python package [honcho](https://github.com/nickstenning/honcho) to
 manage multiple processes. By default, it runs the django server, a redis server (if `REDIS_URL` is in your environment
-or `.env` file), and the tailwind compile and watch command if `pytailwindcss` is listed as a dependency in
-your `pyproject.toml` file. You can specify the commands to run in the `[tool.cuzzy]` section using the `work` key. If
+or `.env` file), the tailwind compile and watch command if `pytailwindcss` is listed as a dependency in
+your `pyproject.toml` file.  It also runs the qcluster command from django-q2 (if defined in your dependencies).
+Additionally, if hupper is listed as a development dependency, it uses that to run the qcluster command..
+You can specify the commands to run in the `[tool.cuzzy]` section using the `work` key. If
 you define a command with the same name as the default, it will override it. Here are the default commands:
 
 ```toml
