@@ -32,7 +32,6 @@ python-dotenv = "^1.0.0"
 dict-deep = "^4.1.2"
 tomli = { version = "^2.0.1", markers = "python_version < '3.11'" }
 tomli-w = "^1.0.0"
-typer = "^0.9.0"
 rich = "^13.7.0"
 httpx = "^0.25.1"
 honcho = "^1.1.0"
@@ -59,7 +58,6 @@ mkdocs-include-markdown-plugin = "6.0.4"
 [tool.poetry.scripts]
 fuzzy-couscous = "fuzzy_couscous.main:cli"
 cuzzy = "fuzzy_couscous.main:cli"
-toji = "fuzzy_couscous.cli:main"
 
 [tool.poe.tasks]
 t = "poetry export -f requirements.txt --output tests/requirements.txt --without-hashes --with test"
@@ -82,7 +80,7 @@ extend-exclude = [
     "tests/*",
     "docs/*"
 ]
-ignore = ["B008", "T201"]
+ignore = ["B008", "T201" ,"S603","S607" ,"S602" ,"S603"]
 
 [tool.ruff.format]
 # Like Black, use double quotes for strings.

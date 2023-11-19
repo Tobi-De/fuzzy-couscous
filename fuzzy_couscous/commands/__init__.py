@@ -1,7 +1,7 @@
-from .htmx import htmx  # noqa
-from .htmx_ext import HtmxExt  # noqa
+from .htmx import Htmx  # noqa
+from .htmx_extension import HtmxExtension  # noqa
 from .make import Make  # noqa
-from .remove_poetry import remove_poetry  # noqa
-from .rm_migrations import rm_migrations  # noqa
-from .work import work  # noqa
-from .write_env import write_env_file  # noqa
+from .remove_poetry import RmPoetry  # noqa
+from .rm_migrations import RmMigrations  # noqa
+from .work import Work  # noqa
+from .write_env import WriteEnv  # noqa

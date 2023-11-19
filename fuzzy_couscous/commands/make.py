@@ -2,14 +2,15 @@ from __future__ import annotations
 
 import subprocess
 from pathlib import Path
+from typing import Annotated
 
-import django
-import typer
+import cappa
 from dict_deep import deep_set
 from rich import print as rich_print
 from rich.progress import Progress
 from rich.progress import SpinnerColumn
 from rich.progress import TextColumn
+from rich.prompt import Prompt
 
 from ..config import Branch
 from ..config import get_template_dir
@@ -19,10 +20,6 @@ from ..utils import RICH_ERROR_MARKER
 from ..utils import RICH_INFO_MARKER
 from ..utils import RICH_SUCCESS_MARKER
 from ..utils import write_toml
-from typing import Annotated
-import cappa
-import rich
-from rich.prompt import Prompt
 
 __all__ = ["Make"]
 
@@ -35,18 +32,8 @@ except ImportError:
         pass
 
 
-class Branch(StrEnum):
-    main = "main"
-    tailwind = "tailwind"
-    bootstrap = "bootstrap"
-
-
 @cappa.command(help="Initialize a new django project.")
 class Make:
-    @staticmethod
-    def clean_project_name(project_name: str) -> str:
-        return project_name.strip("/")
-
     project_name: Annotated[
         str,
         cappa.Arg(parse=clean_project_name),
@@ -59,11 +46,11 @@ class Make:
     def __call__(self) -> None:
         if self.project_path.exists():
             rich_print(
-                f"{RICH_ERROR_MARKER} A directory with the name {self.project_name} already exists in the current directory "
+                f"{RICH_ERROR_MARKER} A directory with the name {self.project_name} "
+                f"already exists in the current directory "
                 f":disappointed_face:"
             )
             raise cappa.Exit()
-        
 
         self.init_project()
 
@@ -72,14 +59,8 @@ class Make:
         if self.branch != "main":
             self.apply_branch_patch()
 
-        if (
-            Prompt.ask(
-                "Do you want to install the dependencies? (y/N)", choices=["y", "n"]
-            )
-            == "y"
-        ):
+        if Prompt.ask("Do you want to install the dependencies? (y/N)", choices=["y", "n"]) == "y":
             self.install_dependencies()
-
 
         msg = f"{RICH_SUCCESS_MARKER} Project initialized, keep up the good work!\n"
         msg += (
@@ -118,9 +99,7 @@ class Make:
                 )
 
             else:
-                raise typer.Abort(
-                    f"{RICH_ERROR_MARKER} Couldn't download or find the template to use, check your connection."
-                )
+                raise cappa.Exit("Couldn't download or find the template to use, check your connection.")
 
     def update_authors(self) -> None:
         name, email = self.get_git_user_infos()
@@ -142,9 +121,7 @@ class Make:
             TextColumn("[progress.description]{task.description}"),
             transient=True,
         ) as progress:
-            progress.add_task(
-                description="Installing dependencies... :boom:", total=None
-            )
+            progress.add_task(description="Installing dependencies... :boom:", total=None)
             subprocess.call(
                 ["poetry install --with dev"],
                 cwd=self.project_path,
@@ -157,12 +134,8 @@ class Make:
     def get_git_user_infos():
         git_config_cmd = ["git", "config", "--global", "--get"]
         try:
-            user_name_cmd = subprocess.run(
-                git_config_cmd + ["user.name"], capture_output=True, text=True
-            )
-            user_email_cmd = subprocess.run(
-                git_config_cmd + ["user.email"], capture_output=True, text=True
-            )
+            user_name_cmd = subprocess.run(git_config_cmd + ["user.name"], capture_output=True, text=True)
+            user_email_cmd = subprocess.run(git_config_cmd + ["user.email"], capture_output=True, text=True)
         except FileNotFoundError:
             return None
         if user_email_cmd.returncode != 0:
