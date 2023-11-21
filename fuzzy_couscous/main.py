@@ -20,9 +20,9 @@ class Cuzzy:
     subcommand: cappa.Subcommands[Make | Htmx | HtmxExtension | RmMigrations | RmPoetry | Work | WriteEnv]
 
 
-def main():
+def cli():
     cappa.invoke(Cuzzy)
 
 
 if __name__ == "__main__":
-    main()
+    cli()

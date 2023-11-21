@@ -90,7 +90,7 @@ class Work:
 
         user_commands = {k: _update_command_with_venv(venv_dir, v) for k, v in user_commands.items()}
 
-        commands.update(user_commands)
+        commands |= user_commands
 
         manager = HonchoManager()
 

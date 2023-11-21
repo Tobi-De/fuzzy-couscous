@@ -21,7 +21,6 @@ from ..utils import RICH_INFO_MARKER
 from ..utils import RICH_SUCCESS_MARKER
 from ..utils import write_toml
 
-__all__ = ["Make"]
 
 try:
     from enum import StrEnum

@@ -4,8 +4,6 @@ from typing import Annotated
 import cappa
 from rich import print as rich_print
 
-from ..utils import RICH_SUCCESS_MARKER
-
 
 @cappa.command(help="Remove all migrations for the specified applications directory, intended only for development.")
 class RmMigrations:
@@ -22,4 +20,4 @@ class RmMigrations:
                 if file.suffix == ".py" and file.name not in ["__init__.py"]:
                     file.unlink()
         apps_ = ", ".join(apps)
-        rich_print(f"{RICH_SUCCESS_MARKER} Removed migration files for apps: {apps_}")
+        rich_print(f"[green] Removed migration files for apps: {apps_}")

@@ -3,22 +3,19 @@ from typing import Annotated
 
 import cappa
 import httpx
-from fuzzy_couscous.utils import RICH_ERROR_MARKER
 from rich import print as rich_print
-
-THIRD_PARTY_REGISTRY = {
-    "htmx-template": {
-        "download_url": "https://raw.githubusercontent.com/KatrinaKitten/htmx-template/master/htmx-template.min.js",
-        "info": "https://github.com/KatrinaKitten/htmx-template",
-    },
-    "hx-take": {
-        "download_url": "https://github.com/oriol-martinez/hx-take/blob/main/dist/hx-take.min.js",
-        "info": "https://github.com/oriol-martinez/hx-take",
-    },
-}
+from rich.console import Console
+from rich.panel import Panel
+from rich.progress import Progress
+from rich.progress import SpinnerColumn
+from rich.progress import TextColumn
+from rich.table import Table
 
 
-@cappa.command(help="Download one of htmx extensions.")
+REGISTRY_URL = "https://htmx-extensions.oluwatobi.dev/extensions.json"
+
+
+@cappa.command(help="Download one of htmx extensions.", name="htmx-ext")
 class HtmxExtension:
     name: Annotated[
         str | None,
@@ -27,18 +24,15 @@ class HtmxExtension:
             help="The name of the extension to download.",
         ),
     ]
-    version: str = cappa.Arg(
-        "latest",
-        short="-v",
-        long="--version",
-        help="The version of htmx to use to look for the extension.",
-    )
-    output: Path = cappa.Arg(
-        default=Path.cwd(),
-        help="The directory to write the downloaded file to.",
-        short="-o",
-        long="--output",
-    )
+    output: Annotated[
+        Path,
+        cappa.Arg(
+            default=Path(),
+            help="The directory to write the downloaded file to.",
+            short="-o",
+            long="--output",
+        ),
+    ]
 
     def __call__(self) -> None:
         if self.name:
@@ -47,30 +41,67 @@ class HtmxExtension:
             self.list_all()
 
     def download(self):
-        metadata = self.registry().get(self.name, {})
-        if not metadata:
-            rich_print(f"{RICH_ERROR_MARKER} Could not find extension {self.name}.")
-            raise cappa.Exit()
+        extensions = self.read_registry()
+        extension = extensions.get(self.name)
 
-        download_url = metadata.get("download_url")
-        response = httpx.get(download_url)
-        if self.output.is_file():
-            self.output.unlink(missing_ok=True)
-            self.output.touch()
-            self.output.write_text(response.text)
-        else:
-            self.output.mkdir(parents=True, exist_ok=True)
-            (self.output / f"{self.name}.js").write_text(response.text)
+        if not extension:
+            raise cappa.Exit(f"Could not find {self.name} extension.", code=1)
+
+        with Progress(
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            transient=True,
+        ) as progress:
+            progress.add_task(
+                description="Downloading",
+                total=None,
+            )
+            download_url = extension.get("download_url")
+            response = httpx.get(download_url, follow_redirects=True)
+
+            if str(self.output).endswith(".js"):
+                self.output.write_text(response.text)
+            else:
+                self.output.mkdir(parents=True, exist_ok=True)
+                (self.output / f"{self.name}.js").write_text(response.text)
+
+        rich_print(
+            Panel(
+                f"[green]Extension {self.name} downloaded successfully![/green]",
+                subtitle=extension.get("repo_url"),
+            )
+        )
 
     def list_all(self):
-        all_extensions = list(self.registry().keys())
-        rich_print("\n".join(all_extensions))
+        extensions = self.read_registry()
 
-    def registry(self):
-        return THIRD_PARTY_REGISTRY | self.official_registry(self.version)
+        table = Table(
+            title="Htmx Extensions",
+            caption="Full details at https://htmx-extensions.oluwatobi.dev",
+            show_lines=True,
+        )
+
+        table.add_column("Name", style="green")
+        table.add_column("Description", style="magenta")
+
+        for name, metadata in extensions.items():
+            table.add_row(name, metadata.get("description", ""))
+
+        console = Console()
+        console.print(table)
 
     @classmethod
-    def official_registry(cls, htmx_version: str):
-        base_url = f"https://unpkg.com/htmx.org@{htmx_version}/dist/ext/"  # noqa
-        # scrape the site to get the list of extensions
-        return {}
+    def read_registry(cls):
+        with Progress(
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            transient=True,
+        ) as progress:
+            progress.add_task(
+                description="Loading extensions registry",
+                total=None,
+            )
+            response = httpx.get(REGISTRY_URL)
+            if response.status_code != 200:
+                raise cappa.Exit("Could not read registry, check your connection.", code=1)
+            return response.json()
