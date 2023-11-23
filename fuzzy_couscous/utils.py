@@ -4,6 +4,12 @@ from pathlib import Path
 import httpx
 import tomli_w
 import subprocess
+import cappa
+
+from contextlib import contextmanager
+from rich.progress import Progress
+from rich.progress import SpinnerColumn
+from rich.progress import TextColumn
 
 RICH_SUCCESS_MARKER = "[green]SUCCESS:"
 RICH_ERROR_MARKER = "[red]ERROR:"
@@ -53,3 +59,41 @@ def download_archive(url: str, dest: Path) -> None:
         with open(dest, "wb") as archive_file:
             for chunk in response.iter_bytes():
                 archive_file.write(chunk)
+
+
+@contextmanager
+def simple_progress(description: str):
+    try:
+        progress = Progress(
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            transient=True,
+        )
+        progress.add_task(
+            description=description,
+            total=None,
+        )
+        yield progress.start()
+    finally:
+        progress.stop()
+
+
+@contextmanager
+def network_request_with_progress(url: str, description: str):
+    progress = Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        transient=True,
+    )
+    progress.add_task(
+        description=description,
+        total=None,
+    )
+    try:
+        progress.start()
+        response = httpx.get(url)
+        yield response
+    except httpx.ConnectError as e:
+        raise cappa.Exit(f"Connection error, {url} is not reachable.", code=1) from e
+    finally:
+        progress.stop()

@@ -6,10 +6,8 @@ import httpx
 from rich import print as rich_print
 from rich.console import Console
 from rich.panel import Panel
-from rich.progress import Progress
-from rich.progress import SpinnerColumn
-from rich.progress import TextColumn
 from rich.table import Table
+from ..utils import simple_progress, network_request_with_progress
 
 
 REGISTRY_URL = "https://htmx-extensions.oluwatobi.dev/extensions.json"
@@ -47,15 +45,7 @@ class HtmxExtension:
         if not extension:
             raise cappa.Exit(f"Could not find {self.name} extension.", code=1)
 
-        with Progress(
-            SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            transient=True,
-        ) as progress:
-            progress.add_task(
-                description="Downloading",
-                total=None,
-            )
+        with simple_progress(f"Downloading {self.name} extension"):
             download_url = extension.get("download_url")
             response = httpx.get(download_url, follow_redirects=True)
 
@@ -68,7 +58,7 @@ class HtmxExtension:
         rich_print(
             Panel(
                 f"[green]Extension {self.name} downloaded successfully![/green]",
-                subtitle=extension.get("repo_url"),
+                subtitle=extension.get("doc_url"),
             )
         )
 
@@ -92,16 +82,7 @@ class HtmxExtension:
 
     @classmethod
     def read_registry(cls):
-        with Progress(
-            SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            transient=True,
-        ) as progress:
-            progress.add_task(
-                description="Loading extensions registry",
-                total=None,
-            )
-            response = httpx.get(REGISTRY_URL)
-            if response.status_code != 200:
-                raise cappa.Exit("Could not read registry, check your connection.", code=1)
+        with network_request_with_progress(REGISTRY_URL, "Loading extensions registry") as response:
+            import time
+            time.sleep(2)
             return response.json()

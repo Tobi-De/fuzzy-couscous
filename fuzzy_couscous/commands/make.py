@@ -16,10 +16,10 @@ from ..config import Branch
 from ..config import get_template_dir
 from ..utils import clean_project_name
 from ..utils import read_toml
-from ..utils import RICH_ERROR_MARKER
 from ..utils import RICH_INFO_MARKER
 from ..utils import RICH_SUCCESS_MARKER
 from ..utils import write_toml
+from ..utils import simple_progress
 
 
 try:
@@ -44,12 +44,7 @@ class Make:
 
     def __call__(self) -> None:
         if self.project_path.exists():
-            rich_print(
-                f"{RICH_ERROR_MARKER} A directory with the name {self.project_name} "
-                f"already exists in the current directory "
-                f":disappointed_face:"
-            )
-            raise cappa.Exit()
+            raise cappa.Exit(f"A directory with the name {self.project_name} already exists in the current directory", code=1)
 
         self.init_project()
 
@@ -70,16 +65,7 @@ class Make:
         rich_print(msg)
 
     def init_project(self) -> None:
-        with Progress(
-            SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            transient=True,
-        ) as progress:
-            progress.add_task(
-                description="Initializing your new django project... :sunglasses:",
-                total=None,
-            )
-
+        with simple_progress("Initializing your new django project... :sunglasses:"):
             if template_dir := get_template_dir(self.branch):
                 # run the django-admin command
                 subprocess.run(

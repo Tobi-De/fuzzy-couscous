@@ -9,9 +9,6 @@ from dict_deep import deep_del
 from dict_deep import deep_get
 from dict_deep import deep_set
 from rich import print as rich_print
-from rich.progress import Progress
-from rich.progress import SpinnerColumn
-from rich.progress import TextColumn
 
 from . import config_converters
 from ...utils import get_current_dir_as_project_name
@@ -26,6 +23,7 @@ from .utils import is_valid_poetry_project
 from .virtualenv_ import compile_requirements
 from .virtualenv_ import install_dependencies
 from .virtualenv_ import new_virtualenv
+from ...utils import simple_progress
 
 
 @cappa.command(
@@ -102,30 +100,15 @@ class RmPoetry:
         if not self.create_virtualenv:
             return
 
-        with Progress(
-            SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            transient=True,
-        ) as progress:
-            progress.add_task(description="Creating virtualenv... :boom:", total=None)
+        with simple_progress("Creating virtualenv... :boom:"):
             new_virtualenv()
 
-        with Progress(
-            SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            transient=True,
-        ) as progress:
-            progress.add_task(description="Compiling requirements.txt... :boom:", total=None)
+        with simple_progress("Compiling requirements.txt... :boom:"):
             dev_group = deep_get(new_config, "project.optional-dependencies.dev")
             groups = ["dev"] if dev_group else []
             compile_requirements(groups=groups)
 
-        with Progress(
-            SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            transient=True,
-        ) as progress:
-            progress.add_task(description="Installing dependencies... :boom:", total=None)
+        with simple_progress("Installing dependencies... :boom:"):
             install_dependencies()
 
         msg = (
