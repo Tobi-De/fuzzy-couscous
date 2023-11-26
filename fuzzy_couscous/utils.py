@@ -1,12 +1,10 @@
+from contextlib import contextmanager
 from copy import deepcopy
 from pathlib import Path
 
+import cappa
 import httpx
 import tomli_w
-import subprocess
-import cappa
-
-from contextlib import contextmanager
 from rich.progress import Progress
 from rich.progress import SpinnerColumn
 from rich.progress import TextColumn
@@ -47,7 +45,6 @@ def sort_config(config: dict) -> dict:
 
 
 def remove_empty_top_level_table(config: dict) -> None:
-    # removing values from a dictionary while iterating through it is not a good idea, hence this copy
     config_copy = deepcopy(config)
     for key, value in config_copy.items():
         if not value:
@@ -62,17 +59,10 @@ def download_archive(url: str, dest: Path) -> None:
 
 
 @contextmanager
-def simple_progress(description: str):
+def simple_progress(description: str, display_text="[progress.description]{task.description}"):
+    progress = Progress(SpinnerColumn(), TextColumn(display_text), transient=True)
+    progress.add_task(description=description, total=None)
     try:
-        progress = Progress(
-            SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            transient=True,
-        )
-        progress.add_task(
-            description=description,
-            total=None,
-        )
         yield progress.start()
     finally:
         progress.stop()
@@ -80,20 +70,8 @@ def simple_progress(description: str):
 
 @contextmanager
 def network_request_with_progress(url: str, description: str):
-    progress = Progress(
-        SpinnerColumn(),
-        TextColumn("[progress.description]{task.description}"),
-        transient=True,
-    )
-    progress.add_task(
-        description=description,
-        total=None,
-    )
     try:
-        progress.start()
-        response = httpx.get(url)
-        yield response
+        with simple_progress(description):
+            yield httpx.get(url)
     except httpx.ConnectError as e:
         raise cappa.Exit(f"Connection error, {url} is not reachable.", code=1) from e
-    finally:
-        progress.stop()
