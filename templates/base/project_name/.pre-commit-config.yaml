@@ -51,6 +51,12 @@ repos:
       - id: blacken-docs
         alias: autoformat
 
+  - repo: https://github.com/thibaudcolas/curlylint
+    rev: v0.13.1
+    hooks:
+      - id: curlylint
+        alias: linting
+
   - repo: https://github.com/adamchainz/django-upgrade
     rev: 1.15.0
     hooks:
@@ -84,7 +90,7 @@ repos:
             "--only",
             "docs",
           ]
-       - id: poetry-export
+      - id: poetry-export
         name: poetry-export-dev
         args:
           [
