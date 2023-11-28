@@ -68,13 +68,13 @@ files = [
 
 [[package]]
 name = "cappa"
-version = "0.13.1"
+version = "0.13.2"
 description = "Declarative CLI argument parser."
 optional = false
 python-versions = ">=3.8,<4"
 files = [
-    {file = "cappa-0.13.1-py3-none-any.whl", hash = "sha256:18790d341cab6241765126fbea43c60438e0e0a1fc98a4485ed4605ffd3206eb"},
-    {file = "cappa-0.13.1.tar.gz", hash = "sha256:6594d870a492413ec0ea044f3841f8b48005d3cf9f97a20e5474eeaa8c52c621"},
+    {file = "cappa-0.13.2-py3-none-any.whl", hash = "sha256:63b3bde167be09540eea3e423b05fdb1f8add055cdf8d9748566df8c01a38d1a"},
+    {file = "cappa-0.13.2.tar.gz", hash = "sha256:609d92fd40cb4317b9ffbec39eec5321e0699a8ec8c0f0a7e7cc54fd097399a2"},
 ]
 
 [package.dependencies]
