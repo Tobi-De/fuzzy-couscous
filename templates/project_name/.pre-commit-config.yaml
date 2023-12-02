@@ -43,6 +43,6 @@ repos:
       - id: ruff
 
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: "1.5.2"
+    rev: "1.5.3"
     hooks:
       - id: pyproject-fmt
