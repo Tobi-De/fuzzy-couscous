@@ -17,6 +17,13 @@ The cli also comes with [additional commands](https://tobi-de.github.io/fuzzy-co
 
 ![showcase gif](https://raw.githubusercontent.com/Tobi-De/fuzzy-couscous/main/docs/assets/cuzzy_demo.gif)
 
+
+## How to use this project
+
+very opinionated stuff
+
+choice are already made, give options but already pick something to start with.
+
 ## Features
 
 - Django 4+
