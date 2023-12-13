@@ -1,102 +1,111 @@
-[tool.poetry]
-name = "fuzzy-couscous"
-version = "3.1.1"
-description = "A cli tool to bootstrap your django projects and enhance your development experience."
-authors = ["Tobi-De <tobidegnon@proton.me>"]
-license = "MIT"
-readme = "README.md"
-repository = "https://github.com/Tobi-De/fuzzy-couscous"
-homepage = "https://tobi-de.github.io/fuzzy-couscous/"
-documentation = "https://tobi-de.github.io/fuzzy-couscous"
-keywords = ["django", "python", "cookiecutter", "project-template"]
-packages = [{ include = "fuzzy_couscous" }]
-classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: Implementation :: CPython",
-    "Programming Language :: Python :: Implementation :: PyPy",
-    "Framework :: Django :: 4",
-    "Framework :: Django :: 4.0",
-    "Framework :: Django :: 4.1",
-    "Intended Audience :: Developers",
-    "Natural Language :: English",
-]
-exclude = ["templates", "docs"]
-
-[tool.poetry.dependencies]
-python = "^3.10"
-django = "^4.2.7"
-python-dotenv = "^1.0.0"
-dict-deep = "^4.1.2"
-tomli = { version = "^2.0.1", markers = "python_version < '3.11'" }
-tomli-w = "^1.0.0"
-rich = "^13.7.0"
-httpx = "^0.25.1"
-honcho = "^1.1.0"
-hupper = "^1.12"
-cappa = ">=0.13.1,<0.15.0"
-pyyaml = "6.0.1"
-
-[tool.poetry.group.dev.dependencies]
-pre-commit = "^3.5.0"
-poethepoet = "^0.24.3"
-
-[tool.poetry.group.tests.dependencies]
-pytest = "^7.4.3"
-
-[tool.poetry.group.docs]
-optional = true
-
-[tool.poetry.group.docs.dependencies]
-mkdocs = "^1.4.2"
-mkdocs-material = ">=8.5.11,<10.0.0"
-mkdocs-material-extensions = "^1.1.1"
-mkdocs-include-markdown-plugin = "6.0.4"
-
-[tool.poetry.scripts]
-fuzzy-couscous = "fuzzy_couscous.main:cli"
-cuzzy = "fuzzy_couscous.main:cli"
-
-[tool.poe.tasks]
-t = "poetry export -f requirements.txt --output tests/requirements.txt --without-hashes --with test"
-docs = "sphinx-watch docs docs/_build html --httpd --port 8080"
-
-[tool.ruff]
-line-length = 120
-select = [
-    "E", # https://github.com/charliermarsh/ruff#pycodestylet
-    "F", # https://github.com/charliermarsh/ruff#pyflakes
-    "UP", # https://github.com/charliermarsh/ruff#pyupgrade
-    "N", # https://github.com/charliermarsh/ruff#pep8-naming
-    "S", # https://github.com/charliermarsh/ruff#flake8-bandit
-    "C", # https://github.com/charliermarsh/ruff#flake8-comprehensions
-    "B", # https://github.com/charliermarsh/ruff#flake8-bugbear
-    "T" # https://github.com/charliermarsh/ruff#flake8-print
-]
-extend-exclude = [
-    "templates/*",
-    "tests/*",
-    "docs/*"
-]
-ignore = ["B008", "T201" ,"S603","S607" ,"S602" ,"S603"]
-
-[tool.ruff.format]
-# Like Black, use double quotes for strings.
-quote-style = "double"
-
-# Like Black, indent with spaces, rather than tabs.
-indent-style = "space"
-
-# Like Black, respect magic trailing commas.
-skip-magic-trailing-comma = false
-
-# Like Black, automatically detect the appropriate line ending.
-line-ending = "auto"
-
 [build-system]
-build-backend = "poetry.core.masonry.api"
-requires = [
-  "poetry-core",
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "falco"
+dynamic = ["version"]
+description = ''
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = ["django", "python", "cookiecutter", "project-template"]
+authors = [
+  { name = "Tobi DEGNON", email = "tobidegnon@proton.me" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+  "Framework :: Django :: 4",
+  "Framework :: Django :: 4.0",
+  "Framework :: Django :: 4.1",
+  "Intended Audience :: Developers",
+  "Natural Language :: English",
+]
+dependencies = [
+  "django<5",
+  "tomli",
+  "tomli-w",
+  "hupper",
+  "cappa",
+  "rich",
+  "httpx",
+  "honcho",
+  "python-dotenv",
+  "dict-deep",
+]
+
+[project.scripts]
+falco = "falco.__main__:main"
+
+[project.urls]
+Documentation = "https://falco.oluwatobi.dev/"
+Issues = "https://github.com/tobi-de/falco/issues"
+Source = "https://github.com/tobi-de/falco"
+
+[tool.hatch.version]
+path = "src/falco/__about__.py"
+
+[tool.hatch.envs.default]
+dependencies = [
+  "coverage[toml]>=6.5",
+  "pytest",
+]
+[tool.hatch.envs.default.scripts]
+falco = "python src/falco/__main__.py"
+test = "pytest {args:tests}"
+test-cov = "coverage run -m pytest {args:tests}"
+cov-report = [
+  "- coverage combine",
+  "coverage report",
+]
+cov = [
+  "test-cov",
+  "cov-report",
+]
+
+[tool.hatch.envs.docs]
+detached = true
+dependencies = [
+  "sphinx",
+  "sphinx-autobuild",
+  "myst-parser",
+  "shibuya",
+]
+
+[tool.hatch.envs.docs.scripts]
+serve = "sphinx-autobuild docs docs/_build/html --port 8002"
+
+[[tool.hatch.envs.all.matrix]]
+python = ["3.8", "3.9", "3.10", "3.11", "3.12"]
+
+[tool.hatch.envs.types]
+dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/falco tests}"
+
+[tool.coverage.run]
+source_pkgs = ["falco", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/falco/__about__.py",
+]
+
+[tool.coverage.paths]
+falco = ["src/falco", "*/falco/src/falco"]
+tests = ["tests", "*/falco/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
 ]
