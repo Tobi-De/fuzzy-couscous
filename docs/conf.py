@@ -14,7 +14,7 @@ release = "2023"
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["myst_parser"]
+extensions = ["myst_parser", "sphinx_design"]
 
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
@@ -31,4 +31,9 @@ html_context = {
     "source_type": "github",
     "source_user": "tobi-de",
     "source_repo": "falco",
+}
+html_theme_options = {
+    "mastodon_url": "https://fosstodon.org/@tobide",
+    "github_url": "https://github.com/tobi-de/falco",
+    "twitter_url": "https://twitter.com/tobidegnon",
 }

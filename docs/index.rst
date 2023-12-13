@@ -7,14 +7,14 @@
     :hidden:
 
     install
-    "the-cli/intro"
+    the_cli/index
     guides/index
+    tips_and_extra
 
 .. toctree::
     :caption: Development
     :hidden:
 
-    contributing/index
-    alternatives
-    stability
-    changelog
+    contributing
+    codeofconduct
+    license

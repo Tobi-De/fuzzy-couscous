@@ -15,4 +15,4 @@ installed using pip.
 
 .. code-block:: shell
 
-    pip install shibuya
+    pip install falco
