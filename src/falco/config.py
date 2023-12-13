@@ -8,8 +8,8 @@ import zipfile
 from pathlib import Path
 
 import httpx
-from fuzzy_couscous.utils import download_archive
 
+from falco.utils import download_archive
 
 try:
     from enum import StrEnum
@@ -20,7 +20,7 @@ except ImportError:
         pass
 
 
-APP_NAME = "fuzzy-couscous"
+APP_NAME = "falco"
 
 
 def _posixify(name: str) -> str:
@@ -36,7 +36,7 @@ class Branch(StrEnum):
 def _get_project_template_folder(root_folder: Path) -> str:
     # the structure of the repo folder we expect is as follows:
     # root / templates / project_name / ...
-    # root in the case of my template is fuzzy-couscous, project_name must be two levels deep
+    # root in the case of my template is falco, project_name must be two levels deep
     return str((root_folder / "templates" / "project_name").resolve(strict=True))
 
 
@@ -95,7 +95,7 @@ def get_template_dir(branch: Branch) -> str | None:
     # if connexion is available
     # download the archive, extract it, save it and return back the path
 
-    repo = "Tobi-De/fuzzy-couscous"
+    repo = "Tobi-De/falco"
     username, repository = repo.split("/")
 
     # for each user we save their templates in a folder named after their username
@@ -106,7 +106,7 @@ def get_template_dir(branch: Branch) -> str | None:
 
     try:
         # download the archive
-        archive_url = "https://github.com/tobi-de/fuzzy-couscous/archive/main.zip"
+        archive_url = "https://github.com/tobi-de/falco/archive/main.zip"
         archive_path = app_dir / f"{secrets.token_urlsafe(32)}.zip"
         download_archive(archive_url, archive_path)
     except httpx.ConnectError:

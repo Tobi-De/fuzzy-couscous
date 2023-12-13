@@ -2,8 +2,9 @@ from pathlib import Path
 from typing import Annotated
 
 import cappa
-from fuzzy_couscous.utils import simple_progress
 from rich import print as rich_print
+
+from falco.utils import simple_progress
 
 
 @cappa.command(help="Remove all migrations for the specified applications directory, intended only for development.")

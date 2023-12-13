@@ -1,7 +1,7 @@
 ## Intro
 
 !!! Note
-`fuzzy-couscous` is the name of the cli installed when you install this package but since it's a bit annoying to
+`falco` is the name of the cli installed when you install this package but since it's a bit annoying to
 type it every time, there is the short version `cuzzy` that you can use instead.
 The short version is the one that is used throughout the documentation for the examples.
 
@@ -10,14 +10,14 @@ uses [django's startproject --template](https://docs.djangoproject.com/en/stable
 can
 easily clone the project on your computer and generate a django project by using the command `django-admin` and
 specifying the
-`fuzzy-couscous/templates/project_name` folder as the template. The final command is a bit long, that's why I made this
+`falco/templates/project_name` folder as the template. The final command is a bit long, that's why I made this
 [cli](https://en.wikipedia.org/wiki/Command-line_interface) to simplify the process. The cli command is installed
 together with the package.
 
 ??? Tip "Install the package"
 
     ```shell
-    pip install fuzzy-couscous --upgrade
+    pip install falco --upgrade
     ```
 
 ## `cuzzy`

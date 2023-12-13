@@ -1,8 +1,9 @@
 from pathlib import Path
 
 from dotenv import dotenv_values
-from fuzzy_couscous.main import cli
 from typer.testing import CliRunner
+
+from falco.__main__ import cli
 
 runner = CliRunner()
 

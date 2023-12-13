@@ -1,9 +1,10 @@
 from pathlib import Path
 
 from dict_deep import deep_get
-from fuzzy_couscous.main import cli
-from fuzzy_couscous.utils import read_toml
 from typer.testing import CliRunner
+
+from falco.__main__ import cli
+from falco.utils import read_toml
 
 runner = CliRunner()
 

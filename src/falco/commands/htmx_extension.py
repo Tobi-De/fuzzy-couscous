@@ -7,8 +7,8 @@ from rich import print as rich_print
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
-from ..utils import simple_progress, network_request_with_progress
 
+from falco.utils import network_request_with_progress, simple_progress
 
 REGISTRY_URL = "https://htmx-extensions.oluwatobi.dev/extensions.json"
 
@@ -84,5 +84,6 @@ class HtmxExtension:
     def read_registry(cls):
         with network_request_with_progress(REGISTRY_URL, "Loading extensions registry") as response:
             import time
+
             time.sleep(2)
             return response.json()

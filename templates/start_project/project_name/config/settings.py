@@ -96,9 +96,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-DATABASES = {
-    "default": env.db("DATABASE_URL", default="postgres:///{{ project_name }}")
-}
+DATABASES = {"default": env.db("DATABASE_URL", default="postgres:///{{ project_name }}")}
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -131,9 +129,7 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "optional"
 
-EMAIL_BACKEND = env(
-    "DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
-)
+EMAIL_BACKEND = env("DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
 
 SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL")
 SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD")
@@ -178,9 +174,7 @@ if DJANGO_ENV == "production":
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_PRELOAD = True
     # Only set this to True if you are certain that all subdomains of your domain should be served exclusively via SSL.
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
-        "SECURE_HSTS_INCLUDE_SUBDOMAINS", default=False
-    )
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool("SECURE_HSTS_INCLUDE_SUBDOMAINS", default=False)
 
     # email
     EMAIL_BACKEND = "anymail.backends.amazon_ses.EmailBackend"

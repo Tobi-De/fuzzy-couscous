@@ -5,9 +5,7 @@ from pathlib import Path
 import cappa
 import httpx
 import tomli_w
-from rich.progress import Progress
-from rich.progress import SpinnerColumn
-from rich.progress import TextColumn
+from rich.progress import Progress, SpinnerColumn, TextColumn
 
 RICH_SUCCESS_MARKER = "[green]SUCCESS:"
 RICH_ERROR_MARKER = "[red]ERROR:"

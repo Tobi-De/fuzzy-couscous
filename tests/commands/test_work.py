@@ -1,6 +1,3 @@
-from pathlib import Path
-
-from fuzzy_couscous.main import cli
 from typer.testing import CliRunner
 
 runner = CliRunner()

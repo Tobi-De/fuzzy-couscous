@@ -7,20 +7,11 @@ from typing import Annotated
 import cappa
 from dict_deep import deep_set
 from rich import print as rich_print
-from rich.progress import Progress
-from rich.progress import SpinnerColumn
-from rich.progress import TextColumn
+from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.prompt import Prompt
 
-from ..config import Branch
-from ..config import get_template_dir
-from ..utils import clean_project_name
-from ..utils import read_toml
-from ..utils import RICH_INFO_MARKER
-from ..utils import RICH_SUCCESS_MARKER
-from ..utils import write_toml
-from ..utils import simple_progress
-
+from falco.config import Branch, get_template_dir
+from falco.utils import RICH_INFO_MARKER, RICH_SUCCESS_MARKER, clean_project_name, read_toml, simple_progress, write_toml
 
 try:
     from enum import StrEnum
@@ -32,7 +23,7 @@ except ImportError:
 
 
 @cappa.command(help="Initialize a new django project.")
-class Make:
+class StartProject:
     project_name: Annotated[
         str,
         cappa.Arg(parse=clean_project_name),
@@ -44,7 +35,9 @@ class Make:
 
     def __call__(self) -> None:
         if self.project_path.exists():
-            raise cappa.Exit(f"A directory with the name {self.project_name} already exists in the current directory", code=1)
+            raise cappa.Exit(
+                f"A directory with the name {self.project_name} already exists in the current directory", code=1
+            )
 
         self.init_project()
 
@@ -59,7 +52,7 @@ class Make:
         msg = f"{RICH_SUCCESS_MARKER} Project initialized, keep up the good work!\n"
         msg += (
             f"{RICH_INFO_MARKER} If you like the project consider dropping a star at "
-            f"https://github.com/Tobi-De/fuzzy-couscous"
+            f"https://github.com/Tobi-De/falco"
         )
 
         rich_print(msg)

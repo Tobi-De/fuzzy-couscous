@@ -28,4 +28,4 @@ For more complex tasks, I tend to choose a solution that supports redis as a tas
     The order matters, that's the order in which I would choose one of these packages.
 
 If you are using one of these you might want an automatic reload feature when files changes, you can use the `hupper` python
-package for that purpose. If your project was generated with fuzzy-couscous then it is already declared as a dev dependencies.
+package for that purpose. If your project was generated with falco then it is already declared as a dev dependencies.

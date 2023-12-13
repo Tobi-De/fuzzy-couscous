@@ -1,9 +1,10 @@
 from pathlib import Path
 
 from dict_deep import deep_get
-from fuzzy_couscous.main import cli
-from fuzzy_couscous.utils import read_toml
 from typer.testing import CliRunner
+
+from falco.__main__ import cli
+from falco.utils import read_toml
 
 runner = CliRunner()
 
@@ -34,7 +35,7 @@ django-browser-reload = "^1.6.0"
 django-debug-toolbar = "^3.7.0"
 
 [tool.poetry.scripts]
-fuzzy-couscous = "fuzzy_couscous.main:cli"
+falco = "fuzzy_couscous.main:cli"
 cuzzy = "fuzzy_couscous.main:cli"
 
 [tool.poe.tasks]
@@ -61,10 +62,7 @@ def test_remove_poetry(tmp_path: Path, monkeypatch):
     assert deep_get(pyproject_config, "project.requires-python") == ">=3.11"
     assert "dev" in deep_get(pyproject_config, "project.optional-dependencies")
     assert deep_get(pyproject_config, "project.authors")[0]["name"] == "Tobi-De"
-    assert (
-        deep_get(pyproject_config, "project.authors")[0]["email"]
-        == "tobidegnon@proton.me"
-    )
+    assert deep_get(pyproject_config, "project.authors")[0]["email"] == "tobidegnon@proton.me"
     assert "Django" in deps
     assert "django-improved-user==2.0a2" in deps
 
@@ -78,6 +76,6 @@ def test_remove_poetry(tmp_path: Path, monkeypatch):
 
     scripts = deep_get(pyproject_config, "project.scripts")
     assert scripts == {
-        "fuzzy-couscous": "fuzzy_couscous.main:cli",
+        "falco": "fuzzy_couscous.main:cli",
         "cuzzy": "fuzzy_couscous.main:cli",
     }

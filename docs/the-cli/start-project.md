@@ -15,7 +15,7 @@ in your generated project.
 
 Initialize a new django project. This template makes a lot of assumptions, if you want to make some adjustments to the
 template
-you can [fork the github repository](https://github.com/Tobi-De/fuzzy-couscous/fork) of this project and make your
+you can [fork the github repository](https://github.com/Tobi-De/falco/fork) of this project and make your
 changes in the `templates` folder,
 you can then use the `--repo` option to specify your Github repository.
 
@@ -51,7 +51,7 @@ yet, [see this page](https://git-scm.com/book/en/v2/Getting-Started-First-Time-G
 **Options**:
 
 * `-r, --repo TEXT`: The github repository to pull the template from. The format to use
-  is `username/repo` [default: Tobi-De/fuzzy-couscous]
+  is `username/repo` [default: Tobi-De/falco]
 * `-b, --branch [main|tailwind|bootstrap]`: The github branch to use. [default: main]
 * `-s, --skip-install`: Skip dependencies installation. [default: False]
 * `--help`: Show the help message and exit.
@@ -130,7 +130,7 @@ poetry remove package_name
     I used to include [poetryup](https://github.com/MousaZeidBaker/poetryup) in the project template, but that has been deprecated
     in favor of the new [up plugin](https://github.com/MousaZeidBaker/poetryup).
 
-If on the other hand you choose to remove poetry using the [`cuzzy remove-poetry`](https://tobi-de.github.io/fuzzy-couscous/usage/#cuzzy-remove-poetry) and additionally
+If on the other hand you choose to remove poetry using the [`cuzzy remove-poetry`](https://tobi-de.github.io/falco/usage/#cuzzy-remove-poetry) and additionally
 created a virtualenv with the `-c` option, then I've added a few things that might be useful to you.
 
 ### The `pyproject.toml` file

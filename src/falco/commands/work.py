@@ -8,9 +8,9 @@ from typing import Annotated
 import cappa
 from dict_deep import deep_get
 from dotenv import dotenv_values
-from fuzzy_couscous.utils import get_current_dir_as_project_name
-from fuzzy_couscous.utils import read_toml
 from honcho.manager import Manager as HonchoManager
+
+from falco.utils import get_current_dir_as_project_name, read_toml
 
 
 def _get_venv_directory() -> str | None:

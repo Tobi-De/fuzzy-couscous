@@ -5,12 +5,11 @@ from pathlib import Path
 from typing import Annotated
 
 import cappa
-from dotenv import dotenv_values
-from dotenv import set_key
+from dotenv import dotenv_values, set_key
 from rich import print as rich_print
 from rich.prompt import Prompt
 
-from ..utils import get_current_dir_as_project_name
+from falco.utils import get_current_dir_as_project_name
 
 
 @cappa.command(help="Update or create a .env file from a .env.template file.")
