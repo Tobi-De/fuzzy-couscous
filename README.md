@@ -1,24 +1,32 @@
-# fuzzy-couscous
+# Falco
 
-<img align="right" width="170" height="170" src="https://res.cloudinary.com/dgugjkmqg/image/upload/v1672335414/Dream_TradingCard_bw46ec.png">
+<img align="right" width="170" height="170" src="https://res.cloudinary.com/dgugjkmqg/image/upload/v1702502731/Logo_2_zfg43u.svg">
 
-[![CD](https://github.com/Tobi-De/fuzzy-couscous/actions/workflows/deploy.yml/badge.svg)](https://github.com/Tobi-De/fuzzy-couscous/actions/workflows/deploy.yml)
-[![CI](https://github.com/Tobi-De/fuzzy-couscous/actions/workflows/test.yml/badge.svg)](https://github.com/Tobi-De/fuzzy-couscous/actions/workflows/test.yml)
-[![pypi](https://badge.fury.io/py/fuzzy-couscous.svg)](https://pypi.org/project/fuzzy-couscous/)
-[![Docs: Mkdocs](https://img.shields.io/badge/mkdocs-docs-blue.svg)](https://tobi-de.github.io/fuzzy-couscous)
+[![CD](https://github.com/Tobi-De/falco/actions/workflows/deploy.yml/badge.svg)](https://github.com/Tobi-De/falco/actions/workflows/deploy.yml)
+[![CI](https://github.com/Tobi-De/falco/actions/workflows/test.yml/badge.svg)](https://github.com/Tobi-De/falco/actions/workflows/test.yml)
+[![pypi](https://badge.fury.io/py/falco.svg)](https://pypi.org/project/falco/)
+[![Hatch project](https://img.shields.io/badge/%F0%9F%A5%9A-Hatch-4051b5.svg)](https://github.com/pypa/hatch)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Tobi-De/fuzzy-couscous/blob/main/LICENSE)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Tobi-De/falco/blob/main/LICENSE)
 
-✨📚✨ [Read the full documentation](https://tobi-de.github.io/fuzzy-couscous)
+
+✨📚✨ [Read the full documentation](https://tobi-de.github.io/falco)
 
 A cli tool based on [django's startproject --template](https://docs.djangoproject.com/en/stable/ref/django-admin/#startproject) to bootstrap
 your django projects with a modern stack. The project template is heavily inspired by [cookiecutter-django](https://github.com/cookiecutter/cookiecutter-django) but is meant to be a simpler version.
-The cli also comes with [additional commands](https://tobi-de.github.io/fuzzy-couscous/usage/#cuzzy) to hopefully improve your django development experience.
+The cli also comes with [additional commands](https://tobi-de.github.io/falco/usage/#cuzzy) to hopefully improve your django development experience.
 
-![showcase gif](https://raw.githubusercontent.com/Tobi-De/fuzzy-couscous/main/docs/assets/cuzzy_demo.gif)
+![showcase gif](https://raw.githubusercontent.com/Tobi-De/falco/main/docs/assets/cuzzy_demo.gif)
 
 
 ## How to use this project
+
+
+Fist of all take the habit to [skimm through the documentation](a blog post here), so take a few minutes, to skimm through this one when you are done with this readme.
+
+The cli
+The guides
+
 
 very opinionated stuff
 
@@ -44,24 +52,24 @@ choice are already made, give options but already pick something to start with.
 - Serve static files with [Whitenoise](https://whitenoise.evans.io/en/latest/)
 - Default integration with [pre-commit](https://github.com/pre-commit/pre-commit) for identifying simple issues before submission to code review
 - Integrated task runner with [poethepoet](https://github.com/nat-n/poethepoet)
-- Dependency management using [poetry](https://github.com/python-poetry/poetry) (can be replaced by [virtualenv](https://github.com/pypa/virtualenv) using the [`remove-poetry` command](https://tobi-de.github.io/fuzzy-couscous/usage/#cuzzy-remove-poetry))
+- Dependency management using [poetry](https://github.com/python-poetry/poetry) (can be replaced by [virtualenv](https://github.com/pypa/virtualenv) using the [`remove-poetry` command](https://tobi-de.github.io/falco/usage/#cuzzy-remove-poetry))
 
 ## Templates
 
 I use github branches to create variations of the base template.
 
-- [main](https://github.com/Tobi-De/fuzzy-couscous): The base template
-- [tailwind](https://github.com/Tobi-De/fuzzy-couscous/tree/tailwind): The base template + [tailwindcss](https://github.com/timonweb/pytailwindcss)  via [pytailwindcss](https://github.com/timonweb/pytailwindcss)
-- [bootstrap](https://github.com/Tobi-De/fuzzy-couscous/tree/bootstrap): The base template + [bootstrap5](https://getbootstrap.com/) via [django-bootstrap5](https://github.com/zostera/django-bootstrap5)
+- [main](https://github.com/Tobi-De/falco): The base template
+- [tailwind](https://github.com/Tobi-De/falco/tree/tailwind): The base template + [tailwindcss](https://github.com/timonweb/pytailwindcss)  via [pytailwindcss](https://github.com/timonweb/pytailwindcss)
+- [bootstrap](https://github.com/Tobi-De/falco/tree/bootstrap): The base template + [bootstrap5](https://getbootstrap.com/) via [django-bootstrap5](https://github.com/zostera/django-bootstrap5)
 
-> **Note**: If some of my decisions about the project template don't make sense to you, read [this section](https://tobi-de.github.io/fuzzy-couscous/project/) of the documentation.
+> **Note**: If some of my decisions about the project template don't make sense to you, read [this section](https://tobi-de.github.io/falco/project/) of the documentation.
 
 ## Quickstart
 
 Install the latest version of the package
 
 ```shell
-pip install fuzzy-couscous --upgrade
+pip install falco --upgrade
 ```
 
 Initialize a new project
@@ -85,9 +93,17 @@ Tests can then be run quickly in that environment:
 pytest
 ```
 
+## Acknowledgements
+
+Falco is inspired by (and borrows elements from) some excellent starter templates:
+
+- [cookiecutter-django](https://github.com/cookiecutter/cookiecutter-django)
+- [django-hatch-startproject](https://github.com/oliverandrich/django-hatch-startproject)
+- [django-unicorn](https://github.com/adamghill/django-unicorn) - Inspiration for the logo
+
 ## Feedback
 
-If you have any feedback, please reach out to me at tobidegnon@proton.me or [open a discussion](https://github.com/Tobi-De/fuzzy-couscous/discussions/new).
+If you have any feedback, please reach out to me at tobidegnon@proton.me or [open a discussion](https://github.com/Tobi-De/falco/discussions/new).
 
 ## Contributors
 

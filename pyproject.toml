@@ -70,13 +70,15 @@ cov = [
 ]
 
 [tool.hatch.envs.docs]
-detached = true
 dependencies = [
   "sphinx",
   "sphinx-autobuild",
   "myst-parser",
   "shibuya",
   "sphinx-design",
+  "sphinx-tabs",
+  "sphinx-copybutton",
+  "sphinx-togglebutton",
 ]
 
 [tool.hatch.envs.docs.scripts]

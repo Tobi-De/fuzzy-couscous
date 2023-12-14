@@ -1,3 +1,5 @@
+import falco
+
 # Configuration file for the Sphinx documentation builder.
 #
 # For the full list of built-in configuration values, see the documentation:
@@ -9,12 +11,19 @@
 project = "Falco"
 copyright = "2023, Tobi DEGNON"
 author = "Tobi DEGNON"
-release = "2023"
+version = falco.falco_version
+release = version
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["myst_parser", "sphinx_design"]
+extensions = [
+    "myst_parser",
+    "sphinx_design",
+    "sphinx_tabs.tabs",
+    "sphinx_copybutton",
+    "sphinx_togglebutton",
+]
 
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
@@ -25,6 +34,8 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 html_theme = "shibuya"
 html_static_path = ["_static"]
+html_baseurl = "https://falco.oluwatobi.dev"
+html_title = "Falco"
 
 # -- Shibuya theme options ---------------------------------------------------
 html_context = {
@@ -37,3 +48,4 @@ html_theme_options = {
     "github_url": "https://github.com/tobi-de/falco",
     "twitter_url": "https://twitter.com/tobidegnon",
 }
+html_logo = "_static/logo.svg"

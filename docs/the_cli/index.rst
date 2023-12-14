@@ -1,44 +1,42 @@
 The CLI
 =========
 
-Since this template
-uses `django’s startproject –template <https://docs.djangoproject.com/en/stable/ref/django-admin/#startproject>`__, you
-can
-easily clone the project on your computer and generate a django project by using the command ``django-admin`` and
-specifying the
-``falco/templates/project_name`` folder as the template. The final command is a bit long, that’s why I made this
-`cli <https://en.wikipedia.org/wiki/Command-line_interface>`__ to simplify the process. The cli command is installed
-together with the package.
+The falco CLI is available you install the package. It is home to some command that I hope you will find useuful through the Lifecycle of your project,
+from starting the project through to deployment.
 
-??? Tip “Install the package”
+.. hint:: Install the cli
+   :class: dropdown
 
-::
+   .. code:: console
 
-   ```shell
-   pip install falco --upgrade
-   ```
+      $ pip install falco --upgrade
 
-``cuzzy``
----------
+
+falco
+-----
+
+The entrypoint for the CLI is the ``falco`` command. It is used to run the commands that are available to you.
 
 **Usage**:
 
 .. code:: console
 
-   $ cuzzy [OPTIONS] COMMAND [ARGS]...
+   $ falco [OPTIONS] COMMAND [ARGS]...
 
 **Options**:
 
--  ``--install-completion``: Install completion for the current shell.
--  ``--show-completion``: Show completion for the current shell, to copy it or customize the installation.
+-  ``--completion generate``: Install completion for the current shell.
 -  ``--help``: Show the help message and exit.
 
 **Commands**:
 
--  ``make``: Initialize a new django project.
--  ``remove-poetry``: Run this command to remove poetry as a dependency from your project.
+-  ``start-project``: Initialize a new django project.
+-  ``crud``: Generate CRUD (Create, Read, Update, Delete) views for a model.
 -  ``work``: Run multiple commands in parallel.
--  ``write-env``: Update or create a .env file from a .env.template file.
+-  ``sync-dotenv``: Syncronize the .env file with the .env.template file.
+-  ``htmx``: Download the latest version of htmx.
+-  ``htmx-ext``: Download an htmx extension.
+-  ``rm-migrations``: Remove all migrations from all apps.
 
 
 
