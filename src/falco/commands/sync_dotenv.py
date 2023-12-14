@@ -23,26 +23,26 @@ class SyncDotenv:
             help="Prompt to fill missing values.",
         ),
     ]
-    project_name: Annotated[
-        str, cappa.Arg(parse=get_current_dir_as_project_name, hidden=True)
-    ]
 
     def __call__(
-        self,
+        self, project_name: Annotated[str, cappa.Dep(get_current_dir_as_project_name)]
     ):
+        dotenv_file = Path(".env")
+        dotenv_template_file = Path(".env.template")
+
         default_values = {
             "DJANGO_DEBUG": True,
             "DJANGO_SECRET_KEY": secrets.token_urlsafe(64),
             "DJANGO_ALLOWED_HOSTS": "*",
-            "DATABASE_URL": f"postgres:///{self.project_name}",
+            "DATABASE_URL": f"postgres:///{project_name}",
             "DJANGO_SUPERUSER_EMAIL": "",
             "DJANGO_SUPERUSER_PASSWORD": "",
         }
 
         config = {
-            **dotenv_values(".env.template"),
+            **dotenv_values(dotenv_template_file),
             **default_values,
-            **dotenv_values(".env"),
+            **dotenv_values(dotenv_file),
         }
 
         if self.fill_missing:
@@ -50,18 +50,33 @@ class SyncDotenv:
                 if not value:
                     config[key] = Prompt.ask(f"{key}")
 
-        # create .env file
-        env_file = Path(".env")
-        env_file.write_text("")
+        sorted_config = dict(sorted(config.items(), key=lambda x: str(x[0])))
 
-        # set env values
-        for key, value in config.items():
+        # empty .env and write values
+        dotenv_file.write_text("")
+        for key, value in sorted_config.items():
             set_key(
-                env_file,
+                dotenv_file,
                 key,
                 value,
                 quote_mode="never",
                 export=False,
                 encoding="utf-8",
             )
-        rich_print(f"[green] {env_file} file generated[/green]")
+
+        # empty and write to .env.template file
+        original_values = dotenv_values(dotenv_template_file)
+        dotenv_template_file.write_text("")
+        for key, value in sorted_config.items():
+            set_key(
+                dotenv_template_file,
+                key,
+                original_values.get(key, ""),
+                quote_mode="never",
+                export=False,
+                encoding="utf-8",
+            )
+
+        rich_print(
+            f"[green] {dotenv_file} and {dotenv_template_file} synchronised [/green]"
+        )

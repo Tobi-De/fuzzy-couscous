@@ -3,15 +3,7 @@
 Installation
 ============
 
-.. rst-class:: lead
-
-   Install the **falco** theme as a Python package.
-
-----
-
-
-Falco is conveniently available as a Python package on PyPI and can be easily
-installed using pip.
+Falco is available on PyPI and can be installed with pip or your favorite Python package manager.
 
 .. code-block:: shell
 
@@ -24,11 +16,13 @@ Next Up
 .. grid:: 2
 
     .. grid-item-card:: The CLI
-        :link: /the_cli/
+      :link: /the_cli/
 
-        Always have a tab open to the official Django documentation. It is the best source of information.
+      The documentation for the ``falco`` command line interface (CLI).
 
     .. grid-item-card:: Guides
-        :link: /guides/
+      :link: /guides/
 
-        Another tab you should always have open is the HTMX documentation.
+      A collection of guides on common web development topics and how to solve them in django.
+
+        

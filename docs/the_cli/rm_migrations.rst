@@ -1,5 +1,5 @@
-Clean migrations in dev
-=======================
+Clean all migrations
+====================
 
 .. figure:: ../images/rm-migrations.svg
 
