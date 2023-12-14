@@ -6,7 +6,7 @@ Start project
 
 Initialize a new Django project. This template makes several assumptions; we'll go through the most important choices I made below.
 I'll list some alternatives below in case you don't agree with my choices. But even if you choose to use an alternative, most commands
-can still be useful to you, and the guides are not particularly tied to the generated project. So, even with another template, **Falco** 
+can still be useful to you, and the `guides </guides/index.html>`__ are not particularly tied to the generated project. So, even with another template, **Falco** 
 can still bring you value.
 
 

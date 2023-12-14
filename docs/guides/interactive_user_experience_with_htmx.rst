@@ -18,3 +18,9 @@ The HTMX javascript API
 
 Others javascript library that works well with htmx
 ---------------------------------------------------
+
+
+
+
+Alternatives to htmx
+--------------------

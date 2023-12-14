@@ -23,3 +23,28 @@ packages discussed above to periodically run the backup command.
 
 Scaling strategies
 ------------------
+
+This is mosty a buzz work, people use that term to represent app that can handle thousands millions of requests per second.
+Scalability is a problem you want to have (that's mean you've make it), but people are out there solving scalability issues for 
+app that has not even being ship, class chicken and egg problem.
+I don't have enough personal experiences here to give good advices but I'll try to give some pointers based on what I've read and
+the little experience I have (app I've seen even if not worked on).
+I put this section here (in the databases guide) because it seems that more often than not, the database is the bottleneck, or at least
+before django or python become a bottleneck to you, your database will be the first to be a bottleneck. Maybe not the database itself at
+first, how you access it and how your queries are writter, for that checkout the `database optimization section </guides/optimizing_database_access.html>`__.
+Both of these section are complemantary.
+
+For most of these stratgies I'll assume you are using postgresql, because that's what I know best, but most of these strategies can be applied to other databases.
+
+
+Offload work from the database
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Table partitionning
+^^^^^^^^^^^^^^^^^^^
+
+Read replicas
+^^^^^^^^^^^^^
+
+Sharding
+^^^^^^^^

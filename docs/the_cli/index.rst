@@ -1,7 +1,7 @@
 The CLI
 =======
 
-The falco CLI is available you install the package. It is home to some command that I hope you will find useuful through the Lifecycle of your project,
+The falco CLI is available when you install the package. It is home to some command that I hope you will find useuful through the Lifecycle of your project,
 from starting the project through to deployment.
 
 .. hint:: Install the cli
@@ -9,11 +9,8 @@ from starting the project through to deployment.
 
    .. code:: console
 
-      $ pip install falco --upgrade
+      $ pip install falco
 
-
-falco
------
 
 The entrypoint for the CLI is the ``falco`` command. It is used to run the commands that are available to you.
 

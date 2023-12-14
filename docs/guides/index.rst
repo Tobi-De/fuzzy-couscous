@@ -8,7 +8,7 @@ These are very opniniated since based on my own experience. For each guide when 
 what is my current (because this might change with new experiences) approach of tackling the issue at hand, I'll also includes alternatives
 so that you can make your own mind. The set of guides here will be keep restricted, this is not like a blog where I may post any and everything 
 (for that checkout my `blog <https://oluwatobi.dev/blog>`_). This is more like a collection of recipes for common problems.
-For feedback on the content of any of this guides, open a `new github discussion <https://github.com/Tobi-De/falco/discussions>`_, if you think I'm wrong on
+For feedback on the content of any of the guides, open a `new github discussion <https://github.com/Tobi-De/falco/discussions>`_, if you think I'm wrong on
 something of thing my be formulate better or if you have a better approach, I'll be happy to hear it.
 
 .. note::

@@ -2,15 +2,32 @@ Optimizing database access
 ==========================
 
 
+I'll asume you are using PostgreSQL, but most of the tips are valid for other databases too.
 
-``Select and prefetch related``
--------------------------------
+Always profile first
 
-``Defer and only``
-------------------
+Select and prefetch related
+---------------------------
 
-``Do the work early``
+Defer and only
+--------------
+
+Do the work early
 ---------------------
 
-``Caching with Redis``
-----------------------
+Caching with Redis
+-------------------
+
+
+Using indexes
+-------------
+
+Materialized views
+------------------
+
+Denormalization
+---------------
+
+Cursor based pagination
+-----------------------
+
