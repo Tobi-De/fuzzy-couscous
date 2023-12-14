@@ -23,6 +23,7 @@ extensions = [
     "sphinx_tabs.tabs",
     "sphinx_copybutton",
     "sphinx_togglebutton",
+    "sphinx_autorun",
 ]
 
 templates_path = ["_templates"]

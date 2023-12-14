@@ -2,60 +2,29 @@ Start project
 =============
 
 
-Talk a bit about project management
+.. figure:: ../images/start-project.svg
 
-why I choose Hatch
+Initialize a new Django project. This template makes several assumptions; we'll go through the most important choices I made below.
+I'll list some alternatives below in case you don't agree with my choices. But even if you choose to use an alternative, most commands
+can still be useful to you, and the guides are not particularly tied to the generated project. So, even with another template, **Falco** 
+can still bring you value.
 
-This page gives more details about the structure, layouts and packages used for the project template and therefore available
+
+.. note::
+
+   The **authors** key of the ``[tool.project]`` section in the ``pyproject.toml`` is set using your git global user
+   configuration. If you haven't set it yet, `see this page <https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup#_your_identity>`_.
+
+
+Project Structure
+-----------------
+
+Now w'll go through more details about the structure, layouts and packages used for the project template and therefore available
 in your generated project.
 
-``falco start-project``
------------------------
 
-Initialize a new django project. This template makes a lot of assumptions, if you want to make some adjustments to the
-template
-you can `fork the github repository <https://github.com/Tobi-De/falco/fork>`__ of this project and make your
-changes in the ``templates`` folder,
-you can then use the ``--repo`` option to specify your Github repository.
+.. figure:: ../images/project-tree.svg
 
-??? Info “Custom repository”
-Actually you don’t need to fork my repository, you can use this command on any github repository hosting a django
-project template
-as long as the template is defined in a ``templates`` folder in the root of the repository. Basically, the github
-repository
-structure would look something like this:
-
-::
-
-   ```shell
-   .
-   ├── templates
-   │   └── project_name
-   ```
-
-**Usage**:
-
-.. code:: console
-
-   $ cuzzy make [OPTIONS] PROJECT_NAME
-
-!!! Info
-The **authors** key of the ``[tool.poetry]`` section in the ``pyproject.toml`` is set using your git global user
-configuration.
-If you haven’t set it
-yet, `see this page <https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup#_your_identity>`__.
-
-**Arguments**:
-
--  ``PROJECT_NAME``: [required]
-
-**Options**:
-
--  ``-r, --repo TEXT``: The github repository to pull the template from. The format to use
-   is ``username/repo`` [default: Tobi-De/falco]
--  ``-b, --branch [main|tailwind|bootstrap]``: The github branch to use. [default: main]
--  ``-s, --skip-install``: Skip dependencies installation. [default: False]
--  ``--help``: Show the help message and exit.
 
 Login via email instead of username
 -----------------------------------
@@ -143,29 +112,6 @@ python standard introduced to unify and simplify python project packaging and co
 The pip documentation gives much more details on this than I can cover here, so I will just link to it `here <https://pip.pypa.io/en/stable/reference/build-system/pyproject-toml/>`__.
 A loot of tools in the python ecosystem support it and it seems this is what we are going to be using in the future so I’ve kept it.
 
-Pip-tools
-~~~~~~~~~
-
-When you run the ``remove-poetry`` with the ``-c`` option which create a virtual environment for you, you will also get ```pip-tools`` <https://github.com/jazzband/pip-tools>`__ and ```hatch`` <https://github.com/pypa/hatch>`__ installed.
-Pip-tools is a set of tools to help you manage your dependencies. As the name suggests, it is based on pip.
-The most basic workflow will look something like this:
-
-Add a new package in your ``pyproject.toml`` (or ``requirements.ini`` if you prefer) file and run ``pip-compile`` to generate a new ``requirements.txt`` file.
-
-.. code:: shell
-
-   pip-tools compile -o requirements.txt pyproject.toml --resolver=backtracking
-
-The command also take an ``--extra`` option to specify dependencies groups, more infos on their `github readme <https://github.com/jazzband/pip-tools>`__.
-
-.. code:: shell
-
-   pip-sync
-
-``pip-sync`` will synchronize your virtual environment with the ``requirements.txt`` file, this means that any package in the virtual
-environment that is not in the ``requirements.txt`` file will be removed. You can also just use a good old ``python -m pip install -r requirements.txt``
-to install the dependencies.
-
 Hatch
 ~~~~~
 
@@ -173,8 +119,10 @@ Installed at the same time as ``pip-tools``, `Hatch <https://hatch.pypa.io/lates
 not going to package and publish your django project you don’t really need it, but ``pip-tools`` does need a build system defined
 to work.
 
-!!! Quote “Official hatch documentation”
-Hatch is a modern, extensible Python project manager.
+    "Hatch is a modern, extensible Python project manager."
+
+    -- Official hatch documentation
+
 
 Hatch does everything you need to manage a python project, dependencies, virtual environments, packaging, publishing, scripts, etc and it also uses
 the ``pyproject.toml`` file. The one available after the ``remove-poetry`` command is a good base to start using hatch.
@@ -215,3 +163,7 @@ Here is how I set it up.
    AWS_STORAGE_BUCKET_NAME = env("DJANGO_AWS_STORAGE_BUCKET_NAME")
    DEFAULT_FILE_STORAGE = "project_name.core.storages.MediaRootS3Boto3Storage"
    MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/"
+
+
+Alternative starters
+--------------------

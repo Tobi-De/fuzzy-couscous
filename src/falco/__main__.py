@@ -6,7 +6,8 @@ from falco.commands import (
     StartProject,
     RmMigrations,
     Work,
-    WriteEnv,
+    SyncDotenv,
+    ModelCRUD,
 )
 
 
@@ -17,14 +18,20 @@ from falco.commands import (
     a new project faster.
     """,
 )
-class Cuzzy:
+class Falco:
     subcommand: cappa.Subcommands[
-        StartProject | Htmx | HtmxExtension | RmMigrations | Work | WriteEnv
+        StartProject
+        | ModelCRUD
+        | Htmx
+        | HtmxExtension
+        | Work
+        | SyncDotenv
+        | RmMigrations
     ]
 
 
 def main():
-    cappa.invoke(Cuzzy)
+    cappa.invoke(Falco)
 
 
 if __name__ == "__main__":

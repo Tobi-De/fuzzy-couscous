@@ -13,7 +13,7 @@ HTMX_DOWNLOAD_URL = "https://unpkg.com/htmx.org@{version}/dist/htmx.min.js"
 HTMX_GH_RELEASE_LATEST_URL = "https://api.github.com/repos/bigskysoftware/htmx/releases/latest"
 
 
-@cappa.command(help="Download the latest version of htmx.")
+@cappa.command(help="Download the latest version (if no version is specified) of htmx.")
 class Htmx:
     version: Annotated[str, cappa.Arg(default="latest")]
     output: Annotated[Path, cappa.Arg(default=Path("htmx.min.js"), short="-o", long="--output")]

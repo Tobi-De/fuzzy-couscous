@@ -18,8 +18,9 @@ For more complex tasks, I tend to choose a solution that supports redis as a tas
 
 .. hint::
     :class: dropdown
-    
-    A broker in this context is a service that is used to store the tasks that need to be processed.
+
+    A broker in this context is a service that is used to store the tasks that need to be processed. The most 
+    common ones are `redis <https://redis.io/>`__ and `rabbitmq <https://www.rabbitmq.com/>`__.
 
 .. note::
    My current pick in this list **django-q2**. It is a fork of the original **django-q** project, which is no longer maintained.

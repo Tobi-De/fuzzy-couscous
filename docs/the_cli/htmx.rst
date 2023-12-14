@@ -1,27 +1,26 @@
 HTMX goodies
 ============
 
-``cuzzy htmx``
+falco htmx
+----------
+
+.. figure:: ../images/htmx.svg
+
+Download the htmx javascript library. You won’t have to download htmx or its extensions often but at least if you need it, I think this
+is an easy way to get the file available locally.
+
+
+falco htmx-ext
 --------------
 
-Download the htmx javascript library or one of its extension if specified. You won’t have to download htmx or its
-extensions
-often but at least if you need it, I think this is an easy way to get the file available locally.
+This command downloads an htmx extension. The list of extensions is pulled from `htmx-extensions.oluwatobi.dev <https://htmx-extensions.oluwatobi.dev/>`_. If you run
+the command without specifying any arguments, it will list all the available extensions instead.
 
-**Usage**:
+.. figure:: ../images/htmx-ext.svg
 
-.. code:: console
+.. admonition:: Example
+   :class: hint
 
-   $ cuzzy htmx [OPTIONS] VERSION
+   .. code-block:: bash
 
-**Arguments**:
-
--  ``VERSION``: The version of htmx to download. [default: latest]
-
-**Options**:
-
--  ``-e, --extension TEXT``: The name of the extension to download.
--  ``-f, --output-file TEXT``: The filename for the htmx download. [default: htmx.min.js]
--  ``-d, --output-dir DIRECTORY``: The directory to write the downloaded file to, default to the current working directory.
--  ``-w, --web-types``: Download the web-types file.
--  ``--help``: Show the help message and exit.
+      falco htmx-ext sse

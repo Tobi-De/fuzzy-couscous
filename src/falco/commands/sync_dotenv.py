@@ -12,8 +12,8 @@ from rich.prompt import Prompt
 from falco.utils import get_current_dir_as_project_name
 
 
-@cappa.command(help="Update or create a .env file from a .env.template file.")
-class WriteEnv:
+@cappa.command(help="Synchronize the .env file with the .env.template file")
+class SyncDotenv:
     fill_missing: Annotated[
         bool,
         cappa.Arg(
@@ -23,7 +23,9 @@ class WriteEnv:
             help="Prompt to fill missing values.",
         ),
     ]
-    project_name: Annotated[str, cappa.Arg(parse=get_current_dir_as_project_name, hidden=True)]
+    project_name: Annotated[
+        str, cappa.Arg(parse=get_current_dir_as_project_name, hidden=True)
+    ]
 
     def __call__(
         self,

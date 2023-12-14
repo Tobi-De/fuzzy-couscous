@@ -55,9 +55,10 @@ path = "src/falco/__about__.py"
 dependencies = [
   "coverage[toml]>=6.5",
   "pytest",
+  "ipython",
 ]
 [tool.hatch.envs.default.scripts]
-falco = "python src/falco/__main__.py"
+#falco = "python src/falco/__main__.py"
 test = "pytest {args:tests}"
 test-cov = "coverage run -m pytest {args:tests}"
 cov-report = [
@@ -79,10 +80,13 @@ dependencies = [
   "sphinx-tabs",
   "sphinx-copybutton",
   "sphinx-togglebutton",
+  "sphinx-autorun",
+  "rich-codex",
 ]
 
 [tool.hatch.envs.docs.scripts]
 serve = "sphinx-autobuild docs docs/_build/html --port 8002"
+gen-docs-imgs = "rich-codex --configs docs/.rich-codex.yml  --skip-git-checks --no-confirm --terminal-theme MONOKAI"
 
 [[tool.hatch.envs.all.matrix]]
 python = ["3.8", "3.9", "3.10", "3.11", "3.12"]

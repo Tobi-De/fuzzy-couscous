@@ -2,8 +2,8 @@ Keep the .env and .env.template in sync
 =======================================
 
 
-``cuzzy write-env``
--------------------
+.. figure:: ../images/sync-dotenv.svg
+
 
 Running this will create a new ``.env`` by filling the file with the keys and values from the following options:
 
@@ -14,16 +14,3 @@ Running this will create a new ``.env`` by filling the file with the keys and va
 
 The order defines the priority of the values that are used, which means that the values contained in your
 original ``.env`` file are preserved if the file exists.
-
-**Usage**:
-
-.. code:: console
-
-   $ cuzzy write-env [OPTIONS]
-
-**Options**:
-
--  ``-f, --fill-missing``: Prompt to fill missing values. [default: False]
--  ``-o, --output-file FILE``: The output file path. [default: .env]
--  ``-p, --postgres-pass``: Prompt for the postgres password to use to build the ``DATABASE_URL``.
--  ``--help``: Show the help message and exit.
