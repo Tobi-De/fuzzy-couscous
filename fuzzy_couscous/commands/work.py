@@ -3,14 +3,16 @@ from __future__ import annotations
 import os
 import sys
 from pathlib import Path
-from typing import Annotated
 
-import cappa
+import typer
 from dict_deep import deep_get
 from dotenv import dotenv_values
 from fuzzy_couscous.utils import get_current_dir_as_project_name
 from fuzzy_couscous.utils import read_toml
 from honcho.manager import Manager as HonchoManager
+from rich import print as rich_print
+
+__all__ = ["work"]
 
 
 def _get_venv_directory() -> str | None:
@@ -48,55 +50,58 @@ def _update_command_with_venv(venv_dir: str | None, cmd: str) -> str:
     return f"{venv_dir}/bin/{cmd}" if venv_dir and cmd.startswith("python") else cmd
 
 
-@cappa.command(help="Run multiple processes in parallel.")
-class Work:
-    pyproject_file: Annotated[
-        Path,
-        cappa.Arg(
-            default=Path("pyproject.toml"),
-            hidden=True,
-        ),
-    ]
-    project_name: Annotated[str, cappa.Arg(default="", parse=get_current_dir_as_project_name, hidden=True)]
+def work(
+    pyproject_file: Path = typer.Option(Path("pyproject.toml"), hidden=True),
+    project_name: str = typer.Argument(
+        "", callback=get_current_dir_as_project_name, hidden=True
+    ),
+    dry_run: bool = typer.Option(False),
+) -> None:
+    """Run multiple processes in parallel."""
 
-    def __call__(
-        self,
-    ) -> None:
-        """Run multiple processes in parallel."""
+    django_env = {
+        **dotenv_values(".env"),
+        **os.environ,
+        "PYTHONPATH": Path().resolve(strict=True),
+        "PYTHONUNBUFFERED": "true",
+    }
 
-        django_env = {
-            **dotenv_values(".env"),
-            **os.environ,
-            "PYTHONPATH": Path().resolve(strict=True),
-            "PYTHONUNBUFFERED": "true",
-        }
+    venv_dir = _get_venv_directory()
 
-        venv_dir = _get_venv_directory()
+    migrate_cmd = _update_command_with_venv(venv_dir, "python manage.py migrate")
+    runserver_cmd = _update_command_with_venv(
+        venv_dir, "python manage.py runserver --nostatic"
+    )
+    commands = {
+        "server": f"{migrate_cmd} && {runserver_cmd}",
+    }
 
-        migrate_cmd = _update_command_with_venv(venv_dir, "python manage.py migrate")
-        runserver_cmd = _update_command_with_venv(venv_dir, "python manage.py runserver --nostatic")
-        commands = {
-            "server": f"{migrate_cmd} && {runserver_cmd}",
-        }
+    if redis_cmd := _get_redis_command(django_env):
+        commands["redis"] = redis_cmd
 
-        if redis_cmd := _get_redis_command(django_env):
-            commands["redis"] = redis_cmd
+    if pyproject_file.exists():
+        if tailwind_cmd := _get_tailwind_command(pyproject_file, project_name):
+            commands["tailwind"] = tailwind_cmd
 
-        if self.pyproject_file.exists():
-            if tailwind_cmd := _get_tailwind_command(self.pyproject_file, self.project_name):
-                commands["tailwind"] = tailwind_cmd
+    user_commands = _get_user_commands(pyproject_file)
 
-        user_commands = _get_user_commands(self.pyproject_file)
+    user_commands = {
+        k: _update_command_with_venv(venv_dir, v) for k, v in user_commands.items()
+    }
 
-        user_commands = {k: _update_command_with_venv(venv_dir, v) for k, v in user_commands.items()}
+    commands.update(user_commands)
 
-        commands |= user_commands
-
-        manager = HonchoManager()
-
+    if dry_run:
         for name, cmd in commands.items():
-            manager.add_process(name, cmd, env=django_env)
+            rich_print(f"[white]{name} ==> [blue]{cmd}")
 
-        manager.loop()
+        raise typer.Exit()
 
-        sys.exit(manager.returncode)
+    manager = HonchoManager()
+
+    for name, cmd in commands.items():
+        manager.add_process(name, cmd, env=django_env)
+
+    manager.loop()
+
+    sys.exit(manager.returncode)

@@ -1,5 +1,9 @@
 # fuzzy-couscous
 
+> ![NOTE]
+> Please note that this project, fuzzy-couscous, will no longer receive further updates. Instead, check out its cooler and older brother, 
+> falco at: [https://github.com/tobi-de/falco](https://github.com/tobi-de/falco).
+
 <img align="right" width="170" height="170" src="https://res.cloudinary.com/dgugjkmqg/image/upload/v1672335414/Dream_TradingCard_bw46ec.png">
 
 [![CD](https://github.com/Tobi-De/fuzzy-couscous/actions/workflows/deploy.yml/badge.svg)](https://github.com/Tobi-De/fuzzy-couscous/actions/workflows/deploy.yml)
