@@ -1,14 +1,15 @@
-Deploying django
-================
+:description: Smooth Deployment Strategies for django projects
+
+Smooth Deployment Strategies
+============================
 
 This template was configured to simplify deployment on `caprover <https://caprover.com/>`__, since that is what I use 99% of the time.
 
-!!! Quote
-CapRover is an extremely easy to use app/database deployment & web server manager for your NodeJS, Python, PHP, ASP.NET, Ruby, MySQL, MongoDB, Postgres, WordPress (and etc…) applications!
 
-::
+   "CapRover is an extremely easy to use app/database deployment & web server manager for your NodeJS, Python, PHP, ASP.NET, Ruby, MySQL, MongoDB, Postgres, WordPress (and etc…) applications!"
 
-   **Official site**
+   -- `CapRover Official Site <https://caprover.com/>`_
+
 
 CapRover is a self-hosted `PaaS <https://en.wikipedia.org/wiki/Platform_as_a_service>`__ solution, think `heroku <https://www.heroku.com/>`__ but on your own servers.
 Nowadays, I tend to prefer PaaS solutions over manual deployment and configuration, as they are easy to use with little configuration to deploy most apps.

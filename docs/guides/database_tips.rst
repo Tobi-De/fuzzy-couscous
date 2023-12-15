@@ -1,5 +1,7 @@
-Database Tips
-=============
+:description: A guide on some common database pattern and strategies and how to use them with django.
+
+Database Tips: Backup, Scaling, Triggers, and More
+==================================================
 
 django-pgtriggers
 -----------------
@@ -24,17 +26,17 @@ packages discussed above to periodically run the backup command.
 Scaling strategies
 ------------------
 
-This is mosty a buzz work, people use that term to represent app that can handle thousands millions of requests per second.
-Scalability is a problem you want to have (that's mean you've make it), but people are out there solving scalability issues for 
-app that has not even being ship, class chicken and egg problem.
-I don't have enough personal experiences here to give good advices but I'll try to give some pointers based on what I've read and
-the little experience I have (app I've seen even if not worked on).
+This is mostly a buzzword, people use that term to represent an app that can handle thousands or millions of requests per second.
+Scalability is a problem you want to have (that means you've made it), but people are out there solving scalability issues for 
+apps that have not even been shipped, like a `classic chicken and egg <https://en.wikipedia.org/wiki/Chicken_or_the_egg>`_ problem.
+I don't have enough personal experience here to give good advice, but I'll try to provide some pointers based on what I've read and
+the little experience I have (apps I've seen even if I haven't worked on them).
 I put this section here (in the databases guide) because it seems that more often than not, the database is the bottleneck, or at least
-before django or python become a bottleneck to you, your database will be the first to be a bottleneck. Maybe not the database itself at
-first, how you access it and how your queries are writter, for that checkout the `database optimization section </guides/optimizing_database_access.html>`__.
-Both of these section are complemantary.
+before Django or Python become a bottleneck for you, your database will be the first to become a bottleneck. Maybe not the database itself at
+first, but how you access it and how your queries are written. For more on that, check out the `database optimization section </guides/optimizing_database_access.html>`__.
+Both of these sections are complementary.
 
-For most of these stratgies I'll assume you are using postgresql, because that's what I know best, but most of these strategies can be applied to other databases.
+For most of these strategies, I'll assume you are using PostgreSQL because that's what I know best, but most of these strategies can be applied to other databases.
 
 
 Offload work from the database

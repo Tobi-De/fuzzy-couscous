@@ -1,8 +1,8 @@
 The CLI
 =======
 
-The falco CLI is available when you install the package. It is home to some command that I hope you will find useuful through the Lifecycle of your project,
-from starting the project through to deployment.
+The falco CLI is included with the package installation. It provides a set of commands that I hope will be useful to you throughout the
+lifecycle of your project, from project setup to deployment.
 
 .. hint:: Install the cli
    :class: dropdown

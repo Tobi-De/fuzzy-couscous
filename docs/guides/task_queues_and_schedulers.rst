@@ -1,4 +1,6 @@
-Task queues and schedulers
+:description: Offload tasks in django using task queues and periodic tasks using schedulers.
+
+Task Queues and Schedulers
 ==========================
 
 Task queues are used to offload tasks to a dedicated worker process when the processing of those tasks does not fit into a traditional request-response cycle.

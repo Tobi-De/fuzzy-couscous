@@ -29,8 +29,12 @@ Here is a list of available options.
 
 Read more on the health check pattern `here <https://learn.microsoft.com/en-us/azure/architecture/patterns/health-endpoint-monitoring>`__.
 
+Monitoring your django project
+------------------------------
+
 Lifecycle not signals
 ---------------------
+
 
 Avoid huge apps for large projects
 ----------------------------------
