@@ -1,7 +1,7 @@
 # fuzzy-couscous
 
 > [!WARNING]
-> Please note that this project, fuzzy-couscous, will no longer receive further updates. Instead, check out its cooler and older brother, 
+> Please note that this project,  will no longer receive further updates. Instead, check out its new and cooler  brother, 
 > falco at: [https://github.com/tobi-de/falco](https://github.com/tobi-de/falco).
 
 <img align="right" width="170" height="170" src="https://res.cloudinary.com/dgugjkmqg/image/upload/v1672335414/Dream_TradingCard_bw46ec.png">
