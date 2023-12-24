@@ -1,6 +1,6 @@
 # fuzzy-couscous
 
-> ![NOTE]
+> [!WARNING]
 > Please note that this project, fuzzy-couscous, will no longer receive further updates. Instead, check out its cooler and older brother, 
 > falco at: [https://github.com/tobi-de/falco](https://github.com/tobi-de/falco).
 
