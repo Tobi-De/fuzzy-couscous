@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Smooth Deployment Strategies - Falco</title>
+    <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Optimizing Database Access" href="optimizing_database_access.html" /><link rel="prev" title="Writing tests" href="writing_tests.html" />
+    <link rel="canonical" href="https://falco.oluwatobi.dev/guides/deployment.html" />
+  <script>
+    const isDarkTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const sessionTheme = sessionStorage['_theme']
+    if (sessionTheme) {
+      document.documentElement.classList.add(sessionTheme)
+    } else if (isDarkTheme) {
+      document.documentElement.classList.add('dark')
+    }
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=aecf457f" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=28c32440" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=ee381b95" />
+    <style>
+:root {
+  --sy-f-sys:-apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Droid Sans, Helvetica Neue;--sy-f-cjk:PingFang SC, Hiragino Sans GB, Droid Sans Fallback, Microsoft YaHei;--sy-f-heading:var(--sy-f-sys), var(--sy-f-cjk), sans-serif;--sy-f-text:var(--sy-f-sys), var(--sy-f-cjk), sans-serif;--sy-f-mono:Menlo, Monaco, Consolas, "Courier New", monospace;--sy-c-divider:rgba(var(--sy-rc-text), 0.1);--sy-c-divider-weak:rgba(var(--sy-rc-text), 0.05);--sy-c-border:rgba(var(--sy-rc-text), 0.14);--sy-s-banner-height:0rem;--sy-s-navbar-height:56px;--sy-s-offset-top:calc(var(--sy-s-navbar-height) + var(--sy-s-banner-height));--sy-c-link:rgb(var(--sy-rc-theme));--sy-c-link-weak:rgba(var(--sy-rc-theme), 0.86);
+  --sy-rc-theme:143, 118, 214;--sy-rc-bg:255, 255, 255;--sy-rc-invert:0, 0, 0;--sy-rc-text:0, 0, 0;--sy-c-bg:#fff;--sy-c-bg-weak:#f9f9f9;--sy-c-text:#374151;--sy-c-text-weak:#6b7280;--sy-c-heading:#111827;--sy-c-bold:#111827;--sy-c-foot-text:#232226;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f0f0f0;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --sy-rc-theme:143, 118, 214;--sy-rc-bg:255, 255, 255;--sy-rc-invert:0, 0, 0;--sy-rc-text:0, 0, 0;--sy-c-bg:#fff;--sy-c-bg-weak:#f9f9f9;--sy-c-text:#374151;--sy-c-text-weak:#6b7280;--sy-c-heading:#111827;--sy-c-bold:#111827;--sy-c-foot-text:#232226;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f0f0f0;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sy-rc-theme:143, 118, 214;--sy-rc-bg:18, 18, 18;--sy-rc-invert:255, 255, 255;--sy-rc-text:255, 255, 255;--sy-c-bg:#121212;--sy-c-bg-weak:#212833;--sy-c-text:#cedbea;--sy-c-text-weak:#77889f;--sy-c-heading:#ebf0f4;--sy-c-bold:#ebf0f4;--sy-c-foot-text:#eee;--sy-c-foot-bg:#000;--sy-c-foot-divider:#000;
+  }
+}
+html.light {
+  --sy-rc-theme:143, 118, 214;--sy-rc-bg:255, 255, 255;--sy-rc-invert:0, 0, 0;--sy-rc-text:0, 0, 0;--sy-c-bg:#fff;--sy-c-bg-weak:#f9f9f9;--sy-c-text:#374151;--sy-c-text-weak:#6b7280;--sy-c-heading:#111827;--sy-c-bold:#111827;--sy-c-foot-text:#232226;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f0f0f0;
+}
+html.dark {
+  --sy-rc-theme:143, 118, 214;--sy-rc-bg:18, 18, 18;--sy-rc-invert:255, 255, 255;--sy-rc-text:255, 255, 255;--sy-c-bg:#121212;--sy-c-bg-weak:#212833;--sy-c-text:#cedbea;--sy-c-text-weak:#77889f;--sy-c-heading:#ebf0f4;--sy-c-bold:#ebf0f4;--sy-c-foot-text:#eee;--sy-c-foot-bg:#000;--sy-c-foot-divider:#000;
+}
+</style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-heading: Inter, var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/>
+<meta property="og:url" content="https://falco.oluwatobi.dev/guides/deployment.html"/>
+<meta property="og:title" content="Smooth Deployment Strategies"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="description" content="Smooth Deployment Strategies for django projects"/>
+<meta property="og:description" content="Smooth Deployment Strategies for django projects"/></head>
+<body><div class="document"><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand mr-4" href="../index.html">
+      <img class="light-logo" src="../_static/logo.svg" alt="Falco" height="28" />
+      <img class="dark-logo" src="../_static/logo.svg" alt="Falco" height="28" />
+      <strong>Falco</strong>
+    </a>
+    <div class="sy-head-links" id="NavLinks">
+      <nav class="sy-head-nav"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form>
+        
+        
+        <div class="sy-head-social flex items-center">
+            <a class="flex items-center" href="https://github.com/tobi-de/falco" aria-label="GitHub">
+              <i class="i-icon github"></i>
+            </a>
+        </div>
+      </div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden">
+      <button class="js-theme theme-switch flex items-center" data-aria-light="Switch to dark mode" data-aria-dark="Switch to light mode">
+        <i class="i-icon theme-icon"></i>
+      </button>
+      <button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="NavLinks" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2 -translate-x-2"></span>
+          <span class="hamburger_3 -translate-x-1"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../the_cli/index.html">The CLI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../the_cli/start_project.html">Start project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../the_cli/crud.html">CRUD for your model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../the_cli/htmx.html">HTMX goodies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../the_cli/work.html">Running multiple process in parallel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../the_cli/rm_migrations.html">Clean all migrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../the_cli/sync_dotenv.html">Keep the .env and .env.template in sync</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Guides</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="interactive_user_experience_with_htmx.html">Interactive UX (User Experience) with HTMX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="task_queues_and_schedulers.html">Task Queues and Schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing_documentation.html">Writing documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing_tests.html">Writing tests</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Smooth Deployment Strategies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimizing_database_access.html">Optimizing Database Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="avoiding_god_models.html">Avoiding GOD Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dynamic_model_schema.html">Dynamic Model Schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="realtime.html">Realtime in Django: Websockets, SSE, Polling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="permissions_and_authorization.html">Permissions and authorizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database_tips.html">Database Tips: Backup, Scaling, Triggers, and More</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multitenancy.html">Managing Multitenancy in Django</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writting_async_code.html">Async Coding in Django</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tips_and_extra.html">Tips and extra</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../codeofconduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-icon close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/tobi-de/falco"
+  data-type="github" data-user="tobi-de" data-repo="falco">
+  <span class="w-8 flex items-center justify-around shrink-0 text-2xl">
+    <i class="i-icon github"></i>
+  </span>
+  <span class="flex-grow px-2">
+    <span>tobi-de/falco</span>
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <i class="i-icon star"></i>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <i class="i-icon git-fork"></i>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/tobi-de/falco/blob/master/docs/guides/deployment.rst">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+    <div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-icon menu"></i>
+      </button>
+    </div>
+    <ul class="flex-1">
+      
+      
+      <li><a href="../index.html">Falco</a><span>/</span></li>
+      
+      <li><a href="index.html">Guides</a><span>/</span></li>
+      
+      <li><strong>Smooth Deployment Strategies</strong></li>
+      
+      
+    </ul>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-icon outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+        <article class="yue" role="main">
+          <section id="smooth-deployment-strategies">
+<h1>Smooth Deployment Strategies<a class="headerlink" href="#smooth-deployment-strategies" title="Link to this heading">¶</a></h1>
+<p>This template was configured to simplify deployment on <a class="reference external" href="https://caprover.com/">caprover</a>, since that is what I use 99% of the time.</p>
+<blockquote>
+<div><p>“CapRover is an extremely easy to use app/database deployment &amp; web server manager for your NodeJS, Python, PHP, ASP.NET, Ruby, MySQL, MongoDB, Postgres, WordPress (and etc…) applications!”</p>
+<p class="attribution">—<a class="reference external" href="https://caprover.com/">CapRover Official Site</a></p>
+</div></blockquote>
+<p>CapRover is a self-hosted <a class="reference external" href="https://en.wikipedia.org/wiki/Platform_as_a_service">PaaS</a> solution, think <a class="reference external" href="https://www.heroku.com/">heroku</a> but on your own servers.
+Nowadays, I tend to prefer PaaS solutions over manual deployment and configuration, as they are easy to use with little configuration to deploy most apps.
+Software is usually quite a pain to deploy and even though I’ve gotten better at it over time, I’ll always choose a managed solution over manual deployment.
+Some other options than <strong>CapRover</strong> are:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://dokku.com/">Dokku</a> (self hosted)</p></li>
+<li><p><a class="reference external" href="https://fly.io/">Fly</a> (hosted)</p></li>
+<li><p><a class="reference external" href="https://render.com/">Render</a> (hosted)</p></li>
+<li><p><a class="reference external" href="https://github.com/coollabsio/coolify">Coolify</a> (self hosted)</p></li>
+<li><p><a class="reference external" href="https://www.digitalocean.com/products/app-platform">DigitalOcean App Platform</a> (hosted)</p></li>
+<li><p><a class="reference external" href="https://aws.amazon.com/elasticbeanstalk/">AWS Elastic Beanstalk</a> (hosted)</p></li>
+<li><p><a class="reference external" href="https://btn.dev/">Btn</a> (hosted and not ready yet)</p></li>
+</ul>
+<p>!!! Info
+I recently discovered <a class="reference external" href="https://github.com/ehmatthes/django-simple-deploy">django-simple-deploy</a> which can configure your django project for some of the alternatives to
+caprover I listed above.</p>
+<p>I find that self-hosted solutions are generally cheaper than managed/hosted solutions, but I don’t have much experience with managed solutions,
+so I could be wrong, do your own research and if you can afford it, try them out to see what works best for you.</p>
+<p>After installing CaProver with the <a class="reference external" href="https://caprover.com/docs/get-started.html">getting started guide</a>, there is not much left to do, create a new application and in the section <code class="docutils literal notranslate"><span class="pre">deployment</span></code>.
+configure your application using the third method <code class="docutils literal notranslate"><span class="pre">Method</span> <span class="pre">3:</span> <span class="pre">Deploy</span> <span class="pre">from</span> <span class="pre">Github/Bitbucket/Gitlab</span></code>.</p>
+<p>!!! Info
+If you use github, instead of entering your password directly into the <code class="docutils literal notranslate"><span class="pre">password</span></code> field, you can use a <a class="reference external" href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">personal access token</a>,
+which is a more secure option.</p>
+<p>!!! Tip
+Checkout <a class="reference external" href="https://caprover.com/docs/deployment-methods.html#automatic-deploy-using-github-bitbucket-and-etc">caprover automatic deploy</a> to automate the deployment of your applications.</p>
+</section>
+
+        </article>
+        
+        <div class="navigation flex print:hidden">
+  <div class="navigation-prev">
+    <a href="writing_tests.html">
+      <i class="i-icon chevron"></i>
+      <div class="page-info">
+        <span>Previous</span>
+        
+        <div class="title">Writing tests</div>
+        
+      </div>
+    </a>
+  </div>
+  <div class="navigation-next">
+    <a href="optimizing_database_access.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Optimizing Database Access</div>
+      </div>
+      <i class="i-icon chevron"></i>
+    </a>
+  </div>
+</div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2023, Tobi DEGNON</p>
+        
+        <p>
+          Made with
+          
+          <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+          
+          <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+        </p>
+      </div>
+      <div class="sy-foot-socials">
+          <a href="https://github.com/tobi-de/falco" aria-label="GitHub"><i class="i-icon github"></i></a>
+          <a href="https://twitter.com/tobidegnon" aria-label="X (Twitter)"><i class="i-icon x-twitter"></i></a>
+          <a href="https://fosstodon.org/@tobide" aria-label="Mastodon"><i class="i-icon mastodon"></i></a>
+      </div>
+    </div>
+  </div>
+</footer></div>
+      <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="../_static/doctools.js?v=888ff710"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script src="../_static/design-tabs.js?v=36754332"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script src="../_static/shibuya.js?v=3e5c8598"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    
+</body>
+</html>

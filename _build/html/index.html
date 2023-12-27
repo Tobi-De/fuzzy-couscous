@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Falco</title>
+    <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Installation" href="install.html" />
+    <link rel="canonical" href="https://falco.oluwatobi.dev/" />
+  <script>
+    const isDarkTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const sessionTheme = sessionStorage['_theme']
+    if (sessionTheme) {
+      document.documentElement.classList.add(sessionTheme)
+    } else if (isDarkTheme) {
+      document.documentElement.classList.add('dark')
+    }
+  </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=aecf457f" />
+    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=28c32440" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link media="print" rel="stylesheet" type="text/css" href="_static/print.css?v=ee381b95" />
+    <style>
+:root {
+  --sy-f-sys:-apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Droid Sans, Helvetica Neue;--sy-f-cjk:PingFang SC, Hiragino Sans GB, Droid Sans Fallback, Microsoft YaHei;--sy-f-heading:var(--sy-f-sys), var(--sy-f-cjk), sans-serif;--sy-f-text:var(--sy-f-sys), var(--sy-f-cjk), sans-serif;--sy-f-mono:Menlo, Monaco, Consolas, "Courier New", monospace;--sy-c-divider:rgba(var(--sy-rc-text), 0.1);--sy-c-divider-weak:rgba(var(--sy-rc-text), 0.05);--sy-c-border:rgba(var(--sy-rc-text), 0.14);--sy-s-banner-height:0rem;--sy-s-navbar-height:56px;--sy-s-offset-top:calc(var(--sy-s-navbar-height) + var(--sy-s-banner-height));--sy-c-link:rgb(var(--sy-rc-theme));--sy-c-link-weak:rgba(var(--sy-rc-theme), 0.86);
+  --sy-rc-theme:143, 118, 214;--sy-rc-bg:255, 255, 255;--sy-rc-invert:0, 0, 0;--sy-rc-text:0, 0, 0;--sy-c-bg:#fff;--sy-c-bg-weak:#f9f9f9;--sy-c-text:#374151;--sy-c-text-weak:#6b7280;--sy-c-heading:#111827;--sy-c-bold:#111827;--sy-c-foot-text:#232226;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f0f0f0;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --sy-rc-theme:143, 118, 214;--sy-rc-bg:255, 255, 255;--sy-rc-invert:0, 0, 0;--sy-rc-text:0, 0, 0;--sy-c-bg:#fff;--sy-c-bg-weak:#f9f9f9;--sy-c-text:#374151;--sy-c-text-weak:#6b7280;--sy-c-heading:#111827;--sy-c-bold:#111827;--sy-c-foot-text:#232226;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f0f0f0;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sy-rc-theme:143, 118, 214;--sy-rc-bg:18, 18, 18;--sy-rc-invert:255, 255, 255;--sy-rc-text:255, 255, 255;--sy-c-bg:#121212;--sy-c-bg-weak:#212833;--sy-c-text:#cedbea;--sy-c-text-weak:#77889f;--sy-c-heading:#ebf0f4;--sy-c-bold:#ebf0f4;--sy-c-foot-text:#eee;--sy-c-foot-bg:#000;--sy-c-foot-divider:#000;
+  }
+}
+html.light {
+  --sy-rc-theme:143, 118, 214;--sy-rc-bg:255, 255, 255;--sy-rc-invert:0, 0, 0;--sy-rc-text:0, 0, 0;--sy-c-bg:#fff;--sy-c-bg-weak:#f9f9f9;--sy-c-text:#374151;--sy-c-text-weak:#6b7280;--sy-c-heading:#111827;--sy-c-bold:#111827;--sy-c-foot-text:#232226;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f0f0f0;
+}
+html.dark {
+  --sy-rc-theme:143, 118, 214;--sy-rc-bg:18, 18, 18;--sy-rc-invert:255, 255, 255;--sy-rc-text:255, 255, 255;--sy-c-bg:#121212;--sy-c-bg-weak:#212833;--sy-c-text:#cedbea;--sy-c-text-weak:#77889f;--sy-c-heading:#ebf0f4;--sy-c-bold:#ebf0f4;--sy-c-foot-text:#eee;--sy-c-foot-bg:#000;--sy-c-foot-divider:#000;
+}
+</style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-heading: Inter, var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/>
+<meta property="og:url" content="https://falco.oluwatobi.dev/"/>
+<meta property="og:title" content="Falco"/>
+<meta name="twitter:card" content="summary"/></head>
+<body><div class="document"><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand mr-4" href="#">
+      <img class="light-logo" src="_static/logo.svg" alt="Falco" height="28" />
+      <img class="dark-logo" src="_static/logo.svg" alt="Falco" height="28" />
+      <strong>Falco</strong>
+    </a>
+    <div class="sy-head-links" id="NavLinks">
+      <nav class="sy-head-nav"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form>
+        
+        
+        <div class="sy-head-social flex items-center">
+            <a class="flex items-center" href="https://github.com/tobi-de/falco" aria-label="GitHub">
+              <i class="i-icon github"></i>
+            </a>
+        </div>
+      </div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden">
+      <button class="js-theme theme-switch flex items-center" data-aria-light="Switch to dark mode" data-aria-dark="Switch to light mode">
+        <i class="i-icon theme-icon"></i>
+      </button>
+      <button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="NavLinks" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2 -translate-x-2"></span>
+          <span class="hamburger_3 -translate-x-1"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="the_cli/index.html">The CLI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="the_cli/start_project.html">Start project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="the_cli/crud.html">CRUD for your model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="the_cli/htmx.html">HTMX goodies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="the_cli/work.html">Running multiple process in parallel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="the_cli/rm_migrations.html">Clean all migrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="the_cli/sync_dotenv.html">Keep the .env and .env.template in sync</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="guides/index.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guides/interactive_user_experience_with_htmx.html">Interactive UX (User Experience) with HTMX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/task_queues_and_schedulers.html">Task Queues and Schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/writing_documentation.html">Writing documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/writing_tests.html">Writing tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/deployment.html">Smooth Deployment Strategies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/optimizing_database_access.html">Optimizing Database Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/avoiding_god_models.html">Avoiding GOD Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/dynamic_model_schema.html">Dynamic Model Schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/realtime.html">Realtime in Django: Websockets, SSE, Polling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/permissions_and_authorization.html">Permissions and authorizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/database_tips.html">Database Tips: Backup, Scaling, Triggers, and More</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/multitenancy.html">Managing Multitenancy in Django</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/writting_async_code.html">Async Coding in Django</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tips_and_extra.html">Tips and extra</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codeofconduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-icon close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4">
+  <div class="localtoc">
+    <h3>On this page</h3>
+    <ul>
+<li><a class="reference internal" href="#how-to-use-this-project">How to use this project</a></li>
+<li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#templates">Templates</a></li>
+<li><a class="reference internal" href="#quickstart">Quickstart</a></li>
+<li><a class="reference internal" href="#development">Development</a></li>
+<li><a class="reference internal" href="#acknowledgements">Acknowledgements</a></li>
+<li><a class="reference internal" href="#feedback">Feedback</a></li>
+<li><a class="reference internal" href="#contributors">Contributors</a></li>
+</ul>
+
+  </div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/tobi-de/falco"
+  data-type="github" data-user="tobi-de" data-repo="falco">
+  <span class="w-8 flex items-center justify-around shrink-0 text-2xl">
+    <i class="i-icon github"></i>
+  </span>
+  <span class="flex-grow px-2">
+    <span>tobi-de/falco</span>
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <i class="i-icon star"></i>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <i class="i-icon git-fork"></i>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/tobi-de/falco/blob/master/docs/index.rst">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+    <div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-icon menu"></i>
+      </button>
+    </div>
+    <ul class="flex-1">
+      
+      
+      <li><a href="#">Falco</a></li>
+      
+      
+    </ul>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-icon outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+        <article class="yue" role="main">
+          <section id="falco">
+<h1>Falco<a class="headerlink" href="#falco" title="Link to this heading">¶</a></h1>
+<img align="right" width="170" height="170" src="https://res.cloudinary.com/dgugjkmqg/image/upload/v1702502731/Logo_2_zfg43u.svg">
+<p><a class="reference external" href="https://github.com/Tobi-De/falco/actions/workflows/deploy.yml"><img alt="CD" src="https://github.com/Tobi-De/falco/actions/workflows/deploy.yml/badge.svg" /></a>
+<a class="reference external" href="https://github.com/Tobi-De/falco/actions/workflows/test.yml"><img alt="CI" src="https://github.com/Tobi-De/falco/actions/workflows/test.yml/badge.svg" /></a>
+<a class="reference external" href="https://pypi.org/project/falco/"><img alt="pypi" src="https://badge.fury.io/py/falco.svg" /></a>
+<a class="reference external" href="https://github.com/pypa/hatch"><img alt="Hatch project" src="https://img.shields.io/badge/%F0%9F%A5%9A-Hatch-4051b5.svg" /></a>
+<a class="reference external" href="https://github.com/astral-sh/ruff"><img alt="Ruff" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json" /></a>
+<a class="reference external" href="https://github.com/Tobi-De/falco/blob/main/LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/license-MIT-blue.svg" /></a></p>
+<p>✨📚✨ <a class="reference external" href="https://tobi-de.github.io/falco">Read the full documentation</a></p>
+<p>A cli tool based on <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/django-admin/#startproject">django’s startproject –template</a> to bootstrap
+your django projects with a modern stack. The project template is heavily inspired by <a class="reference external" href="https://github.com/cookiecutter/cookiecutter-django">cookiecutter-django</a> but is meant to be a simpler version.
+The cli also comes with <a class="reference external" href="https://tobi-de.github.io/falco/usage/#cuzzy">additional commands</a> to hopefully improve your django development experience.</p>
+<p><img alt="showcase gif" src="https://raw.githubusercontent.com/Tobi-De/falco/main/docs/assets/cuzzy_demo.gif" /></p>
+<section id="how-to-use-this-project">
+<h2>How to use this project<a class="headerlink" href="#how-to-use-this-project" title="Link to this heading">¶</a></h2>
+<p>Fist of all take the habit to [skimm through the documentation](a blog post here), so take a few minutes, to skimm through this one when you are done with this readme.</p>
+<p>The cli
+The guides</p>
+<p>very opinionated stuff</p>
+<p>choice are already made, give options but already pick something to start with.</p>
+</section>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Django 4+</p></li>
+<li><p>Python 3.10+</p></li>
+<li><p>Frontend: <a class="reference external" href="https://htmx.org/">htmx</a> with <a class="reference external" href="https://oluwatobi.dev/blog/posts/htmx-support-in-pycharm/">editor support</a> using <a class="reference external" href="https://github.com/JetBrains/web-types#web-types">web-types</a></p></li>
+<li><p>Template fragment with <a class="reference external" href="https://github.com/carltongibson/django-template-partials">django-template-partials</a></p></li>
+<li><p>Secure production settings, https only.</p></li>
+<li><p>Settings using <a class="reference external" href="https://github.com/joke2k/django-environ">django-environ</a></p></li>
+<li><p>Login / signup via <a class="reference external" href="https://github.com/pennersr/django-allauth">django-allauth</a></p></li>
+<li><p>Login using email instead of username</p></li>
+<li><p>Automatically reload your browser in development via <a class="reference external" href="https://github.com/adamchainz/django-browser-reload">django-browser-reload</a></p></li>
+<li><p>Better development experience with <a class="reference external" href="https://github.com/boxed/django-fastdev">django-fastdev</a></p></li>
+<li><p><a class="reference external" href="https://aws.amazon.com/ses/?nc1=h_ls">Amazon SES</a> for production email via <a class="reference external" href="https://github.com/anymail/django-anymail">Anymail</a></p></li>
+<li><p><a class="reference external" href="https://www.docker.com/">Docker</a> ready for production</p></li>
+<li><p>Optional production cache settings using the <code class="docutils literal notranslate"><span class="pre">CACHE_URL</span></code> or <code class="docutils literal notranslate"><span class="pre">REDIS_URL</span></code> environment variables.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">captain-definition</span></code> for deploying to <a class="reference external" href="https://caprover.com/">caprover</a></p></li>
+<li><p><a class="reference external" href="https://sentry.io/welcome/">Sentry</a> for performance/error monitoring</p></li>
+<li><p>Serve static files with <a class="reference external" href="https://whitenoise.evans.io/en/latest/">Whitenoise</a></p></li>
+<li><p>Default integration with <a class="reference external" href="https://github.com/pre-commit/pre-commit">pre-commit</a> for identifying simple issues before submission to code review</p></li>
+<li><p>Integrated task runner with <a class="reference external" href="https://github.com/nat-n/poethepoet">poethepoet</a></p></li>
+<li><p>Dependency management using <a class="reference external" href="https://github.com/python-poetry/poetry">poetry</a> (can be replaced by <a class="reference external" href="https://github.com/pypa/virtualenv">virtualenv</a> using the <a class="reference external" href="https://tobi-de.github.io/falco/usage/#cuzzy-remove-poetry"><code class="docutils literal notranslate"><span class="pre">remove-poetry</span></code> command</a>)</p></li>
+</ul>
+</section>
+<section id="templates">
+<h2>Templates<a class="headerlink" href="#templates" title="Link to this heading">¶</a></h2>
+<p>I use github branches to create variations of the base template.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/Tobi-De/falco">main</a>: The base template</p></li>
+<li><p><a class="reference external" href="https://github.com/Tobi-De/falco/tree/tailwind">tailwind</a>: The base template + <a class="reference external" href="https://github.com/timonweb/pytailwindcss">tailwindcss</a>  via <a class="reference external" href="https://github.com/timonweb/pytailwindcss">pytailwindcss</a></p></li>
+<li><p><a class="reference external" href="https://github.com/Tobi-De/falco/tree/bootstrap">bootstrap</a>: The base template + <a class="reference external" href="https://getbootstrap.com/">bootstrap5</a> via <a class="reference external" href="https://github.com/zostera/django-bootstrap5">django-bootstrap5</a></p></li>
+</ul>
+<blockquote>
+<div><p><strong>Note</strong>: If some of my decisions about the project template don’t make sense to you, read <a class="reference external" href="https://tobi-de.github.io/falco/project/">this section</a> of the documentation.</p>
+</div></blockquote>
+</section>
+<section id="quickstart">
+<h2>Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading">¶</a></h2>
+<p>Install the latest version of the package</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span id="1-1">pip<span class="w"> </span>install<span class="w"> </span>falco<span class="w"> </span>--upgrade
+</span></pre></div>
+</div>
+<p>Initialize a new project</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span id="1-1">cuzzy<span class="w"> </span>make<span class="w"> </span>project_name
+</span></pre></div>
+</div>
+</section>
+<section id="development">
+<h2>Development<a class="headerlink" href="#development" title="Link to this heading">¶</a></h2>
+<p>Poetry is required (not really, you can set up the environment however you want and install the requirements
+manually) to set up a virtualenv, install it then run the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span id="1-1">pre-commit<span class="w"> </span>install<span class="w"> </span>--install-hooks
+</span></pre></div>
+</div>
+<p>Tests can then be run quickly in that environment:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span id="1-1">pytest
+</span></pre></div>
+</div>
+</section>
+<section id="acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Link to this heading">¶</a></h2>
+<p>Falco is inspired by (and borrows elements from) some excellent starter templates:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/cookiecutter/cookiecutter-django">cookiecutter-django</a></p></li>
+<li><p><a class="reference external" href="https://github.com/oliverandrich/django-hatch-startproject">django-hatch-startproject</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adamghill/django-unicorn">django-unicorn</a> - Inspiration for the logo</p></li>
+</ul>
+</section>
+<section id="feedback">
+<h2>Feedback<a class="headerlink" href="#feedback" title="Link to this heading">¶</a></h2>
+<p>If you have any feedback, please reach out to me at tobidegnon&#64;proton.me or <a class="reference external" href="https://github.com/Tobi-De/falco/discussions/new">open a discussion</a>.</p>
+</section>
+<section id="contributors">
+<h2>Contributors<a class="headerlink" href="#contributors" title="Link to this heading">¶</a></h2>
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END --></section>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+
+        </article>
+        
+        <div class="navigation flex print:hidden">
+  
+  <div class="navigation-next">
+    <a href="install.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Installation</div>
+      </div>
+      <i class="i-icon chevron"></i>
+    </a>
+  </div>
+</div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2023, Tobi DEGNON</p>
+        
+        <p>
+          Made with
+          
+          <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+          
+          <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+        </p>
+      </div>
+      <div class="sy-foot-socials">
+          <a href="https://github.com/tobi-de/falco" aria-label="GitHub"><i class="i-icon github"></i></a>
+          <a href="https://twitter.com/tobidegnon" aria-label="X (Twitter)"><i class="i-icon x-twitter"></i></a>
+          <a href="https://fosstodon.org/@tobide" aria-label="Mastodon"><i class="i-icon mastodon"></i></a>
+      </div>
+    </div>
+  </div>
+</footer></div>
+      <script src="_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+      <script src="_static/design-tabs.js?v=36754332"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script src="_static/shibuya.js?v=3e5c8598"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Start project - Falco</title>
+    <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="CRUD for your model" href="crud.html" /><link rel="prev" title="The CLI" href="index.html" />
+    <link rel="canonical" href="https://falco.oluwatobi.dev/the_cli/start_project.html" />
+  <script>
+    const isDarkTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const sessionTheme = sessionStorage['_theme']
+    if (sessionTheme) {
+      document.documentElement.classList.add(sessionTheme)
+    } else if (isDarkTheme) {
+      document.documentElement.classList.add('dark')
+    }
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=aecf457f" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=28c32440" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=ee381b95" />
+    <style>
+:root {
+  --sy-f-sys:-apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Droid Sans, Helvetica Neue;--sy-f-cjk:PingFang SC, Hiragino Sans GB, Droid Sans Fallback, Microsoft YaHei;--sy-f-heading:var(--sy-f-sys), var(--sy-f-cjk), sans-serif;--sy-f-text:var(--sy-f-sys), var(--sy-f-cjk), sans-serif;--sy-f-mono:Menlo, Monaco, Consolas, "Courier New", monospace;--sy-c-divider:rgba(var(--sy-rc-text), 0.1);--sy-c-divider-weak:rgba(var(--sy-rc-text), 0.05);--sy-c-border:rgba(var(--sy-rc-text), 0.14);--sy-s-banner-height:0rem;--sy-s-navbar-height:56px;--sy-s-offset-top:calc(var(--sy-s-navbar-height) + var(--sy-s-banner-height));--sy-c-link:rgb(var(--sy-rc-theme));--sy-c-link-weak:rgba(var(--sy-rc-theme), 0.86);
+  --sy-rc-theme:143, 118, 214;--sy-rc-bg:255, 255, 255;--sy-rc-invert:0, 0, 0;--sy-rc-text:0, 0, 0;--sy-c-bg:#fff;--sy-c-bg-weak:#f9f9f9;--sy-c-text:#374151;--sy-c-text-weak:#6b7280;--sy-c-heading:#111827;--sy-c-bold:#111827;--sy-c-foot-text:#232226;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f0f0f0;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --sy-rc-theme:143, 118, 214;--sy-rc-bg:255, 255, 255;--sy-rc-invert:0, 0, 0;--sy-rc-text:0, 0, 0;--sy-c-bg:#fff;--sy-c-bg-weak:#f9f9f9;--sy-c-text:#374151;--sy-c-text-weak:#6b7280;--sy-c-heading:#111827;--sy-c-bold:#111827;--sy-c-foot-text:#232226;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f0f0f0;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sy-rc-theme:143, 118, 214;--sy-rc-bg:18, 18, 18;--sy-rc-invert:255, 255, 255;--sy-rc-text:255, 255, 255;--sy-c-bg:#121212;--sy-c-bg-weak:#212833;--sy-c-text:#cedbea;--sy-c-text-weak:#77889f;--sy-c-heading:#ebf0f4;--sy-c-bold:#ebf0f4;--sy-c-foot-text:#eee;--sy-c-foot-bg:#000;--sy-c-foot-divider:#000;
+  }
+}
+html.light {
+  --sy-rc-theme:143, 118, 214;--sy-rc-bg:255, 255, 255;--sy-rc-invert:0, 0, 0;--sy-rc-text:0, 0, 0;--sy-c-bg:#fff;--sy-c-bg-weak:#f9f9f9;--sy-c-text:#374151;--sy-c-text-weak:#6b7280;--sy-c-heading:#111827;--sy-c-bold:#111827;--sy-c-foot-text:#232226;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f0f0f0;
+}
+html.dark {
+  --sy-rc-theme:143, 118, 214;--sy-rc-bg:18, 18, 18;--sy-rc-invert:255, 255, 255;--sy-rc-text:255, 255, 255;--sy-c-bg:#121212;--sy-c-bg-weak:#212833;--sy-c-text:#cedbea;--sy-c-text-weak:#77889f;--sy-c-heading:#ebf0f4;--sy-c-bold:#ebf0f4;--sy-c-foot-text:#eee;--sy-c-foot-bg:#000;--sy-c-foot-divider:#000;
+}
+</style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-heading: Inter, var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/>
+<meta property="og:url" content="https://falco.oluwatobi.dev/the_cli/start_project.html"/>
+<meta property="og:title" content="Start project"/>
+<meta name="twitter:card" content="summary"/></head>
+<body><div class="document"><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand mr-4" href="../index.html">
+      <img class="light-logo" src="../_static/logo.svg" alt="Falco" height="28" />
+      <img class="dark-logo" src="../_static/logo.svg" alt="Falco" height="28" />
+      <strong>Falco</strong>
+    </a>
+    <div class="sy-head-links" id="NavLinks">
+      <nav class="sy-head-nav"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form>
+        
+        
+        <div class="sy-head-social flex items-center">
+            <a class="flex items-center" href="https://github.com/tobi-de/falco" aria-label="GitHub">
+              <i class="i-icon github"></i>
+            </a>
+        </div>
+      </div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden">
+      <button class="js-theme theme-switch flex items-center" data-aria-light="Switch to dark mode" data-aria-dark="Switch to light mode">
+        <i class="i-icon theme-icon"></i>
+      </button>
+      <button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="NavLinks" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2 -translate-x-2"></span>
+          <span class="hamburger_3 -translate-x-1"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The CLI</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Start project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crud.html">CRUD for your model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmx.html">HTMX goodies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="work.html">Running multiple process in parallel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rm_migrations.html">Clean all migrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sync_dotenv.html">Keep the .env and .env.template in sync</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../guides/interactive_user_experience_with_htmx.html">Interactive user experience with htmx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/task_queues_and_schedulers.html">Task queues and schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/working_around_fat_models.html">Working around fat models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/optimizing_database_access.html">Optimizing database access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/realtime.html">Realtime with django</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/permissions_and_authorization.html">Permissions and authorizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/writing_documentation.html">Writing documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/writing_tests.html">Writing tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/deployment.html">Deploying django</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/multitenancy.html">Multitenancy projects with django</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/database_tips.html">Database Tips</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tips_and_extra.html">Tips and extra</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../codeofconduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-icon close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4">
+  <div class="localtoc">
+    <h3>On this page</h3>
+    <ul>
+<li><a class="reference internal" href="#project-structure">Project Structure</a></li>
+<li><a class="reference internal" href="#login-via-email-instead-of-username">Login via email instead of username</a></li>
+<li><a class="reference internal" href="#djangofastdev">DjangoFastDev</a></li>
+<li><a class="reference internal" href="#dependencies-management">Dependencies management</a><ul>
+<li><a class="reference internal" href="#the-pyproject-toml-file">The <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file</a></li>
+<li><a class="reference internal" href="#hatch">Hatch</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#static-and-media-files">Static and media files</a></li>
+<li><a class="reference internal" href="#alternative-starters">Alternative starters</a></li>
+</ul>
+
+  </div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/tobi-de/falco"
+  data-type="github" data-user="tobi-de" data-repo="falco">
+  <span class="w-8 flex items-center justify-around shrink-0 text-2xl">
+    <i class="i-icon github"></i>
+  </span>
+  <span class="flex-grow px-2">
+    <span>tobi-de/falco</span>
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <i class="i-icon star"></i>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <i class="i-icon git-fork"></i>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/tobi-de/falco/blob/master/docs/the_cli/start_project.rst">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
+    </div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+    <div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-icon menu"></i>
+      </button>
+    </div>
+    <ul class="flex-1">
+      
+      
+      <li><a href="../index.html">Falco</a><span>/</span></li>
+      
+      <li><a href="index.html">The CLI</a><span>/</span></li>
+      
+      <li><strong>Start project</strong></li>
+      
+      
+    </ul>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-icon outdent"></i>
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="flex flex-col break-words justify-between">
+      <div class="min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+        <article class="yue" role="main">
+          <section id="start-project">
+<h1>Start project<a class="headerlink" href="#start-project" title="Link to this heading">¶</a></h1>
+<figure class="align-default">
+<img alt="../_images/start-project.svg" src="../_images/start-project.svg" /></figure>
+<p>Initialize a new Django project. This template makes several assumptions; we’ll go through the most important choices I made below.
+I’ll list some alternatives below in case you don’t agree with my choices. But even if you choose to use an alternative, most commands
+can still be useful to you, and the <a class="reference external" href="/guides/index.html">guides</a> are not particularly tied to the generated project. So, even with another template, <strong>Falco</strong>
+can still bring you value.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <strong>authors</strong> key of the <code class="docutils literal notranslate"><span class="pre">[tool.project]</span></code> section in the <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> is set using your git global user
+configuration. If you haven’t set it yet, <a class="reference external" href="https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup#_your_identity">see this page</a>.</p>
+</div>
+<section id="project-structure">
+<h2>Project Structure<a class="headerlink" href="#project-structure" title="Link to this heading">¶</a></h2>
+<p>Now w’ll go through more details about the structure, layouts and packages used for the project template and therefore available
+in your generated project.</p>
+<figure class="align-default">
+<img alt="../_images/project-tree.svg" src="../_images/project-tree.svg" /></figure>
+</section>
+<section id="login-via-email-instead-of-username">
+<h2>Login via email instead of username<a class="headerlink" href="#login-via-email-instead-of-username" title="Link to this heading">¶</a></h2>
+<p>I completely removed the <code class="docutils literal notranslate"><span class="pre">username</span></code> field from the <code class="docutils literal notranslate"><span class="pre">User</span></code> model and replaced it with the <code class="docutils literal notranslate"><span class="pre">email</span></code> field as the user unique identifier.
+This <code class="docutils literal notranslate"><span class="pre">email</span></code> field is what I configured as the login field via <a class="reference external" href="https://github.com/pennersr/django-allauth">django-allauth</a>. More often then not when I create a new django project
+I need to use something other than the <code class="docutils literal notranslate"><span class="pre">username</span></code> field provided by django as the unique identifier of the user, and the <code class="docutils literal notranslate"><span class="pre">username</span></code> field
+just becomes an annoyance to deal with. It is also more common nowadays for modern web and mobile applications to rely on a unique identifier
+such as an email address or phone number instead of a username.
+The project also includes <a class="reference external" href="https://django-improved-user.readthedocs.io/en/latest/index.html">django-improved-user</a> which replaces the common <code class="docutils literal notranslate"><span class="pre">first_name</span></code> and <code class="docutils literal notranslate"><span class="pre">last_name</span></code> used for user details with <code class="docutils literal notranslate"><span class="pre">full_name</span></code>
+and the <code class="docutils literal notranslate"><span class="pre">short_name</span></code> fields. If you want to know the reasoning behind this, read the <a class="reference external" href="https://django-improved-user.readthedocs.io/en/latest/rationale.html">project rationale</a>.
+Currently, the latest version of <code class="docutils literal notranslate"><span class="pre">django-improved-user</span></code> that works without problems is an alpha version (v2.0a2). This can be annoying
+to deal with when updating dependencies, you can get the same result as I just described with the django-authtools package.</p>
+<p>!!! Note “Don’t ask for what you don’t need”
+Make sure you need <code class="docutils literal notranslate"><span class="pre">first_name</span></code> - <code class="docutils literal notranslate"><span class="pre">last_name</span></code> or <code class="docutils literal notranslate"><span class="pre">short_name</span></code> - <code class="docutils literal notranslate"><span class="pre">full_name</span></code> before asking your users for this information.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span id="1-1">!!! Quote &quot;[rezaid.co.uk](https://rezaid.co.uk/app-website-gdpr-compliant/)&quot;
+</span><span id="1-2">    The less customer information you hold, the more your chances are of becoming [GDPR](https://gdpr-info.eu/art-5-gdpr/) compliant.
+</span><span id="1-3">    However, this does not mean that you let go of relevant data. It is important is to always ask: Do you need it?
+</span><span id="1-4">If you ever decide you need them you can always request them later
+</span></pre></div>
+</div>
+<p>If on the other hand you don’t agree with what I just wrote or for the particular project you are currently working on
+my configuration doesn’t work for you, removing django-improved-user should be an easy change.</p>
+<p>First update the <code class="docutils literal notranslate"><span class="pre">User</span></code> models to inherit from django <code class="docutils literal notranslate"><span class="pre">AbstractUser</span></code> instead of the django-improved-ser one.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span id="1-1"><span class="c1"># users/models.py</span>
+</span><span id="1-2">
+</span><span id="1-3"><span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">AbstractUser</span>
+</span><span id="1-4">
+</span><span id="1-5"><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">AbstractUser</span><span class="p">):</span>
+</span><span id="1-6">    <span class="k">pass</span>
+</span></pre></div>
+</div>
+<p>Then delete the <code class="docutils literal notranslate"><span class="pre">forms.py</span></code>, <code class="docutils literal notranslate"><span class="pre">admin.py</span></code> and <code class="docutils literal notranslate"><span class="pre">migrations/0001_initial.py</span></code> files in the <code class="docutils literal notranslate"><span class="pre">users</span></code> app.
+With that you should be good to go, if you want something a little more complete to start with you can grab some
+code from the <a class="reference external" href="https://github.com/cookiecutter/cookiecutter-django/tree/master/%7B%7Bcookiecutter.project_slug%7D%7D/%7B%7Bcookiecutter.project_slug%7D%7D/users">cookiecutter-django users app</a>.</p>
+</section>
+<section id="djangofastdev">
+<h2>DjangoFastDev<a class="headerlink" href="#djangofastdev" title="Link to this heading">¶</a></h2>
+<p>Occasionally you may see a <code class="docutils literal notranslate"><span class="pre">FastDevVariableDoesNotExist</span></code> error, this exception is thrown during template rendering
+by <a class="reference external" href="https://github.com/boxed/django-fastdev">django-fastdev</a> when you try to access a variable that is not defined in the context
+context of the view associated with that template. This is intended to help you avoid typos and small errors that will
+have you scratching your head for hours, read the project <a class="reference external" href="https://github.com/boxed/django-fastdev#django-fastdev">readme</a> if you want more reasons
+to why it make sense to use it. But since this can be annoying for some people, you can disable it by removing <code class="docutils literal notranslate"><span class="pre">django-fastdev</span></code>
+entirely or by commenting out the <em>django-fastdev</em> application in the <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span id="1-1"><span class="n">THIRD_PARTY_APPS</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="1-2">    <span class="o">...</span>
+</span><span id="1-3">    <span class="c1"># &#39;django_fastdev&#39;,</span>
+</span><span id="1-4"><span class="p">]</span>
+</span></pre></div>
+</div>
+</section>
+<section id="dependencies-management">
+<h2>Dependencies management<a class="headerlink" href="#dependencies-management" title="Link to this heading">¶</a></h2>
+<p>If you are using poetry then you probably already knows what to do, using poetry is pretty straightforward and that’s why I like it.
+With poetry the simplest workflow looks something like this:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span id="1-1">poetry<span class="w"> </span>install
+</span><span id="1-2">poetry<span class="w"> </span>add<span class="w"> </span>package_name
+</span><span id="1-3">poetry<span class="w"> </span>remove<span class="w"> </span>package_name
+</span></pre></div>
+</div>
+<p>!!! Note “Updating your dependencies”
+I recommend the <a class="reference external" href="https://github.com/MousaZeidBaker/poetry-plugin-up">poetry-plugin-up</a> to easily update your dependencies.
+I used to include <a class="reference external" href="https://github.com/MousaZeidBaker/poetryup">poetryup</a> in the project template, but that has been deprecated
+in favor of the new <a class="reference external" href="https://github.com/MousaZeidBaker/poetryup">up plugin</a>.</p>
+<p>If on the other hand you choose to remove poetry using the <code class="docutils literal notranslate"><span class="pre">`cuzzy</span> <span class="pre">remove-poetry</span></code> &lt;<a class="reference external" href="https://tobi-de.github.io/falco/usage/#cuzzy-remove-poetry">https://tobi-de.github.io/falco/usage/#cuzzy-remove-poetry</a>&gt;`__ and additionally
+created a virtualenv with the <code class="docutils literal notranslate"><span class="pre">-c</span></code> option, then I’ve added a few things that might be useful to you.</p>
+<section id="the-pyproject-toml-file">
+<h3>The <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file<a class="headerlink" href="#the-pyproject-toml-file" title="Link to this heading">¶</a></h3>
+<p>When I first started using poetry I thought this file was a poetry specific thing, but it turns out that it is not. The <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file is a
+python standard introduced to unify and simplify python project packaging and configurations.
+The pip documentation gives much more details on this than I can cover here, so I will just link to it <a class="reference external" href="https://pip.pypa.io/en/stable/reference/build-system/pyproject-toml/">here</a>.
+A loot of tools in the python ecosystem support it and it seems this is what we are going to be using in the future so I’ve kept it.</p>
+</section>
+<section id="hatch">
+<h3>Hatch<a class="headerlink" href="#hatch" title="Link to this heading">¶</a></h3>
+<p>Installed at the same time as <code class="docutils literal notranslate"><span class="pre">pip-tools</span></code>, <a class="reference external" href="https://hatch.pypa.io/latest/">Hatch</a> is the build system specified in the <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file. Since you are probably
+not going to package and publish your django project you don’t really need it, but <code class="docutils literal notranslate"><span class="pre">pip-tools</span></code> does need a build system defined
+to work.</p>
+<blockquote>
+<div><p>“Hatch is a modern, extensible Python project manager.”</p>
+<p class="attribution">—Official hatch documentation</p>
+</div></blockquote>
+<p>Hatch does everything you need to manage a python project, dependencies, virtual environments, packaging, publishing, scripts, etc and it also uses
+the <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file. The one available after the <code class="docutils literal notranslate"><span class="pre">remove-poetry</span></code> command is a good base to start using hatch.</p>
+<p>Just run</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span id="1-1">hatch<span class="w"> </span>env<span class="w"> </span>create
+</span></pre></div>
+</div>
+<p>Read the <a class="reference external" href="https://hatch.pypa.io/latest/">hatch documentation</a> for more infos.</p>
+</section>
+</section>
+<section id="static-and-media-files">
+<h2>Static and media files<a class="headerlink" href="#static-and-media-files" title="Link to this heading">¶</a></h2>
+<p>Media files in django usually refer to files uploaded by users, profile pictures, product images, etc.
+I usually manage my media files using <a class="reference external" href="https://github.com/jschneier/django-storages">django-storages</a>.
+Here is how I set it up.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span id="1-1"><span class="c1"># core/storages.py</span>
+</span><span id="1-2"><span class="kn">from</span> <span class="nn">storages.backends.s3boto3</span> <span class="kn">import</span> <span class="n">S3Boto3Storage</span>
+</span><span id="1-3">
+</span><span id="1-4"><span class="k">class</span> <span class="nc">MediaRootS3Boto3Storage</span><span class="p">(</span><span class="n">S3Boto3Storage</span><span class="p">):</span>
+</span><span id="1-5">    <span class="n">location</span> <span class="o">=</span> <span class="s2">&quot;media&quot;</span>
+</span><span id="1-6">    <span class="n">file_overwrite</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="1-7">
+</span><span id="1-8">
+</span><span id="1-9"><span class="c1"># settings.py - production settings</span>
+</span><span id="1-10"><span class="n">AWS_ACCESS_KEY_ID</span> <span class="o">=</span> <span class="n">env</span><span class="p">(</span><span class="s2">&quot;DJANGO_AWS_ACCESS_KEY_ID&quot;</span><span class="p">)</span>
+</span><span id="1-11"><span class="n">AWS_SECRET_ACCESS_KEY</span> <span class="o">=</span> <span class="n">env</span><span class="p">(</span><span class="s2">&quot;DJANGO_AWS_SECRET_ACCESS_KEY&quot;</span><span class="p">)</span>
+</span><span id="1-12"><span class="n">AWS_STORAGE_BUCKET_NAME</span> <span class="o">=</span> <span class="n">env</span><span class="p">(</span><span class="s2">&quot;DJANGO_AWS_STORAGE_BUCKET_NAME&quot;</span><span class="p">)</span>
+</span><span id="1-13"><span class="n">DEFAULT_FILE_STORAGE</span> <span class="o">=</span> <span class="s2">&quot;project_name.core.storages.MediaRootS3Boto3Storage&quot;</span>
+</span><span id="1-14"><span class="n">MEDIA_URL</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://</span><span class="si">{</span><span class="n">AWS_STORAGE_BUCKET_NAME</span><span class="si">}</span><span class="s2">.s3.amazonaws.com/media/&quot;</span>
+</span></pre></div>
+</div>
+</section>
+<section id="alternative-starters">
+<h2>Alternative starters<a class="headerlink" href="#alternative-starters" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+        </article>
+        
+        <div class="navigation flex print:hidden">
+  <div class="navigation-prev">
+    <a href="index.html">
+      <i class="i-icon chevron"></i>
+      <div class="page-info">
+        <span>Previous</span>
+        
+        <div class="title">The CLI</div>
+        
+      </div>
+    </a>
+  </div>
+  <div class="navigation-next">
+    <a href="crud.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">CRUD for your model</div>
+      </div>
+      <i class="i-icon chevron"></i>
+    </a>
+  </div>
+</div>
+        
+      </div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2023, Tobi DEGNON</p>
+        
+        <p>
+          Made with
+          
+          <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+          
+          <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+        </p>
+      </div>
+      <div class="sy-foot-socials">
+          <a href="https://github.com/tobi-de/falco" aria-label="GitHub"><i class="i-icon github"></i></a>
+          <a href="https://twitter.com/tobidegnon" aria-label="X (Twitter)"><i class="i-icon x-twitter"></i></a>
+          <a href="https://fosstodon.org/@tobide" aria-label="Mastodon"><i class="i-icon mastodon"></i></a>
+      </div>
+    </div>
+  </div>
+</footer></div>
+      <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="../_static/doctools.js?v=888ff710"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script src="../_static/design-tabs.js?v=36754332"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script src="../_static/shibuya.js?v=3e5c8598"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    
+</body>
+</html>
